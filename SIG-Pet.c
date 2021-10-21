@@ -14,7 +14,6 @@
 
 void telaInicial(void);
 void telaSobre(void);
-void telaEquipe(void);
 
 
 int main(void){
@@ -76,3 +75,5 @@ void telaSobre(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 }
+
+
