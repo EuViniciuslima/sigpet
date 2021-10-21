@@ -10,21 +10,19 @@
 
 #include <stdio.h>
 
-
-
 void telaInicial(void);
 void telaSobre(void);
 void telaEquipe(void);
 
-
-int main(void){
+int main(void)
+{
     telaInicial();
     telaSobre();
-   
+    telaEquipe();
 }
 
-
-void telaInicial(void){
+void telaInicial(void)
+{
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -35,7 +33,7 @@ void telaInicial(void){
     printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
     printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
     printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
-    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n"); 
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -50,8 +48,9 @@ void telaInicial(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 }
-void telaSobre(void){
-  
+void telaSobre(void)
+{
+
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -75,4 +74,32 @@ void telaSobre(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+}
+void telaEquipe(void)
+{
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///          Projeto Sistema de Agendamento de Consultas para Pets          ///\n");
+    printf("///                Developed by  @AnnaOliveira99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///    Esse projeto está sendo desenvolvido por:                            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///    Developed by  @OliveiraAnna99 - Out, 2021                            ///\n");
+    printf("///    Developed by  @EuViniciuslima - Out, 2021                            ///\n");
+    printf("///    Email: anna.oliveira.700@ufrn.edu.br                                 ///\n");
+    printf("///    Email: vinicius.lima.114@ufrn.edu.br                                 ///\n");
+    printf("///    GitHub repositorio: https://github.com/EuViniciuslima/sigpet.git     ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
 }
