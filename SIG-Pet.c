@@ -13,12 +13,74 @@
 void telaInicial(void);
 void telaSobre(void);
 void telaEquipe(void);
+void menuprincipal(void);
+void cadastro(void);
+void login(void);
 
 int main(void)
 {
     telaInicial();
     telaSobre();
     telaEquipe();
+    menuprincipal();
+    cadastro();
+    login();
+}
+
+void login(void)
+{
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
+    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                               LOGIN                                     ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+}
+
+void cadastro(void)
+{
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
+    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1.Cadastre-se                                                ///\n");
+    printf("///            2.Voltar                                                     ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
 }
 
 void telaInicial(void)
