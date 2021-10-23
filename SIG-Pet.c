@@ -9,11 +9,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void telaInicial(void);
 void telaSobre(void);
 void telaEquipe(void);
-void menuprincipal(void);
 void cadastro(void);
 void login(void);
 
@@ -22,7 +22,6 @@ int main(void)
     telaInicial();
     telaSobre();
     telaEquipe();
-    menuprincipal();
     cadastro();
     login();
 }
