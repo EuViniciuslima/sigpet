@@ -9,20 +9,68 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
+#include <stdlib.h>
 
-void telaInicial(void);
-void telaSobre(void);
-void telaEquipe(void);
-void cadastro(void);
+void login_cadastro(void);
 void login(void);
+void cadastro(void);
+void telaMenu(void);
+void telaEquipe(void);
+void telaSobre(void);
 
 int main(void)
 {
-    telaInicial();
-    telaSobre();
-    telaEquipe();
+    int log_cadast;
+    login_cadastro();
+    printf("Digite a opção: 1. Login ou 2. Cadastrar-se:\t\n");
+    scanf("%i", &log_cadast);
+
+    if (log_cadast == 1)
+    {
+        login();
+
+        return 0;
+    }
+    if (log_cadast == 2)
+    {
+
+        cadastro();
+
+        return 0;
+    }
+
     cadastro();
-    login();
+    telaMenu();
+    telaEquipe();
+    telaSobre();
+}
+
+void login_cadastro(void)
+{
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
+    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1.LOGIN                                                      ///\n");
+    printf("///            2.CADASTRE-SE                                                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
 }
 
 void login(void)
@@ -45,8 +93,8 @@ void login(void)
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
-    printf("///                               LOGIN                                     ///\n");
-    printf("///                                                                         ///\n");
+    printf("///            Email:                                                       ///\n");
+    printf("///            Senha:                                                       ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -73,15 +121,15 @@ void cadastro(void)
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1.Cadastre-se                                                ///\n");
-    printf("///            2.Voltar                                                     ///\n");
-    printf("///                                                                         ///\n");
+    printf("///            1.Email:                                                     ///\n");
+    printf("///            2.Senha:                                                     ///\n");
+    printf("///            3.Confirme a senha:                                          ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 }
 
-void telaInicial(void)
+void telaMenu(void)
 {
     printf("                                                                          - □ x\n");
     printf("\n");
