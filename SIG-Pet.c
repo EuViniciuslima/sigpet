@@ -20,12 +20,14 @@ void telaSobre(void);
 void telaPet(void);
 void telaCad_Pet(void);
 
+// Fazer login ou se cadastrar.
+
 int main(void)
 {
     int log_cadast;
     login_cadastro();
     printf("Digite a opção: \n1. Login\n2. Cadastrar-se\nEscolha: ");
-    scanf("%i", &log_cadast);
+    scanf("%d", &log_cadast);
 
     if (log_cadast == 1)
     {
@@ -102,27 +104,24 @@ void login(void)
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    
-    printf("Digite o seu email: " );
+    printf("Digite o seu email: ");
     char email_log[60];
     scanf("%s", email_log);
 
-    printf("Digite o sua senha: " );
+    printf("Digite o sua senha: ");
     char senha_log[60];
     scanf("%s", senha_log);
 
-    
     telaMenu();
-    
+
     printf("Escolha: ");
     int escolha;
     scanf("%d", &escolha);
 
-    if(escolha == 1){
+    if (escolha == 1)
+    {
         telaPet();
     }
-    
-
 }
 
 void cadastro(void)
@@ -153,7 +152,7 @@ void cadastro(void)
     printf("\n");
 
     FILE *pont_cadUsu;
-    pont_cadUsu = fopen("cadastro_usuario.txt", "w"); 
+    pont_cadUsu = fopen("cadastro_usuario.txt", "w");
     char email[60];
     printf("Digite o seu email: ");
     scanf("%s", email);
@@ -162,17 +161,17 @@ void cadastro(void)
     printf("Digite a sua senha: ");
     scanf("%s", senha);
 
-    fprintf(pont_cadUsu, "%s \n", email); 
-    fprintf(pont_cadUsu, "%s \n", senha); 
+    fprintf(pont_cadUsu, " \n%s", email);
+    fprintf(pont_cadUsu, "%s \n", senha);
     fclose(pont_cadUsu);
-
 
     printf("1. Login\n2. Sair\nEscolha:  ");
     int escolha;
     scanf("%d", &escolha);
 
-    if(escolha == 1){
-      login();
+    if (escolha == 1)
+    {
+        login();
     }
 }
 
@@ -202,9 +201,6 @@ void telaMenu(void)
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-
-
-
 }
 void telaSobre(void)
 {
@@ -262,8 +258,9 @@ void telaEquipe(void)
     printf("///////////////////////////////////////////////////////////////////////////////\n");
 }
 
-
-void telaPet(void){
+// Tela de "cadastrar pet" está pronta. (disponível para alterações no código "linha 301")
+void telaPet(void)
+{
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -281,9 +278,9 @@ void telaPet(void){
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
     printf("///            1. Cadastrar Pet                                             ///\n");
-    printf("///            2. Pesquisar Pet                                     ///\n");
-    printf("///            3. Editar Pet                                         ///\n");
-    printf("///            4. Apagar Pet                                         ///\n");
+    printf("///            2. Pesquisar Pet                                             ///\n");
+    printf("///            3. Editar Pet                                                ///\n");
+    printf("///            4. Apagar Pet                                                ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -293,11 +290,16 @@ void telaPet(void){
     printf("Escolha: ");
     scanf("%d", &Escolha_Pet);
 
-    if(Escolha_Pet == 1){
+    if (Escolha_Pet == 1)
+    {
         telaCad_Pet();
     }
 }
-void telaCad_Pet(void){
+
+// telaCad_Pet sendo elaborada, mas até o momnento funcionando. Após o cadastro do animal ele irá voltar pra telaPet.
+
+void telaCad_Pet(void)
+{
 
     printf("                                                                          - □ x\n");
     printf("\n");
@@ -321,4 +323,31 @@ void telaCad_Pet(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
+    FILE *cad_pet;
+
+    cad_pet = fopen("Cadastro_usuario.txt", "w");
+    char nome_pet[60];
+    printf("Digite o nome do animal:\t\n");
+    scanf("%s", nome_pet);
+
+    char idade[60];
+    printf("Digite a idade do animal:\t\n");
+    scanf("%s", idade);
+
+    fprintf(cad_pet, " %s\n", nome_pet);
+    fprintf(cad_pet, "%s\n", idade);
+    fclose(cad_pet);
+
+    int cad_perg;
+    printf("Deseja fazer um novo cadastro?\n 1 para novo cadastro \n 2 para concluir");
+    scanf("%d", &cad_perg);
+
+    if (cad_perg == 1)
+    {
+        telaCad_Pet();
+    }
+    if (cad_perg == 2)
+    {
+        telaPet();
+    }
 }
