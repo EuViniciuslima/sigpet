@@ -18,8 +18,9 @@ void telaMenu(void);
 void telaEquipe(void);
 void telaSobre(void);
 void telaPet(void);
-void telaConsulta(void);
 void telaCad_Pet(void);
+void telaConsulta(void);
+
 
 // Fazer login ou se cadastrar.
 
