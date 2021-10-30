@@ -17,10 +17,15 @@ void cadastro(void);
 void telaMenu(void);
 void telaEquipe(void);
 void telaSobre(void);
-void telaPet(void);
-void telaCad_Pet(void);
+void telaMenuPet(void);
+void telaCadastrarPet(void);
 void telaConsulta(void);
+void telaPesquisarPet(void);
+void telaExcluirPet(void);
+void telaEditarPet(void);
 
+void func_cad_pet(void);
+void func_cad_usu(void);
 
 // Fazer login ou se cadastrar.
 
@@ -43,6 +48,10 @@ int main(void)
         cadastro();
 
         return 0;
+    }
+
+    if(log_cadast != 1 && log_cadast != 2){
+      return 1;
     }
 
     cadastro();
@@ -122,7 +131,7 @@ void login(void)
 
     if (escolha == 1)
     {
-        telaPet();
+        telaMenuPet();
     }
 
     if (escolha ==2)
@@ -131,8 +140,7 @@ void login(void)
     }
 }
 
-void cadastro(void)
-{
+void cadastro(void){
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -158,32 +166,10 @@ void cadastro(void)
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    FILE *pont_cadUsu;
-    pont_cadUsu = fopen("cadastro_usuario.txt", "w");
-    char email[60];
-    printf("Digite o seu email: ");
-    scanf("%s", email);
-
-    char senha[60];
-    printf("Digite a sua senha: ");
-    scanf("%s", senha);
-
-    fprintf(pont_cadUsu, "%s \n", email);
-    fprintf(pont_cadUsu, "%s \n", senha);
-    fclose(pont_cadUsu);
-
-    printf("1. Login\n2. Sair\nEscolha:  ");
-    int escolha;
-    scanf("%d", &escolha);
-
-    if (escolha == 1)
-    {
-        login();
-    }
+    func_cad_usu();
 }
 
-void telaMenu(void)
-{
+void telaMenu(void){
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -209,8 +195,7 @@ void telaMenu(void)
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 }
-void telaSobre(void)
-{
+void telaSobre(void){
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -236,8 +221,7 @@ void telaSobre(void)
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 }
-void telaEquipe(void)
-{
+void telaEquipe(void){
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -266,23 +250,27 @@ void telaEquipe(void)
 }
 
 // Tela de "cadastrar pet" está pronta. (disponível para alterações no código "linha 301")
-void telaPet(void)
+void telaMenuPet(void)
 {
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
-    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
     printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
-    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Menu Pet   = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
     printf("///            1. Cadastrar Pet                                             ///\n");
     printf("///            2. Pesquisar Pet                                             ///\n");
@@ -297,82 +285,180 @@ void telaPet(void)
     printf("Escolha: ");
     scanf("%d", &Escolha_Pet);
 
-    if (Escolha_Pet == 1)
-    {
-        telaCad_Pet();
+    if(Escolha_Pet == 1){
+      telaCadastrarPet();
+    }
+
+    if(Escolha_Pet == 2){
+      telaPesquisarPet();
+    }
+
+    if(Escolha_Pet == 3){
+      telaEditarPet();
+    }
+
+    if(Escolha_Pet == 4){
+      telaExcluirPet();
+    }
+
+    if(Escolha_Pet == 0){
+      telaMenu();
+    }
+
+    if(Escolha_Pet != 1 && Escolha_Pet != 2 && Escolha_Pet != 3 && Escolha_Pet != 4 && Escolha_Pet != 0){
+
+      printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
     }
 }
 
 // telaCad_Pet sendo elaborada, mas até o momnento funcionando. Após o cadastro do animal ele irá voltar pra telaPet.
 
-void telaCad_Pet(void)
+void telaCadastrarPet(void)
 {
 
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
     printf("///                                                                         ///\n");
-    printf("///      Nome:                                                              ///\n");
-    printf("///      Idade:                                                             ///\n");
-    printf("///      Especie:                                                           ///\n");
-    printf("///      Sexo:                                                              ///\n");
-    printf("///      Dono:                                                              ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
     printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Cadastro Pet = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
+    printf("///            Nome do Pet:                                                 ///\n");
+    printf("///            Idade do Pet:                                                ///\n");
+    printf("///            Sexo do Pet:                                                 ///\n");
+    printf("///            Especie do Pet:                                              ///\n");
+    printf("///            Dono:                                                        ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    FILE *cad_pet;
-
-    cad_pet = fopen("cadastro_pet.txt", "w");
-    char nome_pet[60];
-    printf("Digite o nome do animal:\t");
-    scanf("%s", nome_pet);
-
-    int idade_pet;
-    printf("Digite a idade do animal:\t");
-    scanf("%d", &idade_pet);
-
-    char sexo_pet[60];
-    printf("Digite o sexo do animal:\t");
-    scanf("%s", sexo_pet);
-
-    char especie_pet[60];
-    printf("Digite a especie do animal:\t");
-    scanf("%s", especie_pet);
-
-    char dono_pet[60];
-    printf("Digite o nome do dono do animal:\t");
-    scanf("%s", dono_pet);
-
-    fprintf(cad_pet, " %s\n", nome_pet);
-    fprintf(cad_pet, "%d\n", idade_pet);
-    fprintf(cad_pet, "%s\n", sexo_pet);
-    fprintf(cad_pet, "%s\n", especie_pet);
-    fprintf(cad_pet, "%s\n", dono_pet);
-    fclose(cad_pet);
-
-    int cad_perg;
-    printf("Deseja fazer um novo cadastro?\n1. Novo Cadastro\n2. Concluir Cadastro\nSua Escolha: ");
-    scanf("%d", &cad_perg);
-
-    if (cad_perg == 1)
-    {
-        telaCad_Pet();
-    }
-    if (cad_perg == 2)
-    {
-        telaPet();
-    }
+    func_cad_pet();
+    
 }
+
+void telaPesquisarPet(void){
+
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Pesquisar Pet  = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Pesquisar por nome:                                       ///\n");
+    printf("///            2. Pesquisar por idade:                                      ///\n");
+    printf("///            3. Pesquisar por sexo:                                       ///\n");
+    printf("///            4. Pesquisar por especie:                                    ///\n");
+    printf("///            5. Pesquisar por dono:                                       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+
+    
+    
+}
+
+void telaEditarPet(void)
+{
+
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =   Editar Pet  = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Nome do Pet:                                                 ///\n");
+    printf("///            Idade do Pet:                                                ///\n");
+    printf("///            Sexo do Pet:                                                 ///\n");
+    printf("///            Especie do Pet:                                              ///\n");
+    printf("///            Dono:                                                        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+
+    
+    
+}
+
+void telaExcluirPet(void)
+{
+
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Exluir Pet   = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Nome do Pet:                                                 ///\n");
+    printf("///            Idade do Pet:                                                ///\n");
+    printf("///            Sexo do Pet:                                                 ///\n");
+    printf("///            Especie do Pet:                                              ///\n");
+    printf("///            Dono:                                                        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+
+    printf("Deseja Excluir este Registro?");
+
+    
+}
+
+
+
 
 void telaConsulta(void)
 {
@@ -400,4 +486,81 @@ void telaConsulta(void)
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+
+
+}
+
+
+void func_cad_pet(void){
+
+FILE *cad_pet;
+
+    cad_pet = fopen("cadastro_pet.txt", "w");
+    char nome_pet[60];
+    printf("Digite o nome do animal:\t");
+    scanf("%s", nome_pet);
+    fprintf(cad_pet, "%s\n", nome_pet);
+
+    int idade_pet;
+    printf("Digite a idade do animal:\t");
+    scanf("%d", &idade_pet);
+    fprintf(cad_pet, "%d\n", idade_pet);
+
+    char sexo_pet[60];
+    printf("Digite o sexo do animal:\t");
+    scanf("%s", sexo_pet);
+    fprintf(cad_pet, "%s\n", sexo_pet);
+
+    char especie_pet[60];
+    printf("Digite a especie do animal:\t");
+    scanf("%s", especie_pet);
+    fprintf(cad_pet, "%s\n", especie_pet);
+
+    char dono_pet;
+    printf("Digite o primeiro nome do dono do animal:\t");
+    scanf("%s", &dono_pet);
+    fprintf(cad_pet, "%s\n", &dono_pet);
+
+    fclose(cad_pet);
+    
+
+    
+    
+    int cad_perg;
+    printf("Deseja fazer um novo cadastro?\n1. Novo Cadastro\n2. Concluir Cadastro\nSua Escolha: ");
+    scanf("%d", &cad_perg);
+
+    if (cad_perg == 1){
+        telaCadastrarPet();
+    }
+    if (cad_perg == 2){
+        telaMenuPet();
+    }
+    
+    
+}
+
+
+void func_cad_usu(void){
+    FILE *pont_cadUsu;
+    pont_cadUsu = fopen("cadastro_usuario.txt", "w");
+    char email[60];
+    printf("Digite o seu email: ");
+    scanf("%s", email);
+
+    char senha[60];
+    printf("Digite a sua senha: ");
+    scanf("%s", senha);
+
+    fprintf(pont_cadUsu, "%s \n", email);
+    fprintf(pont_cadUsu, "%s \n", senha);
+    fclose(pont_cadUsu);
+
+    printf("1. Login\n2. Sair\nEscolha:  ");
+    int escolha;
+    scanf("%d", &escolha);
+
+    if (escolha == 1){
+        login();
+    }
 }
