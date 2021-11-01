@@ -25,8 +25,12 @@ void telaPesquisarPet(void);
 void telaExcluirPet(void);
 void telaEditarPet(void);
 
-
 void telaMenuConsulta(void);
+void telaMenuUsuario(void);
+void cadastroNovoUsuario(void);
+void editarUsuario(void);
+void pesquisarUsuario(void);
+void pesq_usuario_exclui(void);
 void telaCadastrarConsulta(void);
 void telaPesquisarConsulta(void);
 void telaExcluirConsulta(void);
@@ -38,8 +42,6 @@ void func_escolha(void);
 
 int Escolha_Pet;
 int Escolha_Consulta;
-    
-    
 
 // Fazer login ou se cadastrar.
 
@@ -64,8 +66,9 @@ int main(void)
         return 0;
     }
 
-    if(log_cadast != 1 && log_cadast != 2){
-      return 1;
+    if (log_cadast != 1 && log_cadast != 2)
+    {
+        return 1;
     }
 
     cadastro();
@@ -148,13 +151,14 @@ void login(void)
         telaMenuPet();
     }
 
-    if (escolha ==2)
+    if (escolha == 2)
     {
         telaMenuConsulta();
     }
 }
 
-void cadastro(void){
+void cadastro(void)
+{
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -183,7 +187,8 @@ void cadastro(void){
     func_cad_usu();
 }
 
-void telaMenuPrincipal(void){
+void telaMenuPrincipal(void)
+{
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -209,7 +214,8 @@ void telaMenuPrincipal(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 }
-void telaSobre(void){
+void telaSobre(void)
+{
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -235,7 +241,8 @@ void telaSobre(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 }
-void telaEquipe(void){
+void telaEquipe(void)
+{
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -295,11 +302,9 @@ void telaMenuPet(void)
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    
     printf("Escolha: ");
     scanf("%d", &Escolha_Pet);
     func_escolha();
-
 }
 
 // telaCad_Pet sendo elaborada, mas até o momnento funcionando. Após o cadastro do animal ele irá voltar pra telaPet.
@@ -337,10 +342,10 @@ void telaCadastrarPet(void)
     printf("\n");
 
     func_cad_pet();
-    
 }
 
-void telaPesquisarPet(void){
+void telaPesquisarPet(void)
+{
 
     printf("                                                                          - □ x\n");
     printf("\n");
@@ -370,9 +375,6 @@ void telaPesquisarPet(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-
-    
-    
 }
 
 void telaEditarPet(void)
@@ -406,9 +408,6 @@ void telaEditarPet(void)
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-
-    
-    
 }
 
 void telaExcluirPet(void)
@@ -444,12 +443,7 @@ void telaExcluirPet(void)
     printf("\n");
 
     printf("Deseja Excluir este Registro?");
-
-    
 }
-
-
-
 
 void telaMenuConsulta(void)
 {
@@ -481,13 +475,12 @@ void telaMenuConsulta(void)
     printf("Escolha: ");
     scanf("%d", &Escolha_Consulta);
     func_escolha();
-
 }
 
+void func_cad_pet(void)
+{
 
-void func_cad_pet(void){
-
-FILE *cad_pet;
+    FILE *cad_pet;
 
     cad_pet = fopen("cadastro_pet.txt", "w");
     char nome_pet[60];
@@ -516,26 +509,23 @@ FILE *cad_pet;
     fprintf(cad_pet, "%s\n", &dono_pet);
 
     fclose(cad_pet);
-    
 
-    
-    
     int cad_perg;
     printf("Deseja fazer um novo cadastro?\n1. Novo Cadastro\n2. Concluir Cadastro\nSua Escolha: ");
     scanf("%d", &cad_perg);
 
-    if (cad_perg == 1){
+    if (cad_perg == 1)
+    {
         telaCadastrarPet();
     }
-    if (cad_perg == 2){
+    if (cad_perg == 2)
+    {
         telaMenuPet();
     }
-    
-    
 }
 
-
-void func_cad_usu(void){
+void func_cad_usu(void)
+{
     FILE *pont_cadUsu;
     pont_cadUsu = fopen("cadastro_usuario.txt", "w");
     char email[60];
@@ -554,13 +544,127 @@ void func_cad_usu(void){
     int escolha;
     scanf("%d", &escolha);
 
-    if (escolha == 1){
+    if (escolha == 1)
+    {
         login();
     }
 }
 
+void telaMenuUsuario(void) // Atualizando agora no domingo.
+{
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
+    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cadastrar Novo Usuário                                    ///\n");
+    printf("///            2. Editar Usuário                                            ///\n");
+    printf("///            3. Pequisar Usuário                                          ///\n");
+    printf("///            4. Apagar Usuário                                            ///\n");
+    printf("///            0. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+}
 
-void telaCadastrarConsulta(void){
+void cadastrarNovoUsuario(void) // Referente a telaMenuUsuario L 553
+{
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
+    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Email                                                     ///\n");
+    printf("///            2. Senha                                                     ///\n");
+    printf("///            3. Confirmação de senha                                      ///\n");
+    printf("///            4. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+}
+
+void editarUsuario(void) // Referente a telaMenuUsuario L 553
+{
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
+    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Alterar email                                             ///\n");
+    printf("///            2. Alterar senha                                             ///\n");
+    printf("///            3. Alterar número de telefone                                ///\n");
+    printf("///            4. Alterar nome                                              ///\n");
+    printf("///            5. Endereço                                                  ///\n");
+    printf("///            6. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+}
+
+void pesq_usuario_exclui(void) // Referente a telaMenuUsuario L 553
+{
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
+    printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///        1.Nome  2.Email  3.Telefone  4.Bairro  5.Cidade / Filtrar        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///        6. Sair                                        7. excluir        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+}
+
+void telaCadastrarConsulta(void)
+{
 
     printf("                                                                          - □ x\n");
     printf("\n");
@@ -590,14 +694,10 @@ void telaCadastrarConsulta(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-
-  
-    
 }
 
-
-
-void telaPesquisarConsulta(void){
+void telaPesquisarConsulta(void)
+{
 
     printf("                                                                          - □ x\n");
     printf("\n");
@@ -627,13 +727,10 @@ void telaPesquisarConsulta(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-
-  
-    
 }
 
-
-void telaEditarConsulta(void){
+void telaEditarConsulta(void)
+{
 
     printf("                                                                          - □ x\n");
     printf("\n");
@@ -663,14 +760,10 @@ void telaEditarConsulta(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-
-  
-    
 }
 
-
-
-void telaExcluirConsulta(void){
+void telaExcluirConsulta(void)
+{
 
     printf("                                                                          - □ x\n");
     printf("\n");
@@ -700,61 +793,67 @@ void telaExcluirConsulta(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-
-  
-    
 }
 
+void func_escolha(void)
+{
 
-void func_escolha(void){
-
-
-    if(Escolha_Pet == 1){
-      telaCadastrarPet();
+    if (Escolha_Pet == 1)
+    {
+        telaCadastrarPet();
     }
 
-    if(Escolha_Pet == 2){
-      telaPesquisarPet();
+    if (Escolha_Pet == 2)
+    {
+        telaPesquisarPet();
     }
 
-    if(Escolha_Pet == 3){
-      telaEditarPet();
+    if (Escolha_Pet == 3)
+    {
+        telaEditarPet();
     }
 
-    if(Escolha_Pet == 4){
-      telaExcluirPet();
+    if (Escolha_Pet == 4)
+    {
+        telaExcluirPet();
     }
 
-    if(Escolha_Pet == 0){
-      telaMenuPrincipal();
+    if (Escolha_Pet == 0)
+    {
+        telaMenuPrincipal();
     }
 
-    if(Escolha_Pet != 1 && Escolha_Pet != 2 && Escolha_Pet != 3 && Escolha_Pet != 4 && Escolha_Pet != 0){
+    if (Escolha_Pet != 1 && Escolha_Pet != 2 && Escolha_Pet != 3 && Escolha_Pet != 4 && Escolha_Pet != 0)
+    {
 
-      printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
+        printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
     }
 
-    if(Escolha_Consulta == 1){
-      telaCadastrarConsulta();
+    if (Escolha_Consulta == 1)
+    {
+        telaCadastrarConsulta();
     }
-    if(Escolha_Consulta == 2){
-      telaPesquisarConsulta();
+    if (Escolha_Consulta == 2)
+    {
+        telaPesquisarConsulta();
     }
-    if(Escolha_Consulta == 3){
-      telaEditarConsulta();
+    if (Escolha_Consulta == 3)
+    {
+        telaEditarConsulta();
     }
-    if(Escolha_Consulta == 4){
-      telaExcluirConsulta();
-    }
-
-    if(Escolha_Consulta == 0){
-      telaMenuPrincipal();
-    }
-
-    if(Escolha_Consulta != 1 && Escolha_Consulta != 2 && Escolha_Consulta != 3 && Escolha_Consulta != 4 && Escolha_Consulta != 0){
-
-      printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
+    if (Escolha_Consulta == 4)
+    {
+        telaExcluirConsulta();
     }
 
+    if (Escolha_Consulta == 0)
+    {
+        telaMenuPrincipal();
+    }
 
+    if (Escolha_Consulta != 1 && Escolha_Consulta != 2 && Escolha_Consulta != 3 && Escolha_Consulta != 4 && Escolha_Consulta != 0)
+    {
+
+        printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
+    }
 }
