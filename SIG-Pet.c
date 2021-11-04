@@ -39,9 +39,11 @@ void telaEditarConsulta(void);
 void func_cad_pet(void);
 void func_cad_usu(void);
 void func_escolha(void);
+// void func_escol_Mprinc(void);
 
 int Escolha_Pet;
 int Escolha_Consulta;
+int Escolha_menu;
 
 // Fazer login ou se cadastrar.
 
@@ -213,6 +215,10 @@ void telaMenuPrincipal(void)
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+
+    printf("Escolha: ");
+    scanf("%d", &Escolha_menu);
+    func_escolha();
 }
 void telaSobre(void)
 {
@@ -475,79 +481,6 @@ void telaMenuConsulta(void)
     printf("Escolha: ");
     scanf("%d", &Escolha_Consulta);
     func_escolha();
-}
-
-void func_cad_pet(void)
-{
-
-    FILE *cad_pet;
-
-    cad_pet = fopen("cadastro_pet.txt", "w");
-    char nome_pet[60];
-    printf("Digite o nome do animal:\t");
-    scanf("%s", nome_pet);
-    fprintf(cad_pet, "%s\n", nome_pet);
-
-    int idade_pet;
-    printf("Digite a idade do animal:\t");
-    scanf("%d", &idade_pet);
-    fprintf(cad_pet, "%d\n", idade_pet);
-
-    char sexo_pet[60];
-    printf("Digite o sexo do animal:\t");
-    scanf("%s", sexo_pet);
-    fprintf(cad_pet, "%s\n", sexo_pet);
-
-    char especie_pet[60];
-    printf("Digite a especie do animal:\t");
-    scanf("%s", especie_pet);
-    fprintf(cad_pet, "%s\n", especie_pet);
-
-    char dono_pet;
-    printf("Digite o primeiro nome do dono do animal:\t");
-    scanf("%s", &dono_pet);
-    fprintf(cad_pet, "%s\n", &dono_pet);
-
-    fclose(cad_pet);
-
-    int cad_perg;
-    printf("Deseja fazer um novo cadastro?\n1. Novo Cadastro\n2. Concluir Cadastro\nSua Escolha: ");
-    scanf("%d", &cad_perg);
-
-    if (cad_perg == 1)
-    {
-        telaCadastrarPet();
-    }
-    if (cad_perg == 2)
-    {
-        telaMenuPet();
-    }
-}
-
-void func_cad_usu(void)
-{
-    FILE *pont_cadUsu;
-    pont_cadUsu = fopen("cadastro_usuario.txt", "w");
-    char email[60];
-    printf("Digite o seu email: ");
-    scanf("%s", email);
-
-    char senha[60];
-    printf("Digite a sua senha: ");
-    scanf("%s", senha);
-
-    fprintf(pont_cadUsu, "%s \n", email);
-    fprintf(pont_cadUsu, "%s \n", senha);
-    fclose(pont_cadUsu);
-
-    printf("1. Login\n2. Sair\nEscolha:  ");
-    int escolha;
-    scanf("%d", &escolha);
-
-    if (escolha == 1)
-    {
-        login();
-    }
 }
 
 void telaMenuUsuario(void) // Atualizando agora no domingo.
@@ -856,4 +789,104 @@ void func_escolha(void)
 
         printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
     }
+
+    if (Escolha_menu == 1)
+    {
+        telaMenuPet();
+    }
+
+    if (Escolha_menu == 2)
+    {
+        telaMenuConsulta();
+    }
+
+    if (Escolha_menu == 3)
+    {
+        telaMenuUsuario();
+    }
+
+    if (Escolha_menu == 4)
+    {
+        telaSobre();
+    }
+
+    if (Escolha_menu == 0)
+    {
+        login_cadastro();
+    }
+
+    if (Escolha_menu != 1 && Escolha_menu != 2 && Escolha_menu != 3 && Escolha_menu != 4 && Escolha_menu != 0)
+    {
+        printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
+    }
+}
+
+void func_cad_pet(void) // Referente a tela cadastro pet "Linha 312"
+{
+
+    FILE *cad_pet;
+
+    cad_pet = fopen("cadastro_pet.txt", "w");
+    char nome_pet[60];
+    printf("Digite o nome do animal:\t");
+    scanf("%s", nome_pet);
+    fprintf(cad_pet, "%s\n", nome_pet);
+
+    int idade_pet;
+    printf("Digite a idade do animal:\t");
+    scanf("%d", &idade_pet);
+    fprintf(cad_pet, "%d\n", idade_pet);
+
+    char sexo_pet[60];
+    printf("Digite o sexo do animal:\t");
+    scanf("%s", sexo_pet);
+    fprintf(cad_pet, "%s\n", sexo_pet);
+
+    char especie_pet[60];
+    printf("Digite a especie do animal:\t");
+    scanf("%s", especie_pet);
+    fprintf(cad_pet, "%s\n", especie_pet);
+
+    char dono_pet;
+    printf("Digite o primeiro nome do dono do animal:\t");
+    scanf("%s", &dono_pet);
+    fprintf(cad_pet, "%s\n", &dono_pet);
+
+    fclose(cad_pet);
+
+    int cad_perg;
+    printf("Deseja fazer um novo cadastro?\n1. Novo Cadastro\n2. Concluir Cadastro\nSua Escolha: ");
+    scanf("%d", &cad_perg);
+
+    if (cad_perg == 1)
+    {
+        telaCadastrarPet();
+    }
+    if (cad_perg == 2)
+    {
+        telaMenuPet();
+    }
+}
+
+void func_cad_usu(void) // Referente a "linha 80"
+{
+    FILE *pont_cadUsu;
+    pont_cadUsu = fopen("cadastro_usuario.txt", "w");
+    char email[60];
+    printf("Digite o seu email: ");
+    scanf("%s", email);
+
+    char senha[60];
+    printf("Digite a sua senha: ");
+    scanf("%s", senha);
+
+    fprintf(pont_cadUsu, "%s \n", email);
+    fprintf(pont_cadUsu, "%s \n", senha);
+    fclose(pont_cadUsu);
+
+    printf("1. Login\n2. Sair\nEscolha:  ");
+    int escolha;
+    scanf("%d", &escolha);
+
+    login();
 }
