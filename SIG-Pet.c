@@ -52,13 +52,6 @@ int *id_usuario;
 
 
 
-struct pet{
-  char nome[20];
-  int idade;
-  char especie[30];
-  char sexo;
-  char dono[30];
-};
 // Fazer login ou se cadastrar.
 
 int main(void)
