@@ -50,8 +50,6 @@ int Escolha_Menu;
 int Escolha_Usuario;
 int *id_usuario;
 
-
-
 // Fazer login ou se cadastrar.
 
 int main(void)
@@ -59,7 +57,7 @@ int main(void)
     int log_cadast;
     login_cadastro();
     printf("Digite a opção: \n1. Login\n2. Cadastrar-se\nEscolha: ");
-    scanf("%d", &log_cadast);
+    scanf("%d", &log_cadast); // Fazendo a leitura do "printf" para o log_cadast
 
     if (log_cadast == 1)
     {
@@ -79,8 +77,6 @@ int main(void)
     {
         return 1;
     }
-
-
 }
 
 void login_cadastro(void)
@@ -140,30 +136,26 @@ void login(void)
 
     printf("Digite o seu email: ");
     char email_log[60];
-    scanf("%s", email_log);
+    scanf("%s", email_log); // Fazendo a leitura do "email" digitado acima 0.3
     printf("%s\n", email_log);
-    
+
     printf("Digite o sua senha: ");
     char senha_log[60];
-    scanf("%s", senha_log);
+    scanf("%s", senha_log); // Fazendo a leitura do "senha" digitado acima 0.3
     printf("%s\n", senha_log);
-   
-    
+
     char email[60];
     FILE *pont_validacao;
     pont_validacao = fopen("cadastro_usuario.txt", "r");
-    fgets(email, 60, pont_validacao); 
+    fgets(email, 60, pont_validacao);
     char senha[20];
     fgets(senha, 20, pont_validacao);
 
-    
     printf("%s", email);
-    
+
     printf("%s", senha);
 
     telaMenuPrincipal();
-
-    
 }
 
 void cadastro(void)
@@ -223,18 +215,19 @@ void telaMenuPrincipal(void)
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-
-    
     printf("Escolha: ");
-    scanf("%d", &Escolha_Menu);
-    if(Escolha_Menu == 1){
-      telaMenuPet();
+    scanf("%d", &Escolha_Menu); // Fazendo a leitura do numero digitado acima direcionando ao if 0.3
+    if (Escolha_Menu == 1)
+    {
+        telaMenuPet();
     }
-    if(Escolha_Menu == 2){
-      telaMenuConsulta();
+    if (Escolha_Menu == 2)
+    {
+        telaMenuConsulta();
     }
-    if(Escolha_Menu == 3){
-      telaMenuUsuario();
+    if (Escolha_Menu == 3)
+    {
+        telaMenuUsuario();
     }
 }
 void telaSobre(void)
@@ -326,32 +319,37 @@ void telaMenuPet(void)
     printf("\n");
 
     printf("Escolha: ");
-    scanf("%d", &Escolha_Pet);
+    scanf("%d", &Escolha_Pet); // Fazendo a leitura do numero digitado acima direcionando ao if 0.3
 
-
-    if (Escolha_Pet == 1){
+    if (Escolha_Pet == 1)
+    {
         telaCadastrarPet();
     }
 
-    else if (Escolha_Pet == 2){
+    else if (Escolha_Pet == 2)
+    {
         telaPesquisarPet();
     }
 
-    else if (Escolha_Pet == 3){
+    else if (Escolha_Pet == 3)
+    {
         telaEditarPet();
     }
 
-    else if (Escolha_Pet == 4){
+    else if (Escolha_Pet == 4)
+    {
         telaExcluirPet();
     }
 
-    else if (Escolha_Pet == 0){
+    else if (Escolha_Pet == 0)
+    {
         telaMenuPrincipal();
     }
 
-    else if (Escolha_Pet != 1 && Escolha_Pet != 2 && Escolha_Pet != 3 && Escolha_Pet != 4 && Escolha_Pet != 0){
+    else if (Escolha_Pet != 1 && Escolha_Pet != 2 && Escolha_Pet != 3 && Escolha_Pet != 4 && Escolha_Pet != 0)
+    {
 
-       printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
+        printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
     }
 }
 
@@ -416,13 +414,13 @@ void telaPesquisarPet(void)
     printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
     printf("///           Pesquisar:                                                    ///\n");
-    
+
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
     printf("Pesquisa: ");
-    scanf("%s", pesquisa);
+    scanf("%s", pesquisa); // Fazendo a leitura do numero digitado acima direcionando ao if 0.3
 }
 
 void telaEditarPet(void)
@@ -523,30 +521,35 @@ void telaMenuConsulta(void)
     printf("\n");
 
     printf("Escolha: ");
-    scanf("%d", &Escolha_Consulta);
-    
-    if (Escolha_Consulta == 1){
+    scanf("%d", &Escolha_Consulta); // Fazendo a leitura do numero digitado acima direcionando ao if 0.3
+
+    if (Escolha_Consulta == 1)
+    {
         telaCadastrarConsulta();
     }
-    else if (Escolha_Consulta == 2){
+    else if (Escolha_Consulta == 2)
+    {
         telaPesquisarConsulta();
     }
-    else if (Escolha_Consulta == 3){
+    else if (Escolha_Consulta == 3)
+    {
         telaEditarConsulta();
     }
-    else if (Escolha_Consulta == 4){
+    else if (Escolha_Consulta == 4)
+    {
         telaExcluirConsulta();
     }
 
-    else if (Escolha_Consulta == 0){
+    else if (Escolha_Consulta == 0)
+    {
         telaMenuPrincipal();
     }
 
-    else if (Escolha_Consulta != 1 && Escolha_Consulta != 2 && Escolha_Consulta != 3 && Escolha_Consulta != 4 && Escolha_Consulta != 0){
+    else if (Escolha_Consulta != 1 && Escolha_Consulta != 2 && Escolha_Consulta != 3 && Escolha_Consulta != 4 && Escolha_Consulta != 0)
+    {
 
-      printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
+        printf("Essa ação não é permitida, selecione uma das possiveis ações acima");
     }
-
 }
 
 void telaMenuUsuario(void) // Atualizando agora no domingo.
@@ -576,21 +579,18 @@ void telaMenuUsuario(void) // Atualizando agora no domingo.
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-
     printf("Escolha: ");
-    scanf("%d", &Escolha_Usuario);
-    
+    scanf("%d", &Escolha_Usuario); // Fazendo a leitura do numero digitado acima direcionando ao if 0.3
 
-    if(Escolha_Usuario == 1){
-      telaCadastrarUsuario();
+    if (Escolha_Usuario == 1)
+    {
+        telaCadastrarUsuario();
     }
 
-    else if(Escolha_Usuario == 2){
-      telaEditarUsuario();
+    else if (Escolha_Usuario == 2)
+    {
+        telaEditarUsuario();
     }
-
-    
-
 }
 
 void telaCadastrarUsuario(void) // Referente a telaMenuUsuario L 553
@@ -711,8 +711,6 @@ void telaCadastrarConsulta(void)
     printf("\n");
 }
 
-
-
 void telaPesquisarConsulta(void)
 {
 
@@ -812,8 +810,6 @@ void telaExcluirConsulta(void)
     printf("\n");
 }
 
-
-
 void func_cad_pet(void) // Referente a tela cadastro pet "Linha 312"
 {
 
@@ -827,56 +823,57 @@ void func_cad_pet(void) // Referente a tela cadastro pet "Linha 312"
 
     char nome_pet[60];
     printf("Digite o nome do animal:\t");
-    scanf("%s", nome_pet);
+    scanf("%s", nome_pet); // Fazendo a leitura do numero digitado acima 0.3
     fprintf(cad_pet, "NOME: %s\n", nome_pet);
 
     int idade_pet;
     printf("Digite a idade do animal:\t");
-    scanf("%d", &idade_pet);
+    scanf("%d", &idade_pet); // Fazendo a leitura do numero digitado acima 0.3
     fprintf(cad_pet, "IDADE: %d\n", idade_pet);
 
     char sexo_pet[60];
     printf("Digite o sexo do animal:\t");
-    scanf("%s", sexo_pet);
+    scanf("%s", sexo_pet); // Fazendo a leitura do numero digitado acima 0.3
     fprintf(cad_pet, "SEXO: %s\n", sexo_pet);
 
     char especie_pet[60];
     printf("Digite a especie do animal:\t");
-    scanf("%s", especie_pet);
+    scanf("%s", especie_pet); // Fazendo a leitura do numero digitado acima 0.3
     fprintf(cad_pet, "ESPECIE: %s\n", especie_pet);
 
     char dono_pet;
     printf("Digite o primeiro nome do dono do animal:\t");
-    scanf("%s", &dono_pet);
+    scanf("%s", &dono_pet); // Fazendo a leitura do numero digitado acima 0.3
     fprintf(cad_pet, "DONO: %s\n", &dono_pet);
 
     fclose(cad_pet);
 
     int cad_perg;
     printf("Deseja fazer um novo cadastro?\n1. Novo Cadastro\n2. Concluir Cadastro\nSua Escolha: ");
-    scanf("%d", &cad_perg);
+    scanf("%d", &cad_perg); // Fazendo a leitura do numero digitado acima direcionando ao if 0.3
 
-    while (cad_perg == 1){
+    while (cad_perg == 1)
+    {
 
-      func_cad_pet();
-    } 
-    
+        func_cad_pet();
+    }
+
     if (cad_perg == 2)
     {
         telaMenuPet();
     }
 }
-void id_autentificacao(void){
+void id_autentificacao(void)
+{
 
-    
     int cont;
-    
-    for(cont = 0; cont< 1; cont++){
+
+    for (cont = 0; cont < 1; cont++)
+    {
         FILE *pont_autent;
         pont_autent = fopen("cadastro_usuario.txt", "a");
         fprintf(pont_autent, "ID: %d\n", cont);
         fclose(pont_autent);
-        
     }
 }
 
@@ -886,12 +883,11 @@ void func_cad_usu(void) // Referente a "linha 80"
     pont_cadUsu = fopen("cadastro_usuario.txt", "w");
     char email[60];
     printf("Digite o seu email: ");
-    scanf("%s", email);
+    scanf("%s", email); // Fazendo a leitura do numero digitado acima 0.3
 
     char senha[60];
     printf("Digite a sua senha: ");
-    scanf("%s", senha);
-
+    scanf("%s", senha); // Fazendo a leitura do numero digitado acima 0.3
 
     fprintf(pont_cadUsu, "EMAIL: %s \n", email);
     fprintf(pont_cadUsu, "SENHA: %s \n", senha);
@@ -901,32 +897,28 @@ void func_cad_usu(void) // Referente a "linha 80"
 
     printf("1. Login\n2. Sair\nEscolha:  ");
     int escolha;
-    scanf("%d", &escolha);
-    if(escolha ==1){
-      login();
+    scanf("%d", &escolha); // Fazendo a leitura do numero digitado acima 0.3
+    if (escolha == 1)
+    {
+        login();
     }
-    
 }
 
+// AINDA NÃO ESTÁ FUNCIONANDO CORRETAMENTE
 
+void func_editar_pet(void)
+{
 
-//AINDA NÃO ESTÁ FUNCIONANDO CORRETAMENTE
+    FILE *pont_editar;
+    pont_editar = fopen("cadastro_pet.txt", "r+");
 
-void func_editar_pet(void){
+    long qbitpulados = 40;
+    int origem = 1;
 
-  
-  FILE *pont_editar;
-  pont_editar = fopen("cadastro_pet.txt",  "r+");
+    fseek(pont_editar, qbitpulados, origem);
 
-  long qbitpulados = 40;
-  int origem = 1;
-
-  fseek(pont_editar, qbitpulados, origem);
-  
-  char nome_pet[60];
-  printf("Digite o nome do seu animal: ");
-  scanf("%s", nome_pet);  
-  fprintf(pont_editar, "EMAIL: %s\n", nome_pet);
-
-
+    char nome_pet[60];
+    printf("Digite o nome do seu animal: ");
+    scanf("%s", nome_pet);
+    fprintf(pont_editar, "EMAIL: %s\n", nome_pet);
 }
