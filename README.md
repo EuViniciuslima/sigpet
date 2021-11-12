@@ -25,7 +25,7 @@
 
    Login                   |  Menu
 :-------------------------:|:-------------------------:
-![Tela de Login](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/Login.PNG) |  ![Tela de Menu](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/MenuInicial.PNG)
+![Tela de Login](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/Login.PNG)      |  ![Tela de Menu](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/MenuInicial.PNG)
 
 
 
