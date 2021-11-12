@@ -23,7 +23,7 @@
 ![Tela Inicial](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaInicial.PNG) |  ![Tela de Cadastro](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaCadastro.PNG)
 
 
-   Login            |  Menu
+   Login                   |  Menu
 :-------------------------:|:-------------------------:
 ![Tela de Login](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/Login.PNG) |  ![Tela de Menu](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/MenuInicial.PNG)
 
