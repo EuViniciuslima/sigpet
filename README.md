@@ -17,7 +17,10 @@
 
 
 <b><h2> Telas </h2></b>
-<p align="center">
-  <img src="" width="200" title="Tela Inicial">
+
+  <h3> #Tela Inicial </h3>
+  <img src="https://github.com/EuViniciuslima/sigpet/blob/main/Tela%20Inicial.PNG" width="500" title="Tela Inicial">
   
-</p>
+  <h3> #Tela Cadastro </h3>
+  <img src="https://github.com/EuViniciuslima/sigpet/blob/main/Tela%20Inicial.PNG" width="500" title="Tela Cadastro">
+  
