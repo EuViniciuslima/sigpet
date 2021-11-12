@@ -18,9 +18,13 @@
 
 <b><h2> Telas </h2></b>
 
+<div class ="fileira1Tela">
   <h3> #Tela Inicial </h3>
   <img src="https://github.com/EuViniciuslima/sigpet/blob/main/Tela%20Inicial.PNG" width="500" title="Tela Inicial">
   
   <h3> #Tela Cadastro </h3>
   <img src="https://github.com/EuViniciuslima/sigpet/blob/main/Tela%20Inicial.PNG" width="500" title="Tela Cadastro">
-  
+</div>
+
+
+
