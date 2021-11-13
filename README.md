@@ -20,12 +20,22 @@
 
    Tela Inicial            |  Cadastrar-se
 :-------------------------:|:-------------------------:
-![Tela Inicial](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaInicial.PNG) |  ![Tela de Cadastro](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaCadastro.PNG)
+![Tela Inicial](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaInicial.PNG) | ![Tela de Cadastro](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaCadastro.PNG)
 
 
    Login                   |  Menu
 :-------------------------:|:-------------------------:
-![Tela de Login](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/Login.PNG)      |  ![Tela de Menu](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/MenuInicial.PNG)
+![Tela de Login](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/Login.PNG) | ![Tela de Menu](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/MenuInicial.PNG)
+
+
+   Modulo Pet              |  Modulo Consulta
+:-------------------------:|:-------------------------:
+![Modulo Pet](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/ModuloUsuario.PNG) | ![Modulo Consulta](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/ModuloConsulta.PNG)
+
+
+   Modulo Usuario          |  Informações
+:-------------------------:|:-------------------------:
+![Modulo Usuario](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/ModuloUsuario.PNG) | ![Informações](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaInfo.PNG)
 
 
 
