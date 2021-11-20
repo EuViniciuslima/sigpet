@@ -41,5 +41,4 @@
 <h1> Creditos </h1>
 
 Modelo d e  Telas Adaptado de @flgorgonio<br>
-Função de Cadastro  Adapatado  de Eduardo Casavella
-
+Função de Cadastro  Adaptado de Eduardo Casavella
