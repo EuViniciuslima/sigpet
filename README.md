@@ -38,7 +38,8 @@
 ![Modulo Usuario](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/ModuloUsuario.PNG) | ![Informações](https://github.com/EuViniciuslima/sigpet/blob/main/Imagens/TelaInfo.PNG)
 
 
+<h1> Creditos </h1>
 
-
-
+Modelo d e  Telas Adaptado de @flgorgonio<br>
+Função de Cadastro  Adapatado  de Eduardo Casavella
 
