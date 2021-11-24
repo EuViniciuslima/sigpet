@@ -48,7 +48,7 @@ void telaPesquisarUsuario(void);
 void telaDeletarUsuario(void);
 
 //funções CRUD modulo PET
-void insertPet(void);
+void insertPet(char*, int*, char*, char*);
 void updatePet(void);
 void selectPet(void);
 void deletePet(void);
@@ -71,11 +71,12 @@ void telaEquipe(void);
 void telaSobre(void);
 
 
-
+void cadastroUsuario(char*);
 
 
 //validação das credencias para realizar o login
 void efetuarLogin(void);
+void validEmail(int*, char*) ;
 
 //Sistema de decisões para navegabilidade do sistema
 void fluxoTela();
@@ -85,7 +86,10 @@ void escolhaUsuario();
 void escolhaInfo();
 
 
-//Tela Inicial: ao qual o usuário pode optar por fazer login ou se registrar para ter acesso a aplicação
+#define MAX_USUARIOS 25
+#define MAX_PETS 50
+
+
 
 int main(void){
 
@@ -145,66 +149,77 @@ void telaInicial(void)
 }
 
 
+
 void efetuarLogin(){
 
-    FILE *validLogin;
-    validLogin = fopen("validacao.txt", "w");
+    int Stop = 1;
+    do{
+        
+      FILE *validLogin;
+      validLogin = fopen("validacao.txt", "w");
 
-    printf("Digite o seu email: ");
-    char email_log[30]; //Criação da váriavel
-    scanf("%s", email_log); //Leitura dos valores do teclado e armazenamento na variavel email_log (0.3)
-    fprintf(validLogin, "%s \n", email_log);
+      printf("Digite o seu email: ");
+      char email_log[30]; //Criação da váriavel
+      scanf("%s", email_log); //Leitura dos valores do teclado e armazenamento na variavel email_log (0.3)
+      fprintf(validLogin, "%s \n", email_log);
 
 
-    printf("Digite o sua senha: ");
-    char senha_log[10];
-    scanf("%s", senha_log);
-    fprintf(validLogin, "%s \n", senha_log);
-    fclose(validLogin);
-    //Criando variaveis para armazenar os valores já cadastrados e compara-los
-    char email[30];
-    char senha[10];
+      printf("Digite o sua senha: ");
+      char senha_log[10];
+      scanf("%s", senha_log);
+      fprintf(validLogin, "%s \n", senha_log);
+      fclose(validLogin);
+      //Criando variaveis para armazenar os valores já cadastrados e compara-los
+      char email[30];
+      char senha[10];
+
+      
+
+      FILE *pontLeitura; //Criando ponteiro
+      pontLeitura = fopen("cadastro_usuario.txt" , "r" ); //Leitura
+      fgets (email, 30 , pontLeitura); //Capturando os valores do arquivo txt
+      fgets (senha, 10 , pontLeitura);
+      fclose(pontLeitura);
+
+      FILE *pontValid;
+      pontValid = fopen("validacao.txt","r");
+      fgets (email_log, 30, pontValid);
+      fgets (senha_log, 10, pontValid);
+      fclose(pontValid);
+      // utilizado em testes
+      //int tamanhoEmail; 
+      //int tamanhoSenha;
+      //int tEmailLog;
+
+      //tamanhoEmail = strlen(email);
+      //tamanhoSenha = strlen(senha);
+      //tEmailLog = strlen(email_log);
+      //printf("Tamanho senha: %d\n", tamanhoSenha);
+      //printf("tamanho email: %d\n", tamanhoEmail);
+      //printf("tamanho email_log: %d\n", tEmailLog);
+
+      int compararEmail;
+      compararEmail = strcmp(email, email_log);
+      //A Função strcmp retorna 0 quando as strings são iguais
+
+      int compararSenha;
+      compararSenha = strcmp(senha, senha_log);
+      //printf("%d", compararSenha);
 
     
+      if(compararEmail == 0 && compararSenha == 0){
 
-    FILE *pontLeitura; //Criando ponteiro
-    pontLeitura = fopen("cadastro_usuario.txt" , "r" ); //Leitura
-    fgets (email, 30 , pontLeitura); //Capturando os valores do arquivo txt
-    fgets (senha, 10 , pontLeitura);
-    fclose(pontLeitura);
+        Stop = 0;
+        telaMenu();
+      }
+      else{
+        printf("Email ou senha incorretos\n");
+        
+      }
 
-    FILE *pontValid;
-    pontValid = fopen("validacao.txt","r");
-    fgets (email_log, 30, pontValid);
-    fgets (senha_log, 10, pontValid);
-    fclose(pontValid);
-    // utilizado em testes
-    //int tamanhoEmail; 
-    //int tamanhoSenha;
-    //int tEmailLog;
-
-    //tamanhoEmail = strlen(email);
-    //tamanhoSenha = strlen(senha);
-    //tEmailLog = strlen(email_log);
-    //printf("Tamanho senha: %d\n", tamanhoSenha);
-    //printf("tamanho email: %d\n", tamanhoEmail);
-    //printf("tamanho email_log: %d\n", tEmailLog);
-
-    int compararEmail;
-    compararEmail = strcmp(email, email_log);
-    //A Função strcmp retorna 0 quando as strings são iguais
+    }while (Stop!=0);
     
-
-    int compararSenha;
-    compararSenha = strcmp(senha, senha_log);
-    //printf("%d", compararSenha);
-
-    if(compararEmail == 0 && compararSenha == 0){
-      telaMenu();
-    }
-    else{
-      printf("Email ou senha incorretos\n");
-    }
+    
 
 }
 
@@ -242,39 +257,95 @@ void telaLogin(void)
 
 
 void insertUsuario(void){
-    
-    
+  int emailValidado = 0;
+  FILE *pontGravar;
+  pontGravar = fopen("cadastro_usuario.txt", "w"); //criando arquivo para gravação dos dados do usuário
+  char email[30];
 
-    FILE *pontGravar;
-    pontGravar = fopen("cadastro_usuario.txt", "w"); //criando arquivo para gravação dos dados do usuário
 
-    char email[30];
+  do{
+  
     printf("Digite o seu email: ");
-    scanf("%s", email); // Fazendo a leitura do numero digitado acima 0.3
+    scanf("%s", email); 
 
-    char senha[10];
-    printf("Digite a sua senha: ");
-    scanf("%s", senha); // Fazendo a leitura do numero digitado acima 0.3
+    int arroba = 0;
+    int ponto = 0;
+    int cont;
 
-    fprintf(pontGravar, "%s \n", email);
-    fprintf(pontGravar, "%s \n", senha);
-    fclose(pontGravar);
+  
+    int tamanho = strlen(email);
+    for(cont = 0; cont < tamanho; cont ++){      
+      if(email[cont] == '@'){
+        arroba = 1; 
+      }
 
-
-    
-    printf("1. Login\n2. Sair\nEscolha:  ");
-    int escolha;
-    scanf("%d", &escolha); // Fazendo a leitura do numero digitado acima 0.3
-    if (escolha == 1){
-      telaLogin();
+      if(email[cont] == '.'){
+        ponto = 1;
+      } 
     }
-    if (escolha == 2){
-      moduloPet();
+
+    if(ponto == 1 && arroba == 1){
+      emailValidado  = 1;
     }
     else{
-      printf("Selecione uma das opções acima\n");
+      printf("\nEmail Invalido\n");
     }
+  }while(emailValidado !=1);
+      
+      char senha[10];
+      printf("Digite a sua senha: ");
+      scanf("%s", senha); // Fazendo a leitura do numero digitado acima 0.3
+
+      fprintf(pontGravar, "%s \n", email);
+      fprintf(pontGravar, "%s \n", senha);
+      fclose(pontGravar);
+      
+  
+      printf("1. Login\n2. Sair\nEscolha:  ");
+      int escolha;
+      scanf("%d", &escolha); // Fazendo a leitura do numero digitado acima 0.3
+      if (escolha == 1){
+        telaLogin();
+      }
+      if (escolha == 2){
+        moduloPet();
+      }
+      else{
+          printf("Selecione uma das opções acima\n");
+      }
+    // }
 }
+    
+
+
+//void validEmail(int *emailValidado){
+  //int ponto = 0;
+  //int arroba = 0;
+ // int caracterEspecial = 0;
+
+ // char analisarEmail[20];
+ // strcpy(analisarEmail, &email);
+        //destino      //origem
+ // int tamanho;
+  //tamanho = strlen(analisarEmail);
+  //int contador;     
+ // for (contador = 0; contador < tamanho; contador++){
+   // if(strcmp(analisarEmail[contador], ".") == 0){
+     // ponto = 1;
+    //}
+
+    //if(strcmp(analisarEmail[contador], "@") == 0){
+      //arroba = 1;
+    //}
+
+
+    //if(ponto == 1 && arroba == 1){
+      //*emailValidado = 1;
+     
+    //}
+  //}
+//}
+
 void telaCadastro(void)
 {
     system("clear");
@@ -382,7 +453,7 @@ void telaEquipe(void)
 
 // Tela de "cadastrar pet" está pronta. (disponível para alterações no código "linha 301")
 void moduloPet(void){
-    system("clear");
+    //system("clear");
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -419,7 +490,7 @@ void moduloPet(void){
 
 void telaCadastrarPet(void){
 
-    system("clear");
+    //system("clear");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -448,7 +519,44 @@ void telaCadastrarPet(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    insertPet();
+    
+    int cadastrandoPet =1;
+    
+    
+    while(cadastrandoPet == 1){
+      printf("Deseja Cadastrar Seu Pet? \n1. Cadastrar \n0. Voltar \nSua Escolha: ");
+      scanf("%d", &cadastrandoPet);
+
+      if(cadastrandoPet == 0){
+        moduloPet();
+      }
+
+      else{
+        char nomePet[20];
+        printf("Digite o nome do animal: ");
+        scanf("%s", nomePet);
+      
+        int idadePet;
+        printf("Digite a idade do animal: ");
+        scanf("%d", &idadePet);
+
+        char sexoPet[1];
+        printf("Digite o sexo do animal:\t");
+        scanf("%s", sexoPet);
+
+        char especiePet[15];
+        printf("Digite a especie do animal:\t");
+        scanf("%s", especiePet);
+
+        
+        insertPet(nomePet, &idadePet, sexoPet, especiePet);
+      }
+
+      
+    }
+      
+
+     
 }
 
 void telaSobre(void)
@@ -735,6 +843,15 @@ void telaCadastrarUsuario(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     
+
+   
+
+    char nomeUsuarioMod[20];
+    printf("Preencha o Formulario\n");
+    printf("Nome Usuario: ");
+    scanf("%s", nomeUsuarioMod);
+
+    cadastroUsuario(nomeUsuarioMod);
     int escolha;
 
     printf("0. Voltar \nEscolha: ");
@@ -749,6 +866,18 @@ void telaCadastrarUsuario(void){
         
     }
 }
+
+void cadastroUsuario(char *nomeUsuarioMod){
+ //utilizando o ponteiro * : estamos referenciando a variavel da função anterior
+ //desse
+
+    FILE *modUsuarioCad;
+    modUsuarioCad = fopen("ModCadastroUsuario.txt", "w");
+    fprintf(modUsuarioCad, "NOME USUARIO: %s", nomeUsuarioMod);
+    fclose(modUsuarioCad);
+    
+}
+
 
 void telaEditarUsuario(void){
     system("clear");
@@ -1062,57 +1191,22 @@ void telaPesquisarUsuario(void){
     }
 }
 
-void insertPet(void){
+void insertPet(char *nomePet, int* idadePet, char *sexoPet, char* especiePet){
+
+  
 
     FILE *pontGravar; //criando ponteiro
-
-    pontGravar = fopen("cadastro_pet.txt", "a"); //criando arquivo
-
+    pontGravar = fopen("INSERT_PET.txt", "a"); //criando arquivo
     char organizador[60] = "=======================================\n";
-
     fprintf(pontGravar, "%s\n", organizador);
-
-    char nomePet[20];
-    printf("Digite o nome do animal:\t");
-    scanf("%s", nomePet); // Fazendo a leitura do numero digitado acima 0.3
     fprintf(pontGravar, "NOME: %s\n", nomePet);
-
-    int idadePet;
-    printf("Digite a idade do animal:\t");
-    scanf("%d", &idadePet); // Fazendo a leitura do numero digitado acima 0.3
-    fprintf(pontGravar, "IDADE: %d\n", idadePet);
-
-    char sexoPet[1];
-    printf("Digite o sexo do animal:\t");
-    scanf("%s", sexoPet); // Fazendo a leitura do numero digitado acima 0.3
+    fprintf(pontGravar, "IDADE: %d\n", *idadePet);
     fprintf(pontGravar, "SEXO: %s\n", sexoPet);
-
-    char especiePet[15];
-    printf("Digite a especie do animal:\t");
-    scanf("%s", especiePet); // Fazendo a leitura do numero digitado acima 0.3
     fprintf(pontGravar, "ESPECIE: %s\n", especiePet);
 
-    char donoPet[20];
-    printf("Digite o primeiro nome do dono do animal:\t");
-    scanf("%s", donoPet); // Fazendo a leitura do numero digitado acima 0.3
-    fprintf(pontGravar, "DONO: %s\n", donoPet);
-
     fclose(pontGravar);
-
-    int perg;
-    printf("Deseja fazer um novo cadastro?\n1. Novo Cadastro\n2. Concluir Cadastro\nSua Escolha: ");
-    scanf("%d", &perg); // Fazendo a leitura do numero digitado acima direcionando ao if 0.3
-
-    while (perg == 1){
-        insertPet();
-    }
-
-    if(perg == 2){
-        moduloPet();
-    }
+  
 }
-
-
 
 
 // AINDA NÃO ESTÁ FUNCIONANDO CORRETAMENTE
