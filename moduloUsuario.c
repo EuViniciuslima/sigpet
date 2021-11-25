@@ -4,6 +4,17 @@
 #include <string.h>
 #include "moduloUsuario.h"
 
+typedef struct {
+    char nome[30];
+    int idade;
+    char email[20];
+    char telefone[20];
+    char bairro[15];
+    int numeroResidencial;
+
+}Usuario;
+
+Usuario USU;
 
 void navUsuario(void){
   int opcao;
@@ -29,6 +40,7 @@ void pesquisarUsuario(void){
 }
 void cadastrarUsuario(void){
   telaCadastrarUsuario();
+  validacao();
 }
 void editarUsuario(void){
   telaEditarUsuario();
@@ -37,6 +49,70 @@ void deletarUsuario(void){
   telaDeletarUsuario();
 }
 
+
+
+int validaEmail(char *email, int *emailValido){
+
+    int arroba;
+    int ponto;
+
+    int tamanho = strlen(email);
+    int contador;
+
+    for(contador = 0; contador < tamanho; contador ++){
+      if(email[contador] == '@'){
+        arroba = 1;
+      }
+      if(email[contador] == '.'){
+        ponto = 1;
+      }
+    }
+    if(arroba == 1 && ponto == 1){
+      *emailValido = 1;
+    }
+    return *emailValido;
+}
+
+
+void validacao(void){
+   int emailValido = 0;
+
+   char email[20];
+   
+
+    do{
+      printf("Email: ");
+      scanf("%s", email);
+      
+      validaEmail(email, &emailValido);
+
+      if(emailValido == 0){
+        printf("EMAIL INVALIDO!\n");
+      }
+    }while(emailValido != 1);
+
+    insertStructUsu(email);
+    exibirCadastroStruct();
+}
+
+void insertStructUsu(char *email){
+  
+    strcpy(USU.email, email);
+    criarArquivoCadastro();
+}
+
+void criarArquivoCadastro(void){
+  FILE *gravarCadADM;
+  gravarCadADM = fopen("CadastroADM.txt","w");
+  fprintf(gravarCadADM, "EMAIL: %s\n", USU.email);
+  fclose(gravarCadADM);
+}
+
+void exibirCadastroStruct(void){
+  
+    printf("Email Registrado: %s\n", USU.email);
+   
+}
 
 int menuUsuario(void){
     
