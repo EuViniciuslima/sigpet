@@ -6,7 +6,7 @@
 void navPet(void){
   int opcao;
   do{
-    opcao = moduloPet();
+    opcao = menuPet();
     switch(opcao){
       case 1: cadastrarPet();
       break;
@@ -24,7 +24,7 @@ void navPet(void){
 
 
 
-int moduloPet(void){
+int menuPet(void){
    
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
