@@ -13,7 +13,7 @@ int telaEditarUsuario(void);
 
 
 void validacao(void);
-int validaEmail(char*, int*);
-void insertStructUsu(char*);
+
+void insertStructUsu(char*, char*, char*);
 void criarArquivoCadastro(void);
 void exibirCadastroStruct(void);

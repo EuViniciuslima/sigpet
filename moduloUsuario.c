@@ -2,19 +2,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "moduloUsuario.h"
+#include "util.h"
 
 typedef struct {
+   char bairro[15];
+   char cidade[10];
+   char uf[2];
+   char cep[9];
+   int numeroResidencial;
+
+}Endereco;
+
+
+typedef struct {
+    int idUsuario;
     char nome[30];
     int idade;
     char email[20];
+    char cpf[14];
     char telefone[20];
-    char bairro[15];
-    int numeroResidencial;
-
+    
+    Endereco endereco;
 }Usuario;
 
+
+
 Usuario USU;
+Endereco END;
 
 void navUsuario(void){
   int opcao;
@@ -30,9 +46,7 @@ void navUsuario(void){
       case 4: deletarUsuario();
       break;
     }
-
   }while(opcao!= 0);
- 
 }
 
 void pesquisarUsuario(void){
@@ -51,66 +65,68 @@ void deletarUsuario(void){
 
 
 
-int validaEmail(char *email, int *emailValido){
-
-    int arroba;
-    int ponto;
-
-    int tamanho = strlen(email);
-    int contador;
-
-    for(contador = 0; contador < tamanho; contador ++){
-      if(email[contador] == '@'){
-        arroba = 1;
-      }
-      if(email[contador] == '.'){
-        ponto = 1;
-      }
-    }
-    if(arroba == 1 && ponto == 1){
-      *emailValido = 1;
-    }
-    return *emailValido;
-}
 
 
 void validacao(void){
    int emailValido = 0;
+   int cpfValido = 0;
+   int cepValido = 0;
 
    char email[20];
+   char cpf[14];
+   char cep[9];
    
 
-    do{
-      printf("Email: ");
-      scanf("%s", email);
-      
-      validaEmail(email, &emailValido);
+   do{
+    printf("Email: ");
+    scanf("%s", email);
+    validaEmail(email, &emailValido);
+    if(emailValido == 0){
+      printf("EMAIL INVALIDO!\n");
+    }
+   }while(emailValido != 1);
+   do{
+     printf("CPF: ");
+     scanf("%s", cpf);
+     validaCpf(cpf, &cpfValido);
+     if(cpfValido == 0){
+       printf("CPF INVALIDO\n");
+     }
+   }while(cpfValido != 1);
+   do{
+     printf("CEP: ");
+     scanf("%s", cep);
+     validaCep(cep, &cepValido);
+     if(cepValido == 0){
+       printf("CEP INVALIDO\n");
+     }
+   }while(cepValido != 1);
 
-      if(emailValido == 0){
-        printf("EMAIL INVALIDO!\n");
-      }
-    }while(emailValido != 1);
 
-    insertStructUsu(email);
+    insertStructUsu(email, cpf, cep);
     exibirCadastroStruct();
 }
 
-void insertStructUsu(char *email){
-  
+void insertStructUsu(char *email, char *cpf, char *cep){
+
     strcpy(USU.email, email);
+    strcpy(USU.cpf, cpf);
+    strcpy(END.cep, cep);
     criarArquivoCadastro();
 }
 
 void criarArquivoCadastro(void){
-  FILE *gravarCadADM;
-  gravarCadADM = fopen("CadastroADM.txt","w");
-  fprintf(gravarCadADM, "EMAIL: %s\n", USU.email);
-  fclose(gravarCadADM);
+  FILE *gravarCadUsu;
+  gravarCadUsu = fopen("USUARIOS_CADASTRADOS.txt","w");
+  fprintf(gravarCadUsu, "EMAIL: %s\n", USU.email);
+  fprintf(gravarCadUsu, "CPF: %s\n", USU.cpf);
+  fclose(gravarCadUsu);
 }
 
 void exibirCadastroStruct(void){
   
     printf("Email Registrado: %s\n", USU.email);
+    printf("CPF Registrado: %s\n", USU.cpf);
    
 }
 
@@ -119,9 +135,9 @@ int menuUsuario(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///                 Centro de Ensino Superior do Serido                     ///\n");
+    printf("///               Departamento de Computacao e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programacao                      ///\n");
     printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
     printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
     printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
@@ -150,9 +166,9 @@ int telaCadastrarUsuario(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///                 Centro de Ensino Superior do Serido                     ///\n");
+    printf("///               Departamento de Computacao e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programacao                      ///\n");
     printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
     printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
     printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
@@ -161,9 +177,9 @@ int telaCadastrarUsuario(void){
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Email                                                     ///\n");
+    printf("///            Email:                                                     ///\n");
     printf("///            2. Senha                                                     ///\n");
-    printf("///            3. Confirmação de senha                                      ///\n");
+    printf("///            3. Confirmacao de senha                                      ///\n");
     printf("///            4. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -214,9 +230,9 @@ int telaEditarUsuario(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///                 Centro de Ensino Superior do Serido                     ///\n");
+    printf("///               Departamento de Computacao e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programacao                      ///\n");
     printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
     printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
     printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
@@ -249,9 +265,9 @@ int telaDeletarUsuario(void){
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///                 Centro de Ensino Superior do Serido                     ///\n");
+    printf("///               Departamento de Computacao e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programacao                      ///\n");
     printf("///        Projeto Sistema de Agendamento de Consultas para Pets            ///\n");
     printf("///                Developed by  @OliveiraAnna99 - Out, 2021                ///\n");
     printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
