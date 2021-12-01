@@ -77,6 +77,7 @@ void validacao(void){
    char cpf[14];
    char cep[9];
    char telefone[10];
+    
    //
 
    do{
