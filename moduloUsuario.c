@@ -71,11 +71,13 @@ void validacao(void){
    int emailValido = 0;
    int cpfValido = 0;
    int cepValido = 0;
+   int telValido = 0;
 
    char email[20];
    char cpf[14];
    char cep[9];
-   
+   char telefone[10];
+   //
 
    do{
     printf("Email: ");
@@ -101,17 +103,26 @@ void validacao(void){
        printf("CEP INVALIDO\n");
      }
    }while(cepValido != 1);
+   do{
+     printf("TEL: ");
+     scanf("%s", telefone);
+     validaPhone(telefone, &telValido);
+     if(telValido == 0){
+       printf("TELEFONE INVALIDO\n");
+     }
+   }while(telValido != 1);
 
 
-    insertStructUsu(email, cpf, cep);
+    insertStructUsu(email, cpf, cep, telefone);
     exibirCadastroStruct();
 }
 
-void insertStructUsu(char *email, char *cpf, char *cep){
+void insertStructUsu(char *email, char *cpf, char *cep, char *telefone){
 
     strcpy(USU.email, email);
     strcpy(USU.cpf, cpf);
     strcpy(END.cep, cep);
+    strcpy(USU.telefone, telefone);
     criarArquivoCadastro();
 }
 

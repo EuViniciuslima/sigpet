@@ -14,6 +14,6 @@ int telaEditarUsuario(void);
 
 void validacao(void);
 
-void insertStructUsu(char*, char*, char*);
+void insertStructUsu(char*, char*, char*, char*);
 void criarArquivoCadastro(void);
 void exibirCadastroStruct(void);

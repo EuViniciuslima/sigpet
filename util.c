@@ -84,3 +84,28 @@ int validaCep(char *cep, int *cepValido){
     }
     return *cepValido;
 }
+
+int validaPhone(char *telefone, int *telValido){
+    int tamanho;
+    int isNumber;
+    int tamanhoAdequado = 0;
+    int tamanhoMaximo = 10;
+    int traco = 0;
+    //99999-9999
+    tamanho = strlen(telefone);
+
+    if(tamanho == tamanhoMaximo){
+      tamanhoAdequado = 1;
+    }
+    if(telefone[5] == '-'){
+      traco = 1;
+    }
+    if(isdigit(telefone[0]) && isdigit(telefone[1]) && isdigit(telefone[2]) && isdigit(telefone[3]) && isdigit(telefone[4]) && isdigit(telefone[6]) && isdigit(telefone[7]) && isdigit(telefone[8]) && isdigit(telefone[9])){
+      isNumber = 1;
+    }
+
+    if(isNumber == 1 && tamanhoAdequado ==1 && traco == 1){
+      *telValido =1;
+    }
+    return *telValido;
+}
