@@ -26,17 +26,9 @@ int validaCpf(char *cpf, int *cpfValido){
     traco = 1;
   }
     
-  int cont = 0;
-  while(cont < tamanhoMaximo){
-    if(isdigit(cpf[cont])){
-      isNumber =1;
-    }
-    else{
-      cont = tamanhoMaximo;
-    }
-    cont ++;
+  if(isdigit(cpf[0]) && isdigit(cpf[1]) && isdigit(cpf[2]) && isdigit(cpf[4]) && isdigit(cpf[5]) && isdigit(cpf[6]) && isdigit(cpf[8]) && isdigit(cpf[9]) && isdigit(cpf[10]) && isdigit(cpf[12]) && isdigit(cpf[13])){
+    isNumber = 1;
   }
-    
   
   if(traco == 1 && ponto == 1 && tamanhoAdequado == 1 && isNumber ==1){
     *cpfValido = 1; 
@@ -82,17 +74,11 @@ int validaCep(char *cep, int *cepValido){
     if(cep[5] == '-'){
         traco = 1;
     } 
-    int cont = 0;
-    while(cont < tamanhoMaximo){
-      if(isdigit(cep[cont])){
-        isNumber =1;
-      }
-      else{
-        cont = tamanhoMaximo;
-      }
-      cont ++;
-    }
-    if(isNumber ==1 && tamanhoAdequado ==1 && traco ==1){
+    if(isdigit(cep[0]) && isdigit(cep[1]) && isdigit(cep[2]) && isdigit(cep[3]) && isdigit(cep[4]) && isdigit(cep[6]) && isdigit(cep[7]) && isdigit(cep[8])){
+      isNumber = 1;
+    } 
+
+    if(traco == 1 && isNumber == 1 && tamanhoAdequado == 1){
       *cepValido = 1;
     }
     return *cepValido;
@@ -113,19 +99,42 @@ int validaPhone(char *telefone, int *telValido){
     if(telefone[5] == '-'){
       traco = 1;
     }
-    int cont = 0;
-    while(cont < tamanhoMaximo){
-      if(isdigit(telefone[cont])){
-        isNumber =1;
-      }
-      else{
-        cont = tamanhoMaximo;
-      }
-      cont ++;
+    
+    if(isdigit(telefone[0]) && isdigit(telefone[1]) && isdigit(telefone[2]) && isdigit(telefone[3]) && isdigit(telefone[4]) && isdigit(telefone[6]) && isdigit(telefone[7]) && isdigit(telefone[8]) && isdigit(telefone[9])){
+      isNumber = 1;
     }
 
     if(isNumber == 1 && tamanhoAdequado ==1 && traco == 1){
       *telValido =1;
     }
     return *telValido;
+}
+
+int validaRG(char *rg, int* rgValido){
+  int tamanhoRG;
+  tamanhoRG = strlen(rg);
+  int tamanhoAdequado = 0;
+  int ponto = 0;
+  int traco = 0;
+  int isNumber = 0;
+
+  int tamanhoMaximo = 12;
+  if(tamanhoRG == tamanhoMaximo){
+    tamanhoAdequado =1;
+  }
+  if(rg[2] == '.' && rg[6] == '.'){
+    ponto =1;
+  }
+  if(rg[10] == '-'){
+    traco =1;
+  }
+  
+  if(isdigit(rg[0]) && isdigit(rg[1]) && isdigit(rg[3]) && isdigit(rg[4]) && isdigit(rg[5]) && isdigit(rg[7]) &&  isdigit(rg[8]) && isdigit(rg[9]) && isdigit(rg[11])){
+    isNumber = 1;
+  }
+  if(traco == 1 && isNumber == 1 && ponto  == 1 && tamanhoAdequado == 1){
+    *rgValido = 1;
+  }
+  return *rgValido;
+  //'99.999.999-9'
 }

@@ -72,12 +72,15 @@ void validacao(void){
    int cpfValido = 0;
    int cepValido = 0;
    int telValido = 0;
+   int rgValido = 0;
+  
 
    char email[20];
    char cpf[14];
    char cep[9];
    char telefone[10];
-    
+   char rg[12];
+  
    //
 
    do{
@@ -112,7 +115,15 @@ void validacao(void){
        printf("TELEFONE INVALIDO\n");
      }
    }while(telValido != 1);
-
+   do{
+     printf("RG: ");
+     scanf("%s", rg);
+     validaRG(rg, &rgValido);
+     if(rgValido == 0){
+       printf("RG INVALIDO\n");
+     }
+   }while(rgValido != 1);
+  
 
     insertStructUsu(email, cpf, cep, telefone);
     exibirCadastroStruct();
@@ -122,7 +133,7 @@ void insertStructUsu(char *email, char *cpf, char *cep, char *telefone){
 
     strcpy(USU.email, email);
     strcpy(USU.cpf, cpf);
-    strcpy(END.cep, cep);
+    strcpy(USU.endereco.cep, cep);
     strcpy(USU.telefone, telefone);
     criarArquivoCadastro();
 }
@@ -137,8 +148,8 @@ void criarArquivoCadastro(void){
 
 void exibirCadastroStruct(void){
   
-    printf("Email Registrado: %s\n", USU.email);
-    printf("CPF Registrado: %s\n", USU.cpf);
+   printf("Email Registrado: %s\n", USU.email);
+   printf("CPF Registrado: %s\n", USU.cpf);
    
 }
 
@@ -189,7 +200,7 @@ int telaCadastrarUsuario(void){
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Email:                                                     ///\n");
+    printf("///            1. Email:                                                       ///\n");
     printf("///            2. Senha                                                     ///\n");
     printf("///            3. Confirmacao de senha                                      ///\n");
     printf("///            4. Sair                                                      ///\n");
