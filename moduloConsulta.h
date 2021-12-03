@@ -1,7 +1,6 @@
 void navConsulta(void);
 int menuConsulta(void);
 
-
 void pesquisarConsulta(void);
 void deletarConsulta(void);
 void cadastrarConsulta(void);
