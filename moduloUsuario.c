@@ -6,31 +6,13 @@
 #include "moduloUsuario.h"
 #include "util.h"
 
-typedef struct {
-   char bairro[15];
-   char cidade[10];
-   char uf[2];
-   char cep[9];
-   int numeroResidencial;
-
-}Endereco;
-
-
-typedef struct {
-    int idUsuario;
-    char nome[30];
-    int idade;
-    char email[20];
-    char cpf[14];
-    char telefone[20];
-    
-    Endereco endereco;
-}Usuario;
 
 
 
-Usuario USU;
-Endereco END;
+typedef struct Usuario USU;
+
+
+
 
 void navUsuario(void){
   int opcao;
@@ -54,7 +36,8 @@ void pesquisarUsuario(void){
 }
 void cadastrarUsuario(void){
   telaCadastrarUsuario();
-  validacao();
+  
+  
 }
 void editarUsuario(void){
   telaEditarUsuario();
@@ -67,91 +50,9 @@ void deletarUsuario(void){
 
 
 
-void validacao(void){
-   int emailValido = 0;
-   int cpfValido = 0;
-   int cepValido = 0;
-   int telValido = 0;
-   int rgValido = 0;
-  
 
-   char email[20];
-   char cpf[14];
-   char cep[9];
-   char telefone[10];
-   char rg[12];
-  
-   //
 
-   do{
-    printf("Email: ");
-    scanf("%s", email);
-    validaEmail(email, &emailValido);
-    if(emailValido == 0){
-      printf("EMAIL INVALIDO!\n");
-    }
-   }while(emailValido != 1);
-   do{
-     printf("CPF: ");
-     scanf("%s", cpf);
-     validaCpf(cpf, &cpfValido);
-     if(cpfValido == 0){
-       printf("CPF INVALIDO\n");
-     }
-   }while(cpfValido != 1);
-   do{
-     printf("CEP: ");
-     scanf("%s", cep);
-     validaCep(cep, &cepValido);
-     if(cepValido == 0){
-       printf("CEP INVALIDO\n");
-     }
-   }while(cepValido != 1);
-   do{
-     printf("TEL: ");
-     scanf("%s", telefone);
-     validaPhone(telefone, &telValido);
-     if(telValido == 0){
-       printf("TELEFONE INVALIDO\n");
-     }
-   }while(telValido != 1);
-   do{
-     printf("RG: ");
-     scanf("%s", rg);
-     validaRG(rg, &rgValido);
-     if(rgValido == 0){
-       printf("RG INVALIDO\n");
-     }
-   }while(rgValido != 1);
-  
 
-    insertStructUsu(email, cpf, cep, telefone);
-    exibirCadastroStruct();
-}
-
-void insertStructUsu(char *email, char *cpf, char *cep, char *telefone){
-
-    strcpy(USU.email, email);
-    strcpy(USU.cpf, cpf);
-    strcpy(USU.endereco.cep, cep);
-    strcpy(USU.telefone, telefone);
-    criarArquivoCadastro();
-}
-
-void criarArquivoCadastro(void){
-  FILE *gravarCadUsu;
-  gravarCadUsu = fopen("USUARIOS_CADASTRADOS.txt","w");
-  fprintf(gravarCadUsu, "EMAIL: %s\n", USU.email);
-  fprintf(gravarCadUsu, "CPF: %s\n", USU.cpf);
-  fclose(gravarCadUsu);
-}
-
-void exibirCadastroStruct(void){
-  
-   printf("Email Registrado: %s\n", USU.email);
-   printf("CPF Registrado: %s\n", USU.cpf);
-   
-}
 
 int menuUsuario(void){
     
@@ -186,6 +87,12 @@ int menuUsuario(void){
 }
 
 int telaCadastrarUsuario(void){
+  
+    char email[50];
+    char cep[10];
+    char telefone[11];
+    char cpf[15];
+    char rg[12];
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -200,10 +107,37 @@ int telaCadastrarUsuario(void){
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Email:                                                       ///\n");
-    printf("///            2. Senha                                                     ///\n");
-    printf("///            3. Confirmacao de senha                                      ///\n");
-    printf("///            4. Sair                                                      ///\n");
+    
+    do{ 
+      printf("///           Email:");
+      scanf(" %[a-z0-9@.]", email); 
+      getchar();
+      validaEmail(email);
+    }while(!validaEmail(email));
+    do{ 
+      printf("///           CEP (Apenas Numeros):");
+      scanf(" %[0-9]",cep);
+      validaCep(cep);
+      getchar();
+    }while(!validaCep(cep));
+    do{ 
+      printf("///            Phone (Apenas Numeros):");
+      scanf(" %[0-9]",telefone);
+      getchar();
+      validaPhone(telefone);
+    }while(!validaPhone(telefone));
+    do{ 
+      printf("///            CPF (Apenas Numeros):");
+      scanf(" %[0-9]",cpf);
+      getchar();
+      validaCpf(cpf);
+    }while(!validaCpf(cpf));
+    do{ 
+      printf("///            RG (Apenas Numeros):");
+      scanf(" %[0-9]",rg);
+      getchar();
+      validaRg(rg);
+    }while(!validaRg(rg));
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");

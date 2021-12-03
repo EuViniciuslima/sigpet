@@ -1,5 +1,5 @@
-int validaEmail(char*, int*);
-int validaCpf(char*, int*);
-int validaCep(char*, int*);
-int validaPhone(char*, int*);
-int validaRG(char*, int*);
+int validaEmail(char*);
+int validaCpf(char*);
+int validaCep(char*);
+int validaPhone(char*);
+int validaRg(char*);

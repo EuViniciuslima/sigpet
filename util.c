@@ -1,140 +1,94 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+
+int ehDigito(char num){
+  if(num >= '0' && num <= '9'){
+    return 1;
+  }else{
+    return 0;
+  }
+}
 
 
-int validaCpf(char *cpf, int *cpfValido){
+int validaCpf(char *cpf){
+  //000.000.000-00\0
+  int i;
+  int tam = strlen(cpf);
+  if(tam != 11){
+    return 0;
+  }
+  for(i = 0; cpf[i]!='\0'; i++){
+    if(!ehDigito(cpf[i])){
+      return 0;
+    }
+  }
+  return 1;
+}
+
+
+int validaEmail(char* email){
+  int i;
   int ponto = 0;
-  int traco = 0;
-  int tamanhoAdequado = 0;
-  int tamanhoMaximo = 14;
-  int isNumber = 0;
-  int tamanhoCpf;
- 
-  
-  tamanhoCpf = strlen(cpf);
-
-  if(tamanhoCpf == tamanhoMaximo){
-    tamanhoAdequado = 1;
-  }
-  if(cpf[3] == '.' && cpf[7] == '.'){
-    ponto = 1;
-  }
-    
-  if(cpf[11] == '-'){
-    traco = 1;
-  }
-    
-  if(isdigit(cpf[0]) && isdigit(cpf[1]) && isdigit(cpf[2]) && isdigit(cpf[4]) && isdigit(cpf[5]) && isdigit(cpf[6]) && isdigit(cpf[8]) && isdigit(cpf[9]) && isdigit(cpf[10]) && isdigit(cpf[12]) && isdigit(cpf[13])){
-    isNumber = 1;
-  }
-  
-  if(traco == 1 && ponto == 1 && tamanhoAdequado == 1 && isNumber ==1){
-    *cpfValido = 1; 
-  }
-  return *cpfValido;
-}
-
-
-int validaEmail(char *email, int *emailValido){
-
-    int arroba;
-    int ponto;
-    int tamanho = strlen(email);
-    int contador;
-
-    for(contador = 0; contador < tamanho; contador ++){
-      if(email[contador] == '@'){
-        arroba = 1;
-      }
-      if(email[contador] == '.'){
-        ponto = 1;
-      }
+  int arroba = 0;
+  for(i= 0; email[i]!='\0'; i++){
+    if(email[i] == '.'){
+       ponto = 1;
     }
-    if(arroba == 1 && ponto == 1){
-      *emailValido = 1;
-    }
-    return *emailValido;
-}
-
-int validaCep(char *cep, int *cepValido){
-    int tamanhoCep;
-    int isNumber = 0;
-    int tamanhoAdequado = 0;
-    int tamanhoMaximo = 9 ;
-    int traco = 0;
-    
-    
-    tamanhoCep = strlen(cep);
-
-    if(tamanhoCep == tamanhoMaximo){
-      tamanhoAdequado = 1;
-    }
-    if(cep[5] == '-'){
-        traco = 1;
+    if(email[i] == '@'){
+      arroba = 1;
     } 
-    if(isdigit(cep[0]) && isdigit(cep[1]) && isdigit(cep[2]) && isdigit(cep[3]) && isdigit(cep[4]) && isdigit(cep[6]) && isdigit(cep[7]) && isdigit(cep[8])){
-      isNumber = 1;
-    } 
-
-    if(traco == 1 && isNumber == 1 && tamanhoAdequado == 1){
-      *cepValido = 1;
-    }
-    return *cepValido;
+  }
+  if(ponto == 1 && arroba == 1){
+    return 1;
+  }else{
+    return 0;
+  }
 }
 
-int validaPhone(char *telefone, int *telValido){
-    int tamanho;
-    int isNumber;
-    int tamanhoAdequado = 0;
-    int tamanhoMaximo = 10;
-    int traco = 0;
-    //99999-9999
-    tamanho = strlen(telefone);
+int validaCep(char *cep){
+  //00000-000\0
+  int i;
+  int tam = strlen(cep);
 
-    if(tamanho == tamanhoMaximo){
-      tamanhoAdequado = 1;
+  if(tam != 8){
+    return 0;
+  }
+  for(i = 0; cep[i]!='\0'; i++){
+    if(!ehDigito(cep[i])){
+      return 0;
     }
-    if(telefone[5] == '-'){
-      traco = 1;
+  }
+  return 1;
+}
+int validaPhone(char *telefone){
+  //00000-0000\0
+  int i;
+  int tam = strlen(telefone);
+  if(tam != 9){
+    return 0;
+  }
+  for(i = 0; telefone[i]!='\0'; i++){
+    if(!ehDigito(telefone[i])){
+      return 0;
     }
-    
-    if(isdigit(telefone[0]) && isdigit(telefone[1]) && isdigit(telefone[2]) && isdigit(telefone[3]) && isdigit(telefone[4]) && isdigit(telefone[6]) && isdigit(telefone[7]) && isdigit(telefone[8]) && isdigit(telefone[9])){
-      isNumber = 1;
-    }
-
-    if(isNumber == 1 && tamanhoAdequado ==1 && traco == 1){
-      *telValido =1;
-    }
-    return *telValido;
+  }
+  return 1;
 }
 
-int validaRG(char *rg, int* rgValido){
-  int tamanhoRG;
-  tamanhoRG = strlen(rg);
-  int tamanhoAdequado = 0;
-  int ponto = 0;
-  int traco = 0;
-  int isNumber = 0;
-
-  int tamanhoMaximo = 12;
-  if(tamanhoRG == tamanhoMaximo){
-    tamanhoAdequado =1;
+int validaRg(char *rg){
+  //00.000.000-0\0
+  int i;
+  int tam = strlen(rg);
+  if(tam != 9){
+    return 0;
   }
-  if(rg[2] == '.' && rg[6] == '.'){
-    ponto =1;
+  for(i = 0; rg[i]!='\0'; i++){
+    if(!ehDigito(rg[i])){
+      return 0;
+    }
   }
-  if(rg[10] == '-'){
-    traco =1;
-  }
-  
-  if(isdigit(rg[0]) && isdigit(rg[1]) && isdigit(rg[3]) && isdigit(rg[4]) && isdigit(rg[5]) && isdigit(rg[7]) &&  isdigit(rg[8]) && isdigit(rg[9]) && isdigit(rg[11])){
-    isNumber = 1;
-  }
-  if(traco == 1 && isNumber == 1 && ponto  == 1 && tamanhoAdequado == 1){
-    *rgValido = 1;
-  }
-  return *rgValido;
-  //'99.999.999-9'
+  return 1;
 }
+
+
