@@ -61,6 +61,58 @@ int validaCep(char *cep){
   }
   return 1;
 }
+int isNull(char num){
+  if(num == '\0'){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+void maskCpf(char *cpf){
+ int i;
+ int j = 0;
+ int k = 0;
+ int cont = 0;
+ char mask [4] = {'.','.','-','\0'};
+ char newCpf[20];
+
+ for(i=0; i<=14; i++){
+   if(i ==3 || i == 7 || i== 11){
+     newCpf[i] = mask[k];
+     j = i - cont;
+     cont += 1;
+     k+=1;
+   }else{
+     newCpf[i] = cpf[j];
+     j++;
+   }
+ }
+ printf("%s\n", newCpf);
+ }
+
+
+void maskCep(char *cep){
+ int i;
+ int j = 0;
+ char newCep[20];
+ 
+ for(i=0; i<=9; i++){
+   if(i == 5){
+     newCep[i] = '-';
+     j = i;
+   }else{
+     newCep[i] = cep[j];
+     j++;
+   }
+ }
+ printf("%s\n", newCep);
+ }
+
+ 
+
+
+
 int validaPhone(char *telefone){
   //00000-0000\0
   int i;
@@ -75,6 +127,23 @@ int validaPhone(char *telefone){
   }
   return 1;
 }
+
+void maskPhone(char *telefone){
+ int i;
+ int j = 0;
+ char newPhone[20];
+ 
+ for(i=0; i<=10; i++){
+   if(i == 5){
+     newPhone[i] = '-';
+     j = i;
+   }else{
+     newPhone[i] = telefone[j];
+     j++;
+   }
+ }
+ printf("%s\n", newPhone);
+ }
 
 int validaRg(char *rg){
   //00.000.000-0\0
@@ -91,4 +160,26 @@ int validaRg(char *rg){
   return 1;
 }
 
+
+void maskRg(char *rg){
+ int i;
+ int j = 0;
+ int k = 0;
+ int cont = 0;
+ char mask [4] = {'.','.','-','\0'};
+ char newRg[20];
+
+ for(i=0; i<=12; i++){
+   if(i ==2 || i == 6 || i== 10){
+     newRg[i] = mask[k];
+     j = i - cont;
+     cont += 1;
+     k+=1;
+   }else{
+     newRg[i] = rg[j];
+     j++;
+   }
+ }
+ printf("%s\n", newRg);
+ }
 

@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "moduloUsuario.h"
 #include "util.h"
 
@@ -118,6 +117,7 @@ int telaCadastrarUsuario(void){
       printf("///           CEP (Apenas Numeros):");
       scanf(" %[0-9]",cep);
       validaCep(cep);
+      maskCep(cep);
       getchar();
     }while(!validaCep(cep));
     do{ 
@@ -125,18 +125,23 @@ int telaCadastrarUsuario(void){
       scanf(" %[0-9]",telefone);
       getchar();
       validaPhone(telefone);
+      maskPhone(telefone);
     }while(!validaPhone(telefone));
     do{ 
       printf("///            CPF (Apenas Numeros):");
       scanf(" %[0-9]",cpf);
       getchar();
       validaCpf(cpf);
+      maskCpf(cpf);
+     
     }while(!validaCpf(cpf));
     do{ 
       printf("///            RG (Apenas Numeros):");
       scanf(" %[0-9]",rg);
       getchar();
       validaRg(rg);
+      maskRg(rg);
+
     }while(!validaRg(rg));
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
