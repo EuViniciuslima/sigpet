@@ -40,5 +40,7 @@
 
 <h1> Creditos </h1>
 
-Modelo d e  Telas Adaptado de @flgorgonio<br>
+Modelo de  Telas Adaptado de @flgorgonio<br>
+Função de Validação de Digitos Desenvolvido por @flgornio<br>
+Demais Funções de Validações Adaptado de @flgorgonio<br>
 Função de Cadastro  Adaptado de Eduardo Casavella

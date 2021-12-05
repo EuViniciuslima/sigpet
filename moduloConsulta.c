@@ -83,6 +83,11 @@ void deletarConsulta(void)
 int telaCadastrarConsulta(void)
 {
 
+  char cadConsult[9];
+  char nomePaciente[15];
+  char nomeRespon[15];
+  char cadDescri[60];
+
   printf("                                                                          - □ x\n");
   printf("\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -111,6 +116,18 @@ int telaCadastrarConsulta(void)
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
+
+  printf("Data da consulta:\t");
+  scanf("%s", cadConsult);
+
+  printf("Nome do Paciente(Pet):\t");
+  scanf("%s", nomePaciente);
+
+  printf("Dono/Responsavel:\t");
+  scanf("%s", nomeRespon);
+
+  printf("Descrição:\t");
+  scanf("%s", cadDescri);
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
