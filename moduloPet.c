@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "moduloPet.h"
+#include "util.h"
 
 void navPet(void)
 {
@@ -65,15 +66,9 @@ int menuPet(void)
   return escolha;
 }
 
-typedef struct
-{
-  char nome[20];
-  int idade;
-  char sexo;
-  char especie[15];
-} Pet;
 
-Pet PET;
+
+typedef struct Pet PET;
 
 void cadastrarPet(void)
 {
@@ -97,7 +92,10 @@ void deletarPet(void)
 
 int telaCadastrarPet(void)
 {
-
+  char nomePet[50];
+  char sexoPet[10] = {'f'};
+  char nomeDono[50];
+  char especiePet[50];
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -116,22 +114,44 @@ int telaCadastrarPet(void)
   printf("///           = = = = = = = = =  Cadastro Pet = = = = = = = =               ///\n");
   printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
   printf("///                                                                         ///\n");
-  printf("///            Nome do Pet:                                                 ///\n");
-  printf("///            Idade do Pet:                                                ///\n");
-  printf("///            Sexo do Pet:                                                 ///\n");
-  printf("///            Especie do Pet:                                              ///\n");
-  printf("///            Dono:                                                        ///\n");
+  do{
+    printf("///            Nome do Pet:");
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomePet);
+    getchar();
+    validaNome(nomePet);
+  }while(!validaNome(nomePet));
+  do{
+    printf("///            Sexo do Pet:");
+    scanf("%c", sexoPet);
+    getchar();
+    validaSexo(sexoPet);
+  }while(!validaSexo(sexoPet));
+  
+  printf("///            Idade do Pet:");
+  do{
+    printf("///            Especie do Pet:");
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", especiePet);
+    getchar();
+    validaNome(especiePet);
+  }while(!validaNome(especiePet));
+  do{
+    printf("///            Dono:");
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeDono);
+    getchar();
+    validaNome(nomeDono);
+  }while(!validaNome(nomeDono));
+ 
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
-  validaDadosPet();
+  
 
   int escolha;
   printf("0. Voltar \nEscolha: ");
   scanf("%d", &escolha);
   return escolha;
 }
-
+/*
 void validaDadosPet(void)
 {
 
@@ -180,8 +200,8 @@ void validaDadosPet(void)
     structPet(&idade, nome, especie, &sexo);
     exibirCadastroStructPet();
   }
-}
-
+}*/
+/*
 void structPet(int *idade, char *nome, char *especie, char *sexo)
 {
   strcpy(PET.nome, nome);
@@ -195,22 +215,22 @@ void structPet(int *idade, char *nome, char *especie, char *sexo)
 void exibirCadastroStructPet(void)
 {
 
-  printf("Nome Pet: %s\n", PET.nome);
-  printf("Idade Pet: %d\n", PET.idade);
-  printf("Sexo Pet: %c\n", PET.sexo);
-  printf("Especie Pet: %s\n", PET.especie);
+  //printf("Nome Pet: %s\n", PET.nome);
+ // printf("Idade Pet: %d\n", PET.idade);
+  //printf("Sexo Pet: %c\n", PET.sexo);
+  //printf("Especie Pet: %s\n", PET.especie);
 }
 void arquivoCadPet(void)
 {
-  FILE *gravarCadPET;
-  gravarCadPET = fopen("CadastroPET.txt", "w");
-  fprintf(gravarCadPET, "NOME PET: %s\n", PET.nome);
-  fprintf(gravarCadPET, "IDADE PET: %d\n", PET.idade);
-  fprintf(gravarCadPET, "SEXO PET: %c\n", PET.sexo);
-  fprintf(gravarCadPET, "ESPECIE PET: %s\n", PET.especie);
-  fclose(gravarCadPET);
+ // FILE *gravarCadPET;
+ // gravarCadPET = fopen("CadastroPET.txt", "w");
+ // fprintf(gravarCadPET, "NOME PET: %s\n", PET.nome);
+ // fprintf(gravarCadPET, "IDADE PET: %d\n", PET.idade);
+ // fprintf(gravarCadPET, "SEXO PET: %c\n", PET.sexo);
+ // fprintf(gravarCadPET, "ESPECIE PET: %s\n", PET.especie);
+ // fclose(gravarCadPET);
 }
-
+*/
 int telaDeletarPet(void)
 {
 
