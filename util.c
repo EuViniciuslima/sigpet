@@ -180,7 +180,6 @@ void maskCpf(char *cpf)
 {
   int i;
   int j = 0;
-  int k = 0;
   int cont = 0;
   char mask[4] = {'.', '.', '-', '\0'};
   char newCpf[20];
@@ -189,10 +188,9 @@ void maskCpf(char *cpf)
   {
     if (i == 3 || i == 7 || i == 11)
     {
-      newCpf[i] = mask[k];
+      newCpf[i] = mask[cont];
       j = i - cont;
       cont += 1;
-      k += 1;
     }
     else
     {
