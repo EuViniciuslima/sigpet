@@ -81,8 +81,11 @@ int menuUsuario(void)
 }
 
 int telaCadastrarUsuario(void)
-{
-    char nome[50];
+{   
+    char linha[256];
+    int tam;
+    char *nome;
+    //char nome[50];
     char email[50];
     char cep[10];
     char telefone[11];
@@ -105,7 +108,10 @@ int telaCadastrarUsuario(void)
     do
     {
         printf("///           Nome:");
-        scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
+        scanf(" %255[^\n]", linha);
+        tam = strlen(linha);
+        nome = (char*) malloc(tam + 1);
+        strcpy(nome,linha);
         getchar();
         validaNome(nome);
     } while (!validaNome(nome));
@@ -120,6 +126,7 @@ int telaCadastrarUsuario(void)
     {
         printf("///           CEP (Apenas Numeros):");
         scanf(" %[0-9]", cep);
+        
         validaCep(cep);
         maskCep(cep);
         getchar();
