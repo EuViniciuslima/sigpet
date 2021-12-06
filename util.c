@@ -85,17 +85,15 @@ int validaCep(char *cep){
 void maskCpf(char *cpf){
  int i;
  int j = 0;
- int k = 0;
  int cont = 0;
  char mask [4] = {'.','.','-','\0'};
  char newCpf[20];
 
  for(i=0; i<=14; i++){
    if(i ==3 || i == 7 || i== 11){
-     newCpf[i] = mask[k];
+     newCpf[i] = mask[cont];
      j = i - cont;
      cont += 1;
-     k+=1;
    }else{
      newCpf[i] = cpf[j];
      j++;
@@ -177,17 +175,15 @@ int validaRg(char *rg){
 void maskRg(char *rg){
  int i;
  int j = 0;
- int k = 0;
  int cont = 0;
  char mask [4] = {'.','.','-','\0'};
  char newRg[20];
 
  for(i=0; i<=12; i++){
    if(i ==2 || i == 6 || i== 10){
-     newRg[i] = mask[k];
+     newRg[i] = mask[cont];
      j = i - cont;
      cont += 1;
-     k+=1;
    }else{
      newRg[i] = rg[j];
      j++;
