@@ -80,13 +80,7 @@ int validaCep(char *cep){
   }
   return 1;
 }
-int isNull(char num){
-  if(num == '\0'){
-    return 1;
-  }else{
-    return 0;
-  }
-}
+
 
 void maskCpf(char *cpf){
  int i;
