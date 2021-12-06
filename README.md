@@ -41,6 +41,6 @@
 <h1> Creditos </h1>
 
 Modelo de  Telas Adaptado de @flgorgonio<br>
-Função de Validação p/ (Digitos, Letras, Validação Data, Ano Bissexto) Desenvolvido por @flgornio<br>
+Função de Validação p/ (Digitos, Letras, Validação Data, Ano Bissexto) Desenvolvido por @flgorgonio<br>
 Demais Funções de Validações Adaptado de @flgorgonio<br>
 Função de Cadastro  Adaptado de Eduardo Casavella
