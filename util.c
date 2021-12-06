@@ -67,16 +67,23 @@ int validaEmail(char* email){
   int ponto = 0;
   int arroba = 0;
   int dpsArroba = 0;
+  int ultimaPosition = (strlen(email) - 1);
+  int pontoNoFinal = 0;
+  
   for(i= 0; email[i]!='\0'; i++){
     if(email[i] == '.' && dpsArroba == 1){
        ponto = 1;
+       
+    }
+    if(email[ultimaPosition] == '.'){
+      pontoNoFinal =1;
     }
     if(email[i] == '@'){
       arroba = 1;
       dpsArroba =1;
     } 
   }
-  if(ponto == 1 && arroba == 1){
+  if(ponto == 1 && arroba == 1 && pontoNoFinal != 1){
     return 1;
 
   }else{
