@@ -1,5 +1,6 @@
 
-struct Pet {
+struct Pet
+{
     char nome[20];
     int idade;
     char sexo;
@@ -19,9 +20,8 @@ int telaEditarPet(void);
 
 int menuPet(void);
 
-
 void validaDadosPet(void);
-void structPet(int*, char*, char*, char*);
+void structPet(int *, char *, char *, char *);
 void exibirCadastroStructPet(void);
 
 void arquivoCadPet(void);

@@ -2,6 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include "moduloConsulta.h"
+#include "util.h"
+
+typedef struct Cadastro CONS;
 
 void navConsulta(void)
 {
@@ -83,7 +86,7 @@ void deletarConsulta(void)
 int telaCadastrarConsulta(void)
 {
 
-  char cadConsult[9];
+  char cadConsult[13];
   char nomePaciente[15];
   char nomeRespon[15];
   char cadDescri[60];
@@ -117,17 +120,33 @@ int telaCadastrarConsulta(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-  printf("Data da consulta:\t");
-  scanf("%s", cadConsult);
+  do
+  {
+    printf("Data da consulta:");
+    scanf(" %[0-9]", cadConsult);
+    validarData(cadConsult);
+  } while (!validarData(cadConsult));
 
-  printf("Nome do Paciente(Pet):\t");
-  scanf("%s", nomePaciente);
+  do
+  {
+    printf("Nome do Paciente(Pet): ");
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomePaciente);
+    getchar();
+  } while (!validaNome(nomePaciente));
 
-  printf("Dono/Responsavel:\t");
-  scanf("%s", nomeRespon);
+  do
+  {
+    printf("Dono/Responsavel: ");
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeRespon);
+    getchar();
+  } while (!validaNome(nomeRespon));
 
-  printf("Descrição:\t");
-  scanf("%s", cadDescri);
+  do
+  {
+    printf("Descrição: ");
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cadDescri);
+    getchar();
+  } while (!validaNome(cadDescri));
 
   printf("0. Voltar \nEscolha: ");
   int escolha;

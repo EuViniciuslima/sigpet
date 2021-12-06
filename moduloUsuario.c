@@ -5,56 +5,52 @@
 #include "moduloUsuario.h"
 #include "util.h"
 
-
-
-
 typedef struct Usuario USU;
 
-
-
-
-void navUsuario(void){
-  int opcao;
-  do{
-    opcao = menuUsuario();
-    switch(opcao){
-      case 1: cadastrarUsuario();
-      break;
-      case 2: pesquisarUsuario();
-      break;
-      case 3: editarUsuario();
-      break;
-      case 4: deletarUsuario();
-      break;
-    }
-  }while(opcao!= 0);
+void navUsuario(void)
+{
+    int opcao;
+    do
+    {
+        opcao = menuUsuario();
+        switch (opcao)
+        {
+        case 1:
+            cadastrarUsuario();
+            break;
+        case 2:
+            pesquisarUsuario();
+            break;
+        case 3:
+            editarUsuario();
+            break;
+        case 4:
+            deletarUsuario();
+            break;
+        }
+    } while (opcao != 0);
 }
 
-void pesquisarUsuario(void){
-  telaPesquisarUsuario();
+void pesquisarUsuario(void)
+{
+    telaPesquisarUsuario();
 }
-void cadastrarUsuario(void){
-  telaCadastrarUsuario();
-  
-  
+void cadastrarUsuario(void)
+{
+    telaCadastrarUsuario();
 }
-void editarUsuario(void){
-  telaEditarUsuario();
+void editarUsuario(void)
+{
+    telaEditarUsuario();
 }
-void deletarUsuario(void){
-  telaDeletarUsuario();
+void deletarUsuario(void)
+{
+    telaDeletarUsuario();
 }
 
+int menuUsuario(void)
+{
 
-
-
-
-
-
-
-
-int menuUsuario(void){
-    
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -82,10 +78,10 @@ int menuUsuario(void){
     printf("Escolha: ");
     scanf("%d", &escolha);
     return escolha;
-   
 }
 
-int telaCadastrarUsuario(void){
+int telaCadastrarUsuario(void)
+{
     char nome[50];
     char email[50];
     char cep[10];
@@ -106,48 +102,54 @@ int telaCadastrarUsuario(void){
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    do{ 
-      printf("///           Nome:");
-      scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome); 
-      getchar();
-      validaNome(nome);
-    }while(!validaNome(nome));
-    do{ 
-      printf("///           Email:");
-      scanf(" %[a-z0-9@.]", email); 
-      getchar();
-      validaEmail(email);
-    }while(!validaEmail(email));
-    do{ 
-      printf("///           CEP (Apenas Numeros):");
-      scanf(" %[0-9]",cep);
-      validaCep(cep);
-      maskCep(cep);
-      getchar();
-    }while(!validaCep(cep));
-    do{ 
-      printf("///            Phone (Apenas Numeros):");
-      scanf(" %[0-9]",telefone);
-      getchar();
-      validaPhone(telefone);
-      maskPhone(telefone);
-    }while(!validaPhone(telefone));
-    do{ 
-      printf("///            CPF (Apenas Numeros):");
-      scanf(" %[0-9]",cpf);
-      getchar();
-      validaCpf(cpf);
-      maskCpf(cpf);
-     
-    }while(!validaCpf(cpf));
-    do{ 
-      printf("///            RG (Apenas Numeros):");
-      scanf(" %[0-9]",rg);
-      getchar();
-      validaRg(rg);
-      maskRg(rg);
+    do
+    {
+        printf("///           Nome:");
+        scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
+        getchar();
+        validaNome(nome);
+    } while (!validaNome(nome));
+    do
+    {
+        printf("///           Email:");
+        scanf(" %[a-z0-9@.]", email);
+        getchar();
+        validaEmail(email);
+    } while (!validaEmail(email));
+    do
+    {
+        printf("///           CEP (Apenas Numeros):");
+        scanf(" %[0-9]", cep);
+        validaCep(cep);
+        maskCep(cep);
+        getchar();
+    } while (!validaCep(cep));
+    do
+    {
+        printf("///            Phone (Apenas Numeros):");
+        scanf(" %[0-9]", telefone);
+        getchar();
+        validaPhone(telefone);
+        maskPhone(telefone);
+    } while (!validaPhone(telefone));
+    do
+    {
+        printf("///            CPF (Apenas Numeros):");
+        scanf(" %[0-9]", cpf);
+        getchar();
+        validaCpf(cpf);
+        maskCpf(cpf);
 
-    }while(!validaRg(rg));
+    } while (!validaCpf(cpf));
+    do
+    {
+        printf("///            RG (Apenas Numeros):");
+        scanf(" %[0-9]", rg);
+        getchar();
+        validaRg(rg);
+        maskRg(rg);
+
+    } while (!validaRg(rg));
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -158,8 +160,8 @@ int telaCadastrarUsuario(void){
     return escolha;
 }
 
-
-int telaPesquisarUsuario(void){
+int telaPesquisarUsuario(void)
+{
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -183,17 +185,16 @@ int telaPesquisarUsuario(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    
+
     int escolha;
     printf("Escolha: ");
     scanf("%d", &escolha);
     return escolha;
 }
 
+int telaEditarUsuario(void)
+{
 
-
-int telaEditarUsuario(void){
-  
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -217,18 +218,16 @@ int telaEditarUsuario(void){
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-  
+
     int escolha;
     printf("Escolha: ");
     scanf("%d", &escolha);
     return escolha;
-
 }
 
+int telaDeletarUsuario(void)
+{
 
-int telaDeletarUsuario(void){
-   
-    
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -255,6 +254,4 @@ int telaDeletarUsuario(void){
     printf("Escolha: ");
     scanf("%d", &escolha);
     return escolha;
-
-
 }

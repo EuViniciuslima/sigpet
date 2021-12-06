@@ -1,6 +1,16 @@
 void navConsulta(void);
 int menuConsulta(void);
 
+typedef struct Cadastro CONS;
+
+struct Consulta
+{
+    char cadConsult[13];
+    char nomePaciente[15];
+    char nomeRespon[15];
+    char cadDescri[60];
+};
+
 void pesquisarConsulta(void);
 void deletarConsulta(void);
 void cadastrarConsulta(void);
