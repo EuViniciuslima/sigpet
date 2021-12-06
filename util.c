@@ -173,6 +173,7 @@ int validarData(char *data)
   return 1;
 }
 
+
 void maskCpf(char *cpf)
 {
   int i;
@@ -305,3 +306,33 @@ void maskRg(char *rg)
   }
   printf("%s\n", newRg);
 }
+int ehSexo(char s){
+  if(s == 'f' || s == 'm'){
+    return 1;
+  }else if(s == 'F' || s == 'M'){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+
+int validaSexo(char *sexo)
+{
+  // f ou m
+  int i;
+  int tam = strlen(sexo);
+  if (tam != 1)
+  {
+    return 0;
+  }
+  for (i = 0; sexo[i] != '\0'; i++)
+  {
+    if (!ehSexo(sexo[i]))
+    {
+      return 0;
+    }
+  }
+  return 1;
+}
+
