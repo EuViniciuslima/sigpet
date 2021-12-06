@@ -62,28 +62,24 @@ int validaCpf(char *cpf)
   return 1;
 }
 
-int validaEmail(char *email)
-{
+int validaEmail(char* email){
   int i;
   int ponto = 0;
   int arroba = 0;
-  for (i = 0; email[i] != '\0'; i++)
-  {
-    if (email[i] == '.')
-    {
-      ponto = 1;
+  int dpsArroba = 0;
+  for(i= 0; email[i]!='\0'; i++){
+    if(email[i] == '.' && dpsArroba == 1){
+       ponto = 1;
     }
-    if (email[i] == '@')
-    {
+    if(email[i] == '@'){
       arroba = 1;
-    }
+      dpsArroba =1;
+    } 
   }
-  if (ponto == 1 && arroba == 1)
-  {
+  if(ponto == 1 && arroba == 1){
     return 1;
-  }
-  else
-  {
+
+  }else{
     return 0;
   }
 }
@@ -158,7 +154,8 @@ int validarData(char *data)
   {
     return 0;
   }
-  for (int i = 0; i < tam; i++)
+  int i;
+  for (i = 0; i < tam; i++)
   {
     if (!ehDigito(data[i]))
     {
