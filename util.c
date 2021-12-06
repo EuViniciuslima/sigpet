@@ -284,7 +284,6 @@ void maskRg(char *rg)
 {
   int i;
   int j = 0;
-  int k = 0;
   int cont = 0;
   char mask[4] = {'.', '.', '-', '\0'};
   char newRg[20];
@@ -293,10 +292,10 @@ void maskRg(char *rg)
   {
     if (i == 2 || i == 6 || i == 10)
     {
-      newRg[i] = mask[k];
+      newRg[i] = mask[cont];
       j = i - cont;
       cont += 1;
-      k += 1;
+
     }
     else
     {
