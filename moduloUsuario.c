@@ -86,7 +86,7 @@ int menuUsuario(void){
 }
 
 int telaCadastrarUsuario(void){
-  
+    char nome[50];
     char email[50];
     char cep[10];
     char telefone[11];
@@ -106,7 +106,12 @@ int telaCadastrarUsuario(void){
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    
+    do{ 
+      printf("///           Nome:");
+      scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome); 
+      getchar();
+      validaNome(nome);
+    }while(!validaNome(nome));
     do{ 
       printf("///           Email:");
       scanf(" %[a-z0-9@.]", email); 

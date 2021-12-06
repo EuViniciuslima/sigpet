@@ -3,8 +3,10 @@ int validaCpf(char*);
 int validaCep(char*);
 int validaPhone(char*);
 int validaRg(char*);
+int validaNome(char*);
 void maskCpf(char*);
 void maskCep(char*);
 void maskPhone(char*);
 void maskRg(char*);
-
+int ehDigito(char);
+int ehLetra(char);

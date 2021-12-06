@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+int ehLetra(char c) {
+  if (c >= 'A' && c <= 'Z') {
+    return 1;
+  } else if (c >= 'a' && c <= 'z') {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 int ehDigito(char num){
   if(num >= '0' && num <= '9'){
     return 1;
@@ -10,6 +20,15 @@ int ehDigito(char num){
   }
 }
 
+int validaNome(char* nome) {
+  int i;
+  for (i =0; nome[i]!='\0'; i++) {
+    if (ehLetra(nome[i]) || nome[i] == ' ') {
+      return 1;
+    }
+  }
+	return 0;
+}
 
 int validaCpf(char *cpf){
   //000.000.000-00\0
