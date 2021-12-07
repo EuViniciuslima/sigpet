@@ -122,9 +122,10 @@ int telaCadastrarConsulta(void)
 
   do
   {
-    printf("Data da consulta:");
+    printf("Data da consulta (Apenas Numeros e Sem Espacos):");
     scanf(" %[0-9]", cadConsult);
     validarData(cadConsult);
+    maskData(cadConsult);
   } while (!validarData(cadConsult));
 
   do

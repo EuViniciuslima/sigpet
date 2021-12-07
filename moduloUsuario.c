@@ -112,6 +112,7 @@ int telaCadastrarUsuario(void)
         tam = strlen(linha);
         nome = (char*) malloc(tam + 1);
         strcpy(nome,linha);
+        
         getchar();
         validaNome(nome);
     } while (!validaNome(nome));
@@ -121,14 +122,19 @@ int telaCadastrarUsuario(void)
         scanf(" %[a-z0-9@.]", email);
         getchar();
         validaEmail(email);
+        if(validaEmail(email) == 0){
+            printf("Email Invalido\n");
+        }
     } while (!validaEmail(email));
     do
     {
         printf("///           CEP (Apenas Numeros):");
         scanf(" %[0-9]", cep);
-        
         validaCep(cep);
         maskCep(cep);
+        if(validaCep(cep) == 0){
+            printf("CEP Invalido\n");
+        }
         getchar();
     } while (!validaCep(cep));
     do
@@ -138,6 +144,9 @@ int telaCadastrarUsuario(void)
         getchar();
         validaPhone(telefone);
         maskPhone(telefone);
+        if(validaPhone(telefone) == 0){
+            printf("Telefone Invalido\n");
+        }
     } while (!validaPhone(telefone));
     do
     {
@@ -146,6 +155,9 @@ int telaCadastrarUsuario(void)
         getchar();
         validaCpf(cpf);
         maskCpf(cpf);
+        if(validaCpf(cpf) == 0){
+            printf("CPF Invalido\n");
+        }
 
     } while (!validaCpf(cpf));
     do
@@ -155,6 +167,9 @@ int telaCadastrarUsuario(void)
         getchar();
         validaRg(rg);
         maskRg(rg);
+        if(validaRg(rg) == 0){
+            printf("RG Invalido\n");
+        }
 
     } while (!validaRg(rg));
     printf("///                                                                         ///\n");
