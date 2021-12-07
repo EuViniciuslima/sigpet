@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 int ehLetra(char c)
 {
   if (c >= 'A' && c <= 'Z')
@@ -73,7 +74,7 @@ int validaEmail(char* email){
   for(i= 0; email[i]!='\0'; i++){
     if(email[i] == '.' && dpsArroba == 1){
        ponto = 1;
-       
+    
     }
     if(email[ultimaPosition] == '.'){
       pontoNoFinal =1;
@@ -178,6 +179,32 @@ int validarData(char *data)
     return 0;
   }
   return 1;
+}
+
+
+void maskData(char *data)
+{
+  int i;
+  int j = 0;
+  int cont = 0;
+  char mask[3] = {'/', '/', '\0'};
+  char newData[20];
+
+  for (i = 0; i <= 14; i++)
+  {
+    if (i == 2 || i == 5 )
+    {
+      newData[i] = mask[cont];
+      j = i - cont;
+      cont += 1;
+    }
+    else
+    {
+      newData[i] = data[j];
+      j++;
+    }
+  }
+  printf("%s\n", newData);
 }
 
 
