@@ -1,5 +1,6 @@
 
 
+int validaNav(int *);
 int validaEmail(char *);
 int validaCpf(char *);
 int validaCep(char *);

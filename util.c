@@ -3,6 +3,17 @@
 #include <string.h>
 
 
+int validaNav(int *escolha){
+  int opcoesValidas[6] = {0, 1, 2, 3, 4, '\0'};
+  int i;
+  for (i =0; opcoesValidas[i]!='\0'; i++){
+    if(!(*escolha == opcoesValidas[i])){
+      return 0;
+    }
+  }
+  return 1;
+}
+
 int ehLetra(char c)
 {
   if (c >= 'A' && c <= 'Z')

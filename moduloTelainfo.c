@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "moduloTelainfo.h"
+#include "util.h"
 
 void navInfo(void)
 {
@@ -51,10 +52,15 @@ int info(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-  int valorInfo;
-  printf("Esolha 1 ou 2:\t");
-  scanf("%d", &valorInfo);
-  return valorInfo;
+  int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }
 
 int telasobre(void)
@@ -84,10 +90,16 @@ int telasobre(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-  int valorInfo2;
-  printf("0 para Voltar");
-  scanf("%d", &valorInfo2);
-  return valorInfo2;
+
+  int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }
 
 int develop(void)
@@ -118,8 +130,13 @@ int develop(void)
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-  int valorInfo3;
-  printf("0 para Voltar");
-  scanf("%d", &valorInfo3);
-  return valorInfo3;
+  int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }

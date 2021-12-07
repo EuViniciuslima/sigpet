@@ -75,9 +75,14 @@ int menuUsuario(void)
     printf("\n");
 
     int escolha;
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    return escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }
 
 int telaCadastrarUsuario(void)

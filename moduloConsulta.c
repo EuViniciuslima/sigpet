@@ -56,11 +56,16 @@ int menuConsulta(void)
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
-
+  
   int escolha;
-  printf("Escolha: ");
-  scanf("%d", &escolha);
-  return escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }
 
 void cadastrarConsulta(void)
@@ -151,8 +156,14 @@ int telaCadastrarConsulta(void)
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-  scanf("%d", &escolha);
-  return escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }
 
 int telaPesquisarConsulta(void)
@@ -185,8 +196,14 @@ int telaPesquisarConsulta(void)
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-  scanf("%d", &escolha);
-  return escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }
 
 int telaEditarConsulta(void)
@@ -221,8 +238,14 @@ int telaEditarConsulta(void)
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-  scanf("%d", &escolha);
-  return escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }
 
 int telaDeletarConsulta(void)
@@ -257,6 +280,12 @@ int telaDeletarConsulta(void)
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-  scanf("%d", &escolha);
-  return escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
+  
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "util.h"
 #include "moduloPet.h"
 #include "moduloConsulta.h"
 #include "moduloUsuario.h"
@@ -60,9 +60,12 @@ int telaMenu(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-  int escolha;
-  printf("Escolha: ");
-  scanf("%d", &escolha);
-
-  return escolha;
+   int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
 }

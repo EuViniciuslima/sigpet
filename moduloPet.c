@@ -59,11 +59,14 @@ int menuPet(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-  int escolha;
-  printf("Escolha: ");
-  scanf("%d", &escolha);
-
-  return escolha;
+   int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
 }
 
 
@@ -146,10 +149,16 @@ int telaCadastrarPet(void)
   printf("\n");
   
 
+  
+  printf("0. Voltar \n: ");
   int escolha;
-  printf("0. Voltar \nEscolha: ");
-  scanf("%d", &escolha);
-  return escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
 }
 /*
 void validaDadosPet(void)
@@ -260,10 +269,16 @@ int telaDeletarPet(void)
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-  int escolha;
+  
   printf("0. Voltar \nEscolha: ");
-  scanf("%d", &escolha);
-  return escolha;
+   int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
 }
 
 int telaEditarPet(void)
@@ -294,10 +309,14 @@ int telaEditarPet(void)
   printf("///            Dono:                                                        ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  int escolha;
-  printf("0. Voltar \nEscolha: ");
-  scanf("%d", &escolha);
-  return escolha;
+   int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
 }
 
 int telaPesquisarPet(void)
@@ -328,8 +347,14 @@ int telaPesquisarPet(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-  int escolha;
-  printf("0. Voltar \nEscolha: ");
-  scanf("%d", &escolha);
-  return escolha;
+  
+  printf("0. Voltar \n ");
+   int escolha;
+    do{ 
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    }while(!validaNav(&escolha));
 }
