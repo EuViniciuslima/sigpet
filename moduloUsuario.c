@@ -5,10 +5,11 @@
 #include "moduloUsuario.h"
 #include "util.h"
 
-typedef struct Usuario USU;
+typedef struct usuario Usuario;
 
 void navUsuario(void)
 {
+    
     int opcao;
     do
     {
@@ -28,7 +29,9 @@ void navUsuario(void)
             deletarUsuario();
             break;
         }
+        
     } while (opcao != 0);
+    
 }
 
 void pesquisarUsuario(void)
@@ -37,7 +40,9 @@ void pesquisarUsuario(void)
 }
 void cadastrarUsuario(void)
 {
-    telaCadastrarUsuario();
+    Usuario* usu;
+    usu = telaCadastrarUsuario();
+    free(usu);
 }
 void editarUsuario(void)
 {
@@ -85,17 +90,11 @@ int menuUsuario(void)
   
 }
 
-int telaCadastrarUsuario(void)
+Usuario* telaCadastrarUsuario()
 {   
-    char linha[256];
-    int tam;
-    char *nome;
-    //char nome[50];
-    char email[50];
-    char cep[10];
-    char telefone[11];
-    char cpf[15];
-    char rg[12];
+    Usuario *usu;
+    usu = (Usuario*)malloc(sizeof(Usuario));
+    
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -113,35 +112,32 @@ int telaCadastrarUsuario(void)
     do
     {
         printf("///           Nome:");
-        scanf(" %255[^\n]", linha);
-        tam = strlen(linha);
-        nome = (char*) malloc(tam + 1);
-        strcpy(nome,linha);
+        scanf(" %80[^\n]", usu->nome);
         
-        getchar();
-        validaNome(nome);
-    } while (!validaNome(nome));
+        validaNome(usu->nome);
+        if(validaNome(usu->nome) == 0){
+            printf("Nome Inválido\n");
+        }
+    }while(!validaNome(usu->nome));
     do
     {
         printf("///           Email:");
-        scanf(" %[a-z0-9@.]", email);
-        getchar();
-        validaEmail(email);
-        if(validaEmail(email) == 0){
+        scanf(" %255[^\n]", usu->email);
+        validaEmail(usu->email);
+        if(validaEmail(usu->email) == 0){
             printf("Email Invalido\n");
         }
-    } while (!validaEmail(email));
-    do
+    } while (!validaEmail(usu->email));
+   /* do
     {
         printf("///           CEP (Apenas Numeros):");
-        scanf(" %[0-9]", cep);
-        validaCep(cep);
-        maskCep(cep);
-        if(validaCep(cep) == 0){
+        scanf(" %[0-9]", usu->cep);
+        validaCep(usu->cep);
+        maskCep(usu->cep);
+        if(validaCep(usu->cep) == 0){
             printf("CEP Invalido\n");
         }
-        getchar();
-    } while (!validaCep(cep));
+    } while (!validaCep(usu->cep));
     do
     {
         printf("///            Phone (Apenas Numeros):");
@@ -152,19 +148,18 @@ int telaCadastrarUsuario(void)
         if(validaPhone(telefone) == 0){
             printf("Telefone Invalido\n");
         }
-    } while (!validaPhone(telefone));
+    } while (!validaPhone(telefone));*/
     do
     {
         printf("///            CPF (Apenas Numeros):");
-        scanf(" %[0-9]", cpf);
-        getchar();
-        validaCpf(cpf);
-        maskCpf(cpf);
-        if(validaCpf(cpf) == 0){
+        scanf(" %[0-9]", usu->cpf);
+        validaCpf(usu->cpf);
+        maskCpf(usu->cpf);
+        if(validaCpf(usu->cpf) == 0){
             printf("CPF Invalido\n");
         }
 
-    } while (!validaCpf(cpf));
+    } while (!validaCpf(usu->cpf));/*
     do
     {
         printf("///            RG (Apenas Numeros):");
@@ -177,14 +172,17 @@ int telaCadastrarUsuario(void)
         }
 
     } while (!validaRg(rg));
+   */
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    int escolha;
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    return escolha;
+    //int escolha;
+    //printf("Escolha: ");
+    //scanf("%d", &escolha);
+    exibirUsuario(usu);
+    return usu;
+    
 }
 
 int telaPesquisarUsuario(void)
@@ -281,4 +279,10 @@ int telaDeletarUsuario(void)
     printf("Escolha: ");
     scanf("%d", &escolha);
     return escolha;
+}
+
+void exibirUsuario(const Usuario* usu){
+    printf("Nome: %s\n", usu->nome);
+    printf("Email: %s\n", usu->email);
+    printf("CPF: %s\n", usu->cpf);
 }
