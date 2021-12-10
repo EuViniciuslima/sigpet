@@ -28,7 +28,8 @@ Usuario* telaCadastrarUsuario();
 int telaEditarUsuario(void);
 
 void exibirUsuario(const Usuario *);
-void validacao(void);
+void gravarUsuario(Usuario* );
+
 
 void pesquisarUsuario(void);
 void editarUsuario(void);

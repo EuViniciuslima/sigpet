@@ -1,4 +1,8 @@
+typedef struct bancodados BancoDados;
 
+struct bancodados{
+    char ufBr[2][26];
+};
 
 int validaNav(int *);
 int validaEmail(char *);
@@ -17,5 +21,5 @@ int ehDigito(char);
 int ehLetra(char);
 int ehSexo(char);
 int ehBissexto(int);
-int ehData(int);
+int ehData(int, int, int);
 int validarData(char *);

@@ -42,6 +42,7 @@ void cadastrarUsuario(void)
 {
     Usuario* usu;
     usu = telaCadastrarUsuario();
+    gravarUsuario(usu);
     free(usu);
 }
 void editarUsuario(void)
@@ -113,8 +114,6 @@ Usuario* telaCadastrarUsuario()
     {
         printf("///           Nome:");
         scanf(" %80[^\n]", usu->nome);
-        
-        validaNome(usu->nome);
         if(validaNome(usu->nome) == 0){
             printf("Nome Inválido\n");
         }
@@ -123,7 +122,6 @@ Usuario* telaCadastrarUsuario()
     {
         printf("///           Email:");
         scanf(" %255[^\n]", usu->email);
-        validaEmail(usu->email);
         if(validaEmail(usu->email) == 0){
             printf("Email Invalido\n");
         }
@@ -153,7 +151,6 @@ Usuario* telaCadastrarUsuario()
     {
         printf("///            CPF (Apenas Numeros):");
         scanf(" %[0-9]", usu->cpf);
-        validaCpf(usu->cpf);
         maskCpf(usu->cpf);
         if(validaCpf(usu->cpf) == 0){
             printf("CPF Invalido\n");
@@ -286,3 +283,12 @@ void exibirUsuario(const Usuario* usu){
     printf("Email: %s\n", usu->email);
     printf("CPF: %s\n", usu->cpf);
 }
+
+void gravarUsuario(Usuario* usu){
+    FILE *grv;
+    grv = fopen("USUARIO_CADASTRADOS.dat", "ab");
+    //arquivos .dat são aqueles que contém dados
+    //ab = Acrescenta dados binários no fim do arquivo
+    fwrite(usu, sizeof(Usuario), 1, grv); //gravação de binários
+    fclose(grv);
+} 

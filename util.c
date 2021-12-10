@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "util.h"
 
 int validaNav(int *escolha){
   int opcoesValidas[6] = {0, 1, 2, 3, 4, '\0'};
