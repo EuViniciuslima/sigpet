@@ -56,16 +56,16 @@ int menuConsulta(void)
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
-  
+
   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
-  
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }
 
 void cadastrarConsulta(void)
@@ -91,10 +91,8 @@ void deletarConsulta(void)
 int telaCadastrarConsulta(void)
 {
 
-  char cadConsult[13];
-  char nomePaciente[15];
-  char nomeRespon[15];
-  char cadDescri[60];
+  CONS *cad;
+  cad = (CONS *)malloc(sizeof(CONS));
 
   printf("                                                                          - □ x\n");
   printf("\n");
@@ -127,43 +125,43 @@ int telaCadastrarConsulta(void)
 
   do
   {
-    printf("Data da consulta (Apenas Numeros e Sem Espacos):");
-    scanf(" %[0-9]", cadConsult);
-    validarData(cadConsult);
-    maskData(cadConsult);
-  } while (!validarData(cadConsult));
+    printf("Data da consulta (Apenas Numeros, Sem Espacos):");
+    scanf(" %[0-9]", cad->cadConsult);
+    validarData(cad->cadConsult);
+    maskData(cad->cadConsult);
+  } while (!validarData(cad->cadConsult));
 
   do
   {
     printf("Nome do Paciente(Pet): ");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomePaciente);
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cad->nomePaciente);
     getchar();
-  } while (!validaNome(nomePaciente));
+  } while (!validaNome(cad->nomePaciente));
 
   do
   {
     printf("Dono/Responsavel: ");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeRespon);
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cad->nomeRespon);
     getchar();
-  } while (!validaNome(nomeRespon));
+  } while (!validaNome(cad->nomeRespon));
 
   do
   {
     printf("Descrição: ");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cadDescri);
+    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cad->cadDescri);
     getchar();
-  } while (!validaNome(cadDescri));
+  } while (!validaNome(cad->cadDescri));
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
-  
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }
 
 int telaPesquisarConsulta(void)
@@ -196,14 +194,14 @@ int telaPesquisarConsulta(void)
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
-  
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }
 
 int telaEditarConsulta(void)
@@ -238,14 +236,14 @@ int telaEditarConsulta(void)
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
-  
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }
 
 int telaDeletarConsulta(void)
@@ -280,12 +278,12 @@ int telaDeletarConsulta(void)
 
   printf("0. Voltar \nEscolha: ");
   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
-  
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }

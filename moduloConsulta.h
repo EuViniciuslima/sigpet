@@ -3,7 +3,7 @@ int menuConsulta(void);
 
 typedef struct Cadastro CONS;
 
-struct Consulta
+struct Cadastro
 {
     char cadConsult[13];
     char nomePaciente[15];

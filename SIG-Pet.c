@@ -60,12 +60,13 @@ int telaMenu(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
+  int escolha;
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }
