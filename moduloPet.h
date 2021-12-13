@@ -3,7 +3,7 @@ typedef struct pet Pet;
 struct pet
 {
     char nome[30];
-    int idade;
+    char data[10];
     char sexo[1];
     char especie[40];
     char dono[50];

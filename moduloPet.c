@@ -120,9 +120,6 @@ Pet* telaCadastrarPet(void)
     printf("///            Nome do Pet:");
     scanf(" %255[^\n]", pet->nome);
     getchar();
-   
-   
-    
   }while(!validaNome(pet->nome));
   do{
     printf("///            Sexo do Pet (f/m):");
@@ -133,8 +130,14 @@ Pet* telaCadastrarPet(void)
       printf("Sexo Invalido\n");
     }
   }while(!validaSexo(pet->sexo));
-  
-  printf("///            Idade do Pet:");
+  do{
+    printf("///            Data de Nascimento - Pet:");
+    scanf(" %255[^\n]", pet->data);
+    getchar();
+    if(validarData(pet->data) == 0){
+      printf("Data Invalida\n");
+    }
+  }while(!validarData(pet->data));
   do{
     printf("///            Especie do Pet:");
     scanf(" %255[^\n]", pet->especie);
