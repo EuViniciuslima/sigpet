@@ -17,6 +17,7 @@ struct usuario
     char cpf[15];
     char email[50];
     char telefone[12];
+    char data[10];
     endereco Endereco;
 };
 

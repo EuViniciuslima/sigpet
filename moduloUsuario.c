@@ -85,7 +85,6 @@ int menuUsuario(void)
         printf("Escolha: ");
         scanf("%d", &escolha);
         getchar();
-        validaNav(&escolha);
         return escolha;
     }while(!validaNav(&escolha));
   
@@ -113,7 +112,7 @@ Usuario* telaCadastrarUsuario()
     do
     {
         printf("///           Nome:");
-        scanf(" %80[^\n]", usu->nome);
+        scanf(" %255[^\n]", usu->nome);
         if(validaNome(usu->nome) == 0){
             printf("Nome Inválido\n");
         }
@@ -126,6 +125,14 @@ Usuario* telaCadastrarUsuario()
             printf("Email Invalido\n");
         }
     } while (!validaEmail(usu->email));
+    do
+    {
+        printf("///           Data de Nascimento:");
+        scanf(" %255[^\n]", usu->data);
+        if(validarData(usu->data) == 0){
+            printf("Data Invalido\n");
+        }
+    } while (!validarData(usu->data));
    /* do
     {
         printf("///           CEP (Apenas Numeros):");
@@ -150,12 +157,11 @@ Usuario* telaCadastrarUsuario()
     do
     {
         printf("///            CPF (Apenas Numeros):");
-        scanf(" %[0-9]", usu->cpf);
+        scanf(" %255[^\n]", usu->cpf);
         maskCpf(usu->cpf);
         if(validaCpf(usu->cpf) == 0){
             printf("CPF Invalido\n");
         }
-
     } while (!validaCpf(usu->cpf));/*
     do
     {
