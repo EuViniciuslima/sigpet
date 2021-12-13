@@ -1,16 +1,18 @@
+typedef struct pet Pet;
 
-struct Pet
+struct pet
 {
-    char nome[20];
+    char nome[30];
     int idade;
-    char sexo;
-    char especie[15];
+    char sexo[1];
+    char especie[40];
+    char dono[50];
 };
 
 void navPet(void);
 
 void cadastrarPet(void);
-int telaCadastrarPet(void);
+Pet* telaCadastrarPet(void);
 void deletarPet(void);
 int telaDeletarPet(void);
 void pesquisarPet(void);

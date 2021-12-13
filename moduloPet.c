@@ -4,6 +4,9 @@
 #include "moduloPet.h"
 #include "util.h"
 
+
+typedef struct pet Pet;
+
 void navPet(void)
 {
   int opcao;
@@ -31,6 +34,7 @@ void navPet(void)
 
 int menuPet(void)
 {
+  
 
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -64,14 +68,11 @@ int menuPet(void)
         printf("Escolha: ");
         scanf("%d", &escolha);
         getchar();
-        validaNav(&escolha);
         return escolha;
     }while(!validaNav(&escolha));
 }
 
 
-
-typedef struct Pet PET;
 
 void cadastrarPet(void)
 {
@@ -93,12 +94,10 @@ void deletarPet(void)
   telaDeletarPet();
 }
 
-int telaCadastrarPet(void)
+Pet* telaCadastrarPet(void)
 {
-  char nomePet[50];
-  char sexoPet[10] = {'f'};
-  char nomeDono[50];
-  char especiePet[50];
+  Pet *pet;
+  pet = (Pet*)malloc(sizeof(Pet));
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -119,30 +118,33 @@ int telaCadastrarPet(void)
   printf("///                                                                         ///\n");
   do{
     printf("///            Nome do Pet:");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomePet);
+    scanf(" %255[^\n]", pet->nome);
     getchar();
-    validaNome(nomePet);
-  }while(!validaNome(nomePet));
+   
+   
+    
+  }while(!validaNome(pet->nome));
   do{
-    printf("///            Sexo do Pet:");
-    scanf("%c", sexoPet);
+    printf("///            Sexo do Pet (f/m):");
+    scanf(" %255[^\n]", pet->sexo);
     getchar();
-    validaSexo(sexoPet);
-  }while(!validaSexo(sexoPet));
+    if (validaSexo(pet->sexo) == 0)
+    {
+      printf("Sexo Invalido\n");
+    }
+  }while(!validaSexo(pet->sexo));
   
   printf("///            Idade do Pet:");
   do{
     printf("///            Especie do Pet:");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", especiePet);
+    scanf(" %255[^\n]", pet->especie);
     getchar();
-    validaNome(especiePet);
-  }while(!validaNome(especiePet));
+  }while(!validaNome(pet->especie));
   do{
     printf("///            Dono:");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeDono);
+    scanf(" %255[^\n]", pet->dono);
     getchar();
-    validaNome(nomeDono);
-  }while(!validaNome(nomeDono));
+  }while(!validaNome(pet->dono));
  
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -151,14 +153,7 @@ int telaCadastrarPet(void)
 
   
   printf("0. Voltar \n: ");
-  int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
+  return pet;
 }
 /*
 void validaDadosPet(void)
