@@ -88,7 +88,7 @@ void deletarConsulta(void)
   telaDeletarConsulta();
 }
 
-int telaCadastrarConsulta(void)
+CONS* telaCadastrarConsulta(void)
 {
 
   CONS *cad;
@@ -126,7 +126,7 @@ int telaCadastrarConsulta(void)
   do
   {
     printf("Data da consulta (Apenas Numeros, Sem Espacos):");
-    scanf(" %[0-9]", cad->cadConsult);
+    scanf(" %255[^\n]", cad->cadConsult);
     validarData(cad->cadConsult);
     maskData(cad->cadConsult);
   } while (!validarData(cad->cadConsult));
@@ -134,34 +134,25 @@ int telaCadastrarConsulta(void)
   do
   {
     printf("Nome do Paciente(Pet): ");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cad->nomePaciente);
+    scanf(" %255[^\n]", cad->nomePaciente);
     getchar();
   } while (!validaNome(cad->nomePaciente));
 
   do
   {
     printf("Dono/Responsavel: ");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cad->nomeRespon);
+    scanf(" %255[^\n]", cad->nomeRespon);
     getchar();
   } while (!validaNome(cad->nomeRespon));
 
   do
   {
     printf("Descrição: ");
-    scanf(" %[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cad->cadDescri);
+    scanf(" %255[^\n]", cad->cadDescri);
     getchar();
   } while (!validaNome(cad->cadDescri));
 
-  printf("0. Voltar \nEscolha: ");
-  int escolha;
-  do
-  {
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    getchar();
-    validaNav(&escolha);
-    return escolha;
-  } while (!validaNav(&escolha));
+  return cad;
 }
 
 int telaPesquisarConsulta(void)

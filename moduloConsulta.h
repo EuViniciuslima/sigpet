@@ -18,5 +18,5 @@ void editarConsulta(void);
 
 int telaPesquisarConsulta(void);
 int telaDeletarConsulta(void);
-int telaCadastrarConsulta(void);
+CONS* telaCadastrarConsulta(void);
 int telaEditarConsulta(void);
