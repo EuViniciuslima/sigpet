@@ -447,11 +447,11 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
                 achou = 1;
                 printf("\n =============================== ALTERANDO DADOS ==================================\n");
                 printf("////        Nome: ");
-                scanf("%s", nomeAlt);
+                scanf(" %256[^\n]", nomeAlt);
                 printf("////        Email: ");
-                scanf("%s", emailAlt);
+                scanf(" %256[^\n]", emailAlt);
                 printf("////        Data de Nascimento: ");
-                scanf("%s", datanascAlt);
+                scanf(" %256[^\n]", datanascAlt);
 
                 strcpy(usu->nome, nomeAlt);
                 strcpy(usu->email, emailAlt);
