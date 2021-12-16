@@ -421,9 +421,9 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
     Usuario *usu;
     // char cpf;
     int achou = 0;
-    char nomeAlt[50];
-    char emailAlt[50];
-    char datanascAlt[10];
+    char nome[50];
+    char email[50];
+    char data[10];
 
     if (confirmLeitura == NULL)
     {
@@ -445,17 +445,36 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
             if ((strcmp(usu->nome, confirmLeitura->nome) == 0) && (usu->status) != 'x')
             {
                 achou = 1;
-                printf("\n =============================== ALTERANDO DADOS ==================================\n");
-                printf("////        Nome: ");
-                scanf(" %256[^\n]", nomeAlt);
-                printf("////        Email: ");
-                scanf(" %256[^\n]", emailAlt);
-                printf("////        Data de Nascimento: ");
-                scanf(" %256[^\n]", datanascAlt);
+                do{
 
-                strcpy(usu->nome, nomeAlt);
-                strcpy(usu->email, emailAlt);
-                strcpy(usu->data, datanascAlt);
+                    printf("\n =============================== ALTERANDO DADOS ==================================\n");
+                    printf("////        Nome: ");
+                    scanf(" %256[^\n]", nome);
+                    if(validaNome(nome) == 0){
+                        printf("Nome invalido\n");
+                    }
+                  
+                }while(!validaNome(nome));
+                do{
+                    printf("////        Email: ");
+                    scanf(" %256[^\n]", email);
+                    if(validaEmail(email) == 0){
+                        printf("Email invalido\n");
+                    }
+
+                }while(!validaEmail(email));
+                do{
+                    printf("////        Data de Nascimento: ");
+                    scanf(" %256[^\n]", data);
+                    if(validarData(data) == 0){
+                        printf("Data invalida\n");
+                    }
+                }while(!validarData(data));
+               
+
+                strcpy(usu->nome, nome);
+                strcpy(usu->email, email);
+                strcpy(usu->data, data);
 
                 fseek(alt, -1 * sizeof(Usuario), SEEK_CUR);
                 fwrite(usu, sizeof(Usuario), 1, alt);
