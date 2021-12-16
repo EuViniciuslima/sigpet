@@ -4,6 +4,7 @@ struct bancodados{
     char ufBr[2][26];
 };
 
+
 int validaNav(int *);
 int validaEmail(char *);
 int validaCpf(char *);

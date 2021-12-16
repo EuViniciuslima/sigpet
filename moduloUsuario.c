@@ -9,7 +9,6 @@ typedef struct usuario Usuario;
 
 void navUsuario(void)
 {
-    
     int opcao;
     do
     {
@@ -20,38 +19,53 @@ void navUsuario(void)
             cadastrarUsuario();
             break;
         case 2:
-            pesquisarUsuario();
+            editarUsuario();
             break;
         case 3:
-            editarUsuario();
+            pesquisarUsuario();
             break;
         case 4:
             deletarUsuario();
             break;
         }
-        
     } while (opcao != 0);
-    
 }
 
 void pesquisarUsuario(void)
 {
-    telaPesquisarUsuario();
+    Usuario *usu;
+    char *pesquise;
+    pesquise = telaPesquisarUsuario();
+    usu = buscarUsuario(pesquise);
+    exibirUsuario(usu);
+    free(usu);
+    free(pesquise);
 }
 void cadastrarUsuario(void)
 {
-    Usuario* usu;
+    Usuario *usu;
     usu = telaCadastrarUsuario();
     gravarUsuario(usu);
     free(usu);
 }
 void editarUsuario(void)
 {
-    telaEditarUsuario();
+    Usuario *usu;
+    char *alterar;
+    alterar = telaEditarUsuario();
+    usu = buscarUsuario(alterar);
+    alterarUsuario(usu);
+    free(usu);
+    free(alterar);
 }
 void deletarUsuario(void)
 {
-    telaDeletarUsuario();
+    Usuario *usu;
+    char *deletar;
+    deletar = telaDeletarUsuario();
+    usu = buscarUsuario(deletar);
+    excluirUsuario(usu);
+    free(usu);
 }
 
 int menuUsuario(void)
@@ -81,20 +95,19 @@ int menuUsuario(void)
     printf("\n");
 
     int escolha;
-    do{ 
+    do
+    {
         printf("Escolha: ");
         scanf("%d", &escolha);
         getchar();
         return escolha;
-    }while(!validaNav(&escolha));
-  
+    } while (!validaNav(&escolha));
 }
 
-Usuario* telaCadastrarUsuario()
-{   
+Usuario *telaCadastrarUsuario()
+{
     Usuario *usu;
-    usu = (Usuario*)malloc(sizeof(Usuario));
-    
+    usu = (Usuario *)malloc(sizeof(Usuario));
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -113,15 +126,17 @@ Usuario* telaCadastrarUsuario()
     {
         printf("///           Nome:");
         scanf(" %255[^\n]", usu->nome);
-        if(validaNome(usu->nome) == 0){
+        if (validaNome(usu->nome) == 0)
+        {
             printf("Nome Inválido\n");
         }
-    }while(!validaNome(usu->nome));
+    } while (!validaNome(usu->nome));
     do
     {
         printf("///           Email:");
         scanf(" %255[^\n]", usu->email);
-        if(validaEmail(usu->email) == 0){
+        if (validaEmail(usu->email) == 0)
+        {
             printf("Email Invalido\n");
         }
     } while (!validaEmail(usu->email));
@@ -129,67 +144,71 @@ Usuario* telaCadastrarUsuario()
     {
         printf("///           Data de Nascimento:");
         scanf(" %255[^\n]", usu->data);
-        if(validarData(usu->data) == 0){
+        if (validarData(usu->data) == 0)
+        {
             printf("Data Invalido\n");
         }
     } while (!validarData(usu->data));
-   /* do
-    {
-        printf("///           CEP (Apenas Numeros):");
-        scanf(" %[0-9]", usu->cep);
-        validaCep(usu->cep);
-        maskCep(usu->cep);
-        if(validaCep(usu->cep) == 0){
-            printf("CEP Invalido\n");
-        }
-    } while (!validaCep(usu->cep));
-    do
-    {
-        printf("///            Phone (Apenas Numeros):");
-        scanf(" %[0-9]", telefone);
-        getchar();
-        validaPhone(telefone);
-        maskPhone(telefone);
-        if(validaPhone(telefone) == 0){
-            printf("Telefone Invalido\n");
-        }
-    } while (!validaPhone(telefone));*/
+    /* do
+     {
+         printf("///           CEP (Apenas Numeros):");
+         scanf(" %[0-9]", usu->cep);
+         validaCep(usu->cep);
+         maskCep(usu->cep);
+         if(validaCep(usu->cep) == 0){
+             printf("CEP Invalido\n");
+         }
+     } while (!validaCep(usu->cep));
+     do
+     {
+         printf("///            Phone (Apenas Numeros):");
+         scanf(" %[0-9]", telefone);
+         getchar();
+         validaPhone(telefone);
+         maskPhone(telefone);
+         if(validaPhone(telefone) == 0){
+             printf("Telefone Invalido\n");
+         }
+     } while (!validaPhone(telefone));*/
     do
     {
         printf("///            CPF (Apenas Numeros):");
         scanf(" %255[^\n]", usu->cpf);
         maskCpf(usu->cpf);
-        if(validaCpf(usu->cpf) == 0){
+        if (validaCpf(usu->cpf) == 0)
+        {
             printf("CPF Invalido\n");
         }
-    } while (!validaCpf(usu->cpf));/*
-    do
-    {
-        printf("///            RG (Apenas Numeros):");
-        scanf(" %[0-9]", rg);
-        getchar();
-        validaRg(rg);
-        maskRg(rg);
-        if(validaRg(rg) == 0){
-            printf("RG Invalido\n");
-        }
+    } while (!validaCpf(usu->cpf)); /*
+     do
+     {
+         printf("///            RG (Apenas Numeros):");
+         scanf(" %[0-9]", rg);
+         getchar();
+         validaRg(rg);
+         maskRg(rg);
+         if(validaRg(rg) == 0){
+             printf("RG Invalido\n");
+         }
 
-    } while (!validaRg(rg));
-   */
+     } while (!validaRg(rg));
+    */
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    //int escolha;
-    //printf("Escolha: ");
-    //scanf("%d", &escolha);
-    exibirUsuario(usu);
+    // int escolha;
+    // printf("Escolha: ");
+    // scanf("%d", &escolha);
+    usu->status = 'o';
     return usu;
-    
 }
 
-int telaPesquisarUsuario(void)
+char *telaPesquisarUsuario(void)
 {
+    char *pesquise;
+    pesquise = (char *)malloc(14 * sizeof(char));
+
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -208,20 +227,21 @@ int telaPesquisarUsuario(void)
     printf("///           = = = = = = = = Pesquisar Usuario = = = = = = =               ///\n");
     printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Pesquisar:                                                    ///\n");
-
+    printf("///           Pesquisar por cpf:   ");
+    scanf(" %[0-9]", pesquise);
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    int escolha;
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    return escolha;
+    return pesquise;
 }
 
-int telaEditarUsuario(void)
+char *telaEditarUsuario(void)
 {
+
+    char *alterar;
+    alterar = (char *)malloc(14 * sizeof(char));
 
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -237,24 +257,19 @@ int telaEditarUsuario(void)
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Alterar email                                             ///\n");
-    printf("///            2. Alterar senha                                             ///\n");
-    printf("///            3. Alterar número de telefone                                ///\n");
-    printf("///            4. Alterar nome                                              ///\n");
-    printf("///            5. Endereço                                                  ///\n");
-    printf("///            6. Sair                                                      ///\n");
+    printf("///            Cpf:  ");
+    scanf(" %[0-9]", alterar);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    int escolha;
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    return escolha;
+    return alterar;
 }
 
-int telaDeletarUsuario(void)
+char *telaDeletarUsuario(void)
 {
+    char *deletar;
+    deletar = (char *)malloc(14 * (sizeof(char)));
 
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -270,31 +285,190 @@ int telaDeletarUsuario(void)
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    printf("///        1.Nome  2.Email  3.Telefone  4.Bairro  5.Cidade / Filtrar        ///\n");
+    printf("///       Deletar Usuario:  ");
+    scanf(" %[0-9]", deletar);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
-    printf("///        6. Sair                                        7. excluir        ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-    int escolha;
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    return escolha;
+    return deletar;
 }
+// const é utilizado para que não se altere os dados do usuario enquanto
+// estamos tentando exibir os dados
+/*
+Usuario* alterarUsuario(void){
 
-void exibirUsuario(const Usuario* usu){
-    printf("Nome: %s\n", usu->nome);
-    printf("Email: %s\n", usu->email);
-    printf("CPF: %s\n", usu->cpf);
-}
+}*/
 
-void gravarUsuario(Usuario* usu){
+void gravarUsuario(Usuario *usu)
+{
     FILE *grv;
-    grv = fopen("USUARIO_CADASTRADOS.dat", "ab");
-    //arquivos .dat são aqueles que contém dados
-    //ab = Acrescenta dados binários no fim do arquivo
-    fwrite(usu, sizeof(Usuario), 1, grv); //gravação de binários
+    grv = fopen("usuarios_cadastrados.dat", "ab");
+    // arquivos .dat são aqueles que contém dados
+    // ab = Acrescenta dados binários no fim do arquivo
+    //  verificamos se o arquivo nao está vazio
+    if (grv == NULL)
+    {
+        printf("Ocorreu um erro na abertura do arquivo");
+        exit(1);
+    }
+    fwrite(usu, sizeof(Usuario), 1, grv); // gravação de binários
     fclose(grv);
-} 
+}
+
+Usuario *buscarUsuario(char *pesquise)
+{
+    FILE *busca;
+
+    Usuario *usu;
+    usu = (Usuario *)malloc(sizeof(Usuario));
+
+    busca = fopen("usuarios_cadastrados.dat", "rb");
+    // rb = leitura de binários
+    if (busca == NULL)
+    {
+        printf("Ocorreu um erro durante a abertura do arquivo");
+        exit(1);
+    }
+    // feof verifica se o apontador chegou no final do arquivo já que
+    // essa leitura é feita em camadas
+    while (!feof(busca))
+    {
+        fread(usu, sizeof(Usuario), 1, busca); // ler os bites que foram gravados
+                                               /* if ((strcmp(usu->nome, pesquise_nome)) == 0 && (usu->status != 'x'))
+                                                {
+                                                    fclose(busca);
+                                                    return usu;
+                                                }
+                                                */
+        if ((strcmp(usu->cpf, pesquise)) == 0 && (usu->status != 'x'))
+        {
+            fclose(busca);
+            return usu;
+        }
+    }
+    fclose(busca);
+    return NULL;
+}
+
+void exibirUsuario(const Usuario *usu)
+{
+    if (usu->status == 'x' || usu == NULL)
+    {
+        printf("Usuario Inexistente");
+    }
+    else
+    {
+        printf("======================= RESULTADOS ENCONTRADOS =========================");
+        printf("\n");
+        printf("===    Nome: %s\n", usu->nome);
+        printf("===    Email: %s\n", usu->email);
+        printf("===    CPF: %s\n", usu->cpf);
+        printf("===    Data de Nascimento: %s\n", usu->data);
+    }
+}
+
+Usuario *excluirUsuario(Usuario *confirmLeitura)
+{
+    FILE *del;
+    Usuario *usu;
+    // char cpf;
+    int achou = 0;
+
+    if (confirmLeitura == NULL)
+    {
+        printf("Usuario nao cadastrado");
+    }
+    else
+    {
+        usu = (Usuario *)malloc(sizeof(Usuario));
+        del = fopen("usuarios_cadastrados.dat", "r+b");
+        if (del == NULL)
+        {
+            printf("Arquivo apresentou um erro no processo de gravacao");
+            exit(1);
+        }
+
+        while (!feof(del))
+        {
+            fread(usu, sizeof(Usuario), 1, del);
+            if ((strcmp(usu->cpf, confirmLeitura->cpf) == 0) && (usu->status) != 'x')
+            {
+                achou = 1;
+                usu->status = 'x';
+                fseek(del, -1 * sizeof(Usuario), SEEK_CUR);
+                fwrite(usu, sizeof(Usuario), 1, del);
+                fclose(del);
+                printf("\n ========================== Usuario excluido com sucesso ==========================\n");
+                return usu;
+            }
+        }
+        if (!achou)
+        {
+            printf("Usuario nao encontrado");
+        }
+        fclose(del);
+    }
+    return usu;
+}
+
+Usuario *alterarUsuario(Usuario *confirmLeitura)
+{
+    FILE *alt;
+    Usuario *usu;
+    // char cpf;
+    int achou = 0;
+    char nomeAlt[50];
+    char emailAlt[50];
+    char datanascAlt[10];
+
+    if (confirmLeitura == NULL)
+    {
+        printf("Usuario nao cadastrado");
+    }
+    else
+    {
+        usu = (Usuario *)malloc(sizeof(Usuario));
+        alt = fopen("usuarios_cadastrados.dat", "r+b");
+        if (alt == NULL)
+        {
+            printf("Arquivo apresentou um erro no processo de gravacao");
+            exit(1);
+        }
+
+        while (!feof(alt))
+        {
+            fread(usu, sizeof(Usuario), 1, alt);
+            if ((strcmp(usu->nome, confirmLeitura->nome) == 0) && (usu->status) != 'x')
+            {
+                achou = 1;
+                printf("\n =============================== ALTERANDO DADOS ==================================\n");
+                printf("////        Nome: ");
+                scanf("%s", nomeAlt);
+                printf("////        Email: ");
+                scanf("%s", emailAlt);
+                printf("////        Data de Nascimento: ");
+                scanf("%s", datanascAlt);
+
+                strcpy(usu->nome, nomeAlt);
+                strcpy(usu->email, emailAlt);
+                strcpy(usu->data, datanascAlt);
+
+                fseek(alt, -1 * sizeof(Usuario), SEEK_CUR);
+                fwrite(usu, sizeof(Usuario), 1, alt);
+                fclose(alt);
+                printf("\n ========================== Usuario alterado com sucesso ==========================\n");
+                return usu;
+            }
+        }
+        if (!achou)
+        {
+            printf("Usuario nao encontrado");
+        }
+        fclose(alt);
+    }
+    return usu;
+}
