@@ -43,4 +43,4 @@
 Modelo de  Telas Adaptado de @flgorgonio<br>
 Função de Validação p/ (Digitos, Letras, Validação Data, Ano Bissexto) Desenvolvido por @flgorgonio<br>
 Demais Funções de Validações Adaptado de @flgorgonio<br>
-Função de Cadastro  Adaptado de Eduardo Casavella
+Funções de CRUD Adaptado de @flgorgonio<br>
