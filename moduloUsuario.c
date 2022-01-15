@@ -85,11 +85,11 @@ int menuUsuario(void)
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar Usuario                                         ///\n");
-    printf("///            2. Editar Usuario                                            ///\n");
-    printf("///            3. Pequisar Usuario                                          ///\n");
-    printf("///            4. Apagar Usuario                                            ///\n");
-    printf("///            0. Sair                                                      ///\n");
+    printf("///            [1] Cadastrar Usuario                                         ///\n");
+    printf("///            [2] Editar Usuario                                            ///\n");
+    printf("///            [3] Pequisar Usuario                                          ///\n");
+    printf("///            [4] Apagar Usuario                                            ///\n");
+    printf("///            [0] Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -303,6 +303,7 @@ Usuario* alterarUsuario(void){
 
 }*/
 
+/*
 void gravarUsuario(Usuario *usu)
 {
     FILE *grv;
@@ -318,6 +319,24 @@ void gravarUsuario(Usuario *usu)
     fwrite(usu, sizeof(Usuario), 1, grv); // gravação de binários
     fclose(grv);
 }
+*/
+
+void gravarUsuario(Usuario *usu)
+{
+    FILE *grv;
+    grv = fopen("usuarios_cadastradosTexto.txt", "a+");
+    if (grv == NULL)
+    {
+        printf("Ocorreu um erro na abertura do arquivo");
+        exit(1);
+    }
+    fprintf(grv, "%s\n", usu->nome); // gravação de arquivo texto
+    fprintf(grv, "%s\n", usu->email);
+    fprintf(grv, "%s\n", usu->data);
+    fprintf(grv, "%s\n", usu->cpf);   
+    fclose(grv);
+}
+
 
 Usuario *buscarUsuario(char *pesquise)
 {

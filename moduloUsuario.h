@@ -5,12 +5,7 @@ int menuUsuario(void);
 typedef struct usuario Usuario;
 
 
-typedef struct{
-    char cep[10];
-    char  rg[12];
-    char uf[2];
-   
-}endereco;
+
 
 struct usuario
 {
@@ -20,7 +15,6 @@ struct usuario
     char email[50];
     char telefone[12];
     char data[10];
-    endereco Endereco;
     char status;
 };
 
