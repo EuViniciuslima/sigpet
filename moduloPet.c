@@ -4,7 +4,6 @@
 #include "moduloPet.h"
 #include "util.h"
 
-
 typedef struct pet Pet;
 
 void navPet(void)
@@ -34,7 +33,6 @@ void navPet(void)
 
 int menuPet(void)
 {
-  
 
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -63,20 +61,22 @@ int menuPet(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        return escolha;
-    }while(!validaNav(&escolha));
+  int escolha;
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    return escolha;
+  } while (!validaNav(&escolha));
 }
-
-
 
 void cadastrarPet(void)
 {
-  telaCadastrarPet();
+  Pet *pet;
+  pet = telaCadastrarPet();
+  gravarPet(pet);
+  free(pet);
 }
 
 void pesquisarPet(void)
@@ -94,10 +94,10 @@ void deletarPet(void)
   telaDeletarPet();
 }
 
-Pet* telaCadastrarPet(void)
+Pet *telaCadastrarPet(void)
 {
   Pet *pet;
-  pet = (Pet*)malloc(sizeof(Pet));
+  pet = (Pet *)malloc(sizeof(Pet));
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -116,12 +116,14 @@ Pet* telaCadastrarPet(void)
   printf("///           = = = = = = = = =  Cadastro Pet = = = = = = = =               ///\n");
   printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
   printf("///                                                                         ///\n");
-  do{
+  do
+  {
     printf("///            Nome do Pet:");
     scanf(" %255[^\n]", pet->nome);
     getchar();
-  }while(!validaNome(pet->nome));
-  do{
+  } while (!validaNome(pet->nome));
+  do
+  {
     printf("///            Sexo do Pet (f/m):");
     scanf(" %255[^\n]", pet->sexo);
     getchar();
@@ -129,35 +131,38 @@ Pet* telaCadastrarPet(void)
     {
       printf("Sexo Invalido\n");
     }
-  }while(!validaSexo(pet->sexo));
-  do{
+  } while (!validaSexo(pet->sexo));
+  do
+  {
     printf("///            Data de Nascimento - Pet:");
     scanf(" %255[^\n]", pet->data);
     getchar();
-    if(validarData(pet->data) == 0){
+    if (validarData(pet->data) == 0)
+    {
       printf("Data Invalida\n");
     }
-  }while(!validarData(pet->data));
-  do{
+  } while (!validarData(pet->data));
+  do
+  {
     printf("///            Especie do Pet:");
     scanf(" %255[^\n]", pet->especie);
     getchar();
-  }while(!validaNome(pet->especie));
-  do{
+  } while (!validaNome(pet->especie));
+  do
+  {
     printf("///            Dono:");
     scanf(" %255[^\n]", pet->dono);
     getchar();
-  }while(!validaNome(pet->dono));
- 
+  } while (!validaNome(pet->dono));
+
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
-  
 
-  
   printf("0. Voltar \n: ");
   return pet;
 }
+
 /*
 void validaDadosPet(void)
 {
@@ -267,16 +272,16 @@ int telaDeletarPet(void)
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-  
   printf("0. Voltar \nEscolha: ");
-   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
+  int escolha;
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }
 
 int telaEditarPet(void)
@@ -307,14 +312,15 @@ int telaEditarPet(void)
   printf("///            Dono:                                                        ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
+  int escolha;
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
 }
 
 int telaPesquisarPet(void)
@@ -345,14 +351,32 @@ int telaPesquisarPet(void)
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
 
-  
   printf("0. Voltar \n ");
-   int escolha;
-    do{ 
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    }while(!validaNav(&escolha));
+  int escolha;
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+    getchar();
+    validaNav(&escolha);
+    return escolha;
+  } while (!validaNav(&escolha));
+}
+
+void gravarPet(Pet *pet)
+{
+  FILE *grvpet;
+  grvpet = fopen("pets_cadastrados.txt", "a+");
+  if (grvpet == NULL)
+  {
+    printf("Ocorreu um erro na abertura do arquivo");
+    exit(1);
+  }
+
+  fprintf(grvpet, "%s\n", pet->nome); // gravação de arquivo texto
+  fprintf(grvpet, "%s\n", pet->data);
+  fprintf(grvpet, "%s\n", pet->sexo);
+  fprintf(grvpet, "%s\n", pet->especie);
+  fprintf(grvpet, "%s\n", pet->dono);
+  fclose(grvpet);
 }

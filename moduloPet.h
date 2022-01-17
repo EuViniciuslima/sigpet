@@ -27,3 +27,4 @@ void structPet(int *, char *, char *, char *);
 void exibirCadastroStructPet(void);
 
 void arquivoCadPet(void);
+void gravarPet(Pet* );

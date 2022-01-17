@@ -70,11 +70,11 @@ int menuConsulta(void)
 
 void cadastrarConsulta(void)
 {
-  
-    Consulta *cons;
-    cons = telaCadastrarConsulta();
-    gravarConsulta(cons);
-    free(cons);
+
+  Consulta *cons;
+  cons = telaCadastrarConsulta();
+  gravarConsulta(cons);
+  free(cons);
 }
 
 void editarConsulta(void)
@@ -92,7 +92,7 @@ void deletarConsulta(void)
   telaDeletarConsulta();
 }
 
-Consulta* telaCadastrarConsulta(void)
+Consulta *telaCadastrarConsulta(void)
 {
 
   Consulta *cons;
@@ -285,16 +285,16 @@ int telaDeletarConsulta(void)
 
 void gravarConsulta(Consulta *cons)
 {
-    FILE *grv;
-    grv = fopen("consulta_cadastradosTexto.txt", "a+");
-    if (grv == NULL)
-    {
-        printf("Ocorreu um erro na abertura do arquivo");
-        exit(1);
-    }
-    fprintf(grv, "%s\n", cons->cadPaciente); // gravação de arquivo texto
-    fprintf(grv, "%s\n", cons->cadResponsavel);
-    fprintf(grv, "%s\n", cons->cadData);
-    fprintf(grv, "%s\n", cons->cadDescricao);
-    fclose(grv);
+  FILE *grv;
+  grv = fopen("consulta_cadastradosTexto.txt", "a+");
+  if (grv == NULL)
+  {
+    printf("Ocorreu um erro na abertura do arquivo");
+    exit(1);
+  }
+  fprintf(grv, "%s\n", cons->cadPaciente); // gravação de arquivo texto
+  fprintf(grv, "%s\n", cons->cadResponsavel);
+  fprintf(grv, "%s\n", cons->cadData);
+  fprintf(grv, "%s\n", cons->cadDescricao);
+  fclose(grv);
 }

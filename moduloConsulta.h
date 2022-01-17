@@ -19,7 +19,7 @@ void editarConsulta(void);
 
 int telaPesquisarConsulta(void);
 int telaDeletarConsulta(void);
-Consulta* telaCadastrarConsulta(void);
+Consulta *telaCadastrarConsulta(void);
 int telaEditarConsulta(void);
 
-void gravarConsulta(Consulta*);
+void gravarConsulta(Consulta *);
