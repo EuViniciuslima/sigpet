@@ -1,14 +1,15 @@
 void navConsulta(void);
 int menuConsulta(void);
 
-typedef struct Cadastro CONS;
+typedef struct consulta Consulta;
 
-struct Cadastro
+struct consulta
 {
-    char cadConsult[13];
-    char nomePaciente[15];
-    char nomeRespon[15];
-    char cadDescri[60];
+    char cadPaciente[15];
+    char cadResponsavel[15];
+    char cadDescricao[60];
+    char cadData[10];
+    char cadHorario[10];
 };
 
 void pesquisarConsulta(void);
@@ -18,5 +19,7 @@ void editarConsulta(void);
 
 int telaPesquisarConsulta(void);
 int telaDeletarConsulta(void);
-CONS* telaCadastrarConsulta(void);
+Consulta* telaCadastrarConsulta(void);
 int telaEditarConsulta(void);
+
+void gravarConsulta(Consulta*);

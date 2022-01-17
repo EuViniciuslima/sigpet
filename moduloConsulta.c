@@ -4,7 +4,7 @@
 #include "moduloConsulta.h"
 #include "util.h"
 
-typedef struct Cadastro CONS;
+typedef struct consulta Consulta;
 
 void navConsulta(void)
 {
@@ -70,7 +70,11 @@ int menuConsulta(void)
 
 void cadastrarConsulta(void)
 {
-  telaCadastrarConsulta();
+  
+    Consulta *cons;
+    cons = telaCadastrarConsulta();
+    gravarConsulta(cons);
+    free(cons);
 }
 
 void editarConsulta(void)
@@ -88,11 +92,11 @@ void deletarConsulta(void)
   telaDeletarConsulta();
 }
 
-CONS* telaCadastrarConsulta(void)
+Consulta* telaCadastrarConsulta(void)
 {
 
-  CONS *cad;
-  cad = (CONS *)malloc(sizeof(CONS));
+  Consulta *cons;
+  cons = (Consulta *)malloc(sizeof(Consulta));
 
   printf("                                                                          - □ x\n");
   printf("\n");
@@ -126,33 +130,33 @@ CONS* telaCadastrarConsulta(void)
   do
   {
     printf("Data da consulta (Apenas Numeros, Sem Espacos):");
-    scanf(" %255[^\n]", cad->cadConsult);
-    validarData(cad->cadConsult);
-    maskData(cad->cadConsult);
-  } while (!validarData(cad->cadConsult));
+    scanf(" %255[^\n]", cons->cadData);
+    validarData(cons->cadData);
+    maskData(cons->cadData);
+  } while (!validarData(cons->cadData));
 
   do
   {
     printf("Nome do Paciente(Pet): ");
-    scanf(" %255[^\n]", cad->nomePaciente);
+    scanf(" %255[^\n]", cons->cadPaciente);
     getchar();
-  } while (!validaNome(cad->nomePaciente));
+  } while (!validaNome(cons->cadPaciente));
 
   do
   {
     printf("Dono/Responsavel: ");
-    scanf(" %255[^\n]", cad->nomeRespon);
+    scanf(" %255[^\n]", cons->cadResponsavel);
     getchar();
-  } while (!validaNome(cad->nomeRespon));
+  } while (!validaNome(cons->cadResponsavel));
 
   do
   {
     printf("Descrição: ");
-    scanf(" %255[^\n]", cad->cadDescri);
+    scanf(" %255[^\n]", cons->cadDescricao);
     getchar();
-  } while (!validaNome(cad->cadDescri));
+  } while (!validaNome(cons->cadDescricao));
 
-  return cad;
+  return cons;
 }
 
 int telaPesquisarConsulta(void)
@@ -277,4 +281,20 @@ int telaDeletarConsulta(void)
     validaNav(&escolha);
     return escolha;
   } while (!validaNav(&escolha));
+}
+
+void gravarConsulta(Consulta *cons)
+{
+    FILE *grv;
+    grv = fopen("consulta_cadastradosTexto.txt", "a+");
+    if (grv == NULL)
+    {
+        printf("Ocorreu um erro na abertura do arquivo");
+        exit(1);
+    }
+    fprintf(grv, "%s\n", cons->cadPaciente); // gravação de arquivo texto
+    fprintf(grv, "%s\n", cons->cadResponsavel);
+    fprintf(grv, "%s\n", cons->cadData);
+    fprintf(grv, "%s\n", cons->cadDescricao);
+    fclose(grv);
 }
