@@ -333,10 +333,9 @@ void gravarUsuario(Usuario *usu)
     fprintf(grv, "%s\n", usu->nome); // gravação de arquivo texto
     fprintf(grv, "%s\n", usu->email);
     fprintf(grv, "%s\n", usu->data);
-    fprintf(grv, "%s\n", usu->cpf);   
+    fprintf(grv, "%s\n", usu->cpf);
     fclose(grv);
 }
-
 
 Usuario *buscarUsuario(char *pesquise)
 {
@@ -464,32 +463,37 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
             if ((strcmp(usu->nome, confirmLeitura->nome) == 0) && (usu->status) != 'x')
             {
                 achou = 1;
-                do{
+                do
+                {
 
                     printf("\n =============================== ALTERANDO DADOS ==================================\n");
                     printf("////        Nome: ");
                     scanf(" %256[^\n]", nome);
-                    if(validaNome(nome) == 0){
+                    if (validaNome(nome) == 0)
+                    {
                         printf("Nome invalido\n");
                     }
-                  
-                }while(!validaNome(nome));
-                do{
+
+                } while (!validaNome(nome));
+                do
+                {
                     printf("////        Email: ");
                     scanf(" %256[^\n]", email);
-                    if(validaEmail(email) == 0){
+                    if (validaEmail(email) == 0)
+                    {
                         printf("Email invalido\n");
                     }
 
-                }while(!validaEmail(email));
-                do{
+                } while (!validaEmail(email));
+                do
+                {
                     printf("////        Data de Nascimento: ");
                     scanf(" %256[^\n]", data);
-                    if(validarData(data) == 0){
+                    if (validarData(data) == 0)
+                    {
                         printf("Data invalida\n");
                     }
-                }while(!validarData(data));
-               
+                } while (!validarData(data));
 
                 strcpy(usu->nome, nome);
                 strcpy(usu->email, email);

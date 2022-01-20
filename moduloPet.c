@@ -366,17 +366,13 @@ int telaPesquisarPet(void)
 void gravarPet(Pet *pet)
 {
   FILE *grvpet;
-  grvpet = fopen("pets_cadastrados.txt", "a+");
+  grvpet = fopen("pets_cadastrados.dat", "ab");
   if (grvpet == NULL)
   {
     printf("Ocorreu um erro na abertura do arquivo");
     exit(1);
   }
 
-  fprintf(grvpet, "%s\n", pet->nome); // gravação de arquivo texto
-  fprintf(grvpet, "%s\n", pet->data);
-  fprintf(grvpet, "%s\n", pet->sexo);
-  fprintf(grvpet, "%s\n", pet->especie);
-  fprintf(grvpet, "%s\n", pet->dono);
+  fwrite(pet, sizeof(Pet), 1, grvpet);
   fclose(grvpet);
 }
