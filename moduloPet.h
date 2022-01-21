@@ -19,6 +19,7 @@ void pesquisarPet(void);
 int telaPesquisarPet(void);
 void editarPet(void);
 int telaEditarPet(void);
+int telaListarPet(void);
 
 int menuPet(void);
 
