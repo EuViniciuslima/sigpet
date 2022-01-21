@@ -40,10 +40,13 @@ void navUsuario(void)
                     case 2:
                         listarUsuarioporUF();
                         break;
-            
+                    case 3:
+                        listarUsuarioporCidade();
+                        break;
                 }
 
             }while (opc != 0);
+            break;
         }
     } while (opcao != 0);
 }
@@ -208,7 +211,18 @@ Usuario *telaCadastrarUsuario()
         {
             printf("CPF Invalido\n");
         }
-    } while (!validaCpf(usu->cpf)); /*
+    } while (!validaCpf(usu->cpf)); 
+    do
+    {
+        printf("///            Cidade (Sem Acentos ou Caracter Especial):");
+        scanf(" %40[^\n]", usu->cidade);
+        
+        if (validaNome(usu->cidade) == 0)
+        {
+            printf("Cidade Invalida\n");
+        }
+    } while (!validaNome(usu->cidade)); 
+    /*
      do
      {
          printf("///            RG (Apenas Numeros):");
@@ -451,7 +465,8 @@ void exibirUsuario(const Usuario *usu)
         printf("===    Email: %s\n", usu->email);
         printf("===    CPF: %s\n", usu->cpf);
         printf("===    Data de Nascimento: %s\n", usu->data);
-        printf("===    UF: %s\n", usu->uf);
+        printf("===    UF: %s\n", us2u->uf);
+        printf("===    Cidade: %s\n", usu->cidade);
 
         if (usu->status == 'o') {
         strcpy(situacao, "Cadastrado");
@@ -518,6 +533,7 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
     char email[41];
     char data[11];
     char uf[4];
+    char cidade[45];
 
     if (confirmLeitura == NULL)
     {
@@ -580,11 +596,21 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
                         printf("UF invalida\n");
                     }
                 } while (!validaUF(uf));
+                 do
+                {
+                    printf("////        Cidade: ");
+                    scanf(" %40[^\n]", cidade);
+                    if (validaNome(cidade) == 0)
+                    {
+                        printf("Cidade invalida\n");
+                    }
+                } while (!validaNome(cidade));
 
                 strcpy(usu->nome, nome);
                 strcpy(usu->email, email);
                 strcpy(usu->data, data);
                 strcpy(usu->uf, uf);
+                strcpy(usu->cidade, cidade);
 
                 fseek(alt, -1 * sizeof(Usuario), SEEK_CUR);
                 fwrite(usu, sizeof(Usuario), 1, alt);
@@ -644,6 +670,34 @@ void listarUsuarioporUF(void){
     {
         while(fread(usu, sizeof(Usuario), 1, lst)) {
             if ((strcmp(usu->uf, ufinfo) == 0) && (usu->status != 'x')) {
+                exibirUsuario(usu);
+                
+            }
+        }
+        fclose(lst);
+        navUsuario();
+    }
+    
+}
+
+void listarUsuarioporCidade(void){
+    FILE *lst;
+    Usuario *usu;
+    char cidadeinfo[45];
+    usu = (Usuario*)malloc(sizeof(Usuario));
+    lst = fopen("usuarios_cadastrados.dat","rb");
+    printf(" ============ Lista de Usuarios por Cidade =============\n");
+    printf("Informe a Cidade: ");
+    scanf("%40[^\n]", cidadeinfo);
+    if (lst == NULL) {
+    printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+  
+    exit(1);
+    }
+    while (!feof(lst))
+    {
+        while(fread(usu, sizeof(Usuario), 1, lst)) {
+            if ((strcmp(usu->cidade, cidadeinfo) == 0) && (usu->status != 'x')) {
                 exibirUsuario(usu);
                 
             }

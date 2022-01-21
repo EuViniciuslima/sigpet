@@ -18,6 +18,7 @@ struct usuario
     char telefone[13];
     char data[11];
     char uf[4];
+    char cidade[45];
     char status;
     
 };
@@ -40,6 +41,7 @@ void cadastrarUsuario(void);
 void deletarUsuario(void);
 void listarUsuario(void);
 void listarUsuarioporUF(void);
+void listarUsuarioporCidade(void);
 
 Usuario* excluirUsuario(Usuario *);
 Usuario* alterarUsuario(Usuario *);
