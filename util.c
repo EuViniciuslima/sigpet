@@ -4,7 +4,7 @@
 #include "util.h"
 
 int validaNav(int *escolha){
-  int opcoesValidas[6] = {0, 1, 2, 3, 4, '\0'};
+  int opcoesValidas[7] = {0, 1, 2, 3, 4, 5,'\0'};
   int i;
   for (i =0; opcoesValidas[i]!='\0'; i++){
     if(!(*escolha == opcoesValidas[i])){
@@ -72,6 +72,22 @@ int validaCpf(char *cpf)
     }
   }
   return 1;
+}
+int validaUF(char* uf){
+  int tamanho;
+  tamanho = strlen(uf);
+  if(tamanho == 2){
+
+    if(ehLetra(uf[0]) && ehLetra(uf[1])){
+        return 1;
+    }
+    else{
+      return 0;
+    }
+  }
+  else{
+    return 0;
+  }
 }
 
 int validaEmail(char* email){

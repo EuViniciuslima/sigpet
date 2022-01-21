@@ -24,3 +24,4 @@ int ehSexo(char);
 int ehBissexto(int);
 int ehData(int, int, int);
 int validarData(char *);
+int validaUF(char*);

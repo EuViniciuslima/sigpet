@@ -1,6 +1,8 @@
 
 void navUsuario(void);
 int menuUsuario(void);
+void relatorioUsuario(void);
+int telaListarUsuario(void);
 
 typedef struct usuario Usuario;
 
@@ -10,12 +12,14 @@ typedef struct usuario Usuario;
 struct usuario
 {
     
-    char nome[50];
-    char cpf[15];
-    char email[50];
-    char telefone[12];
-    char data[10];
+    char nome[81];
+    char cpf[16];
+    char email[41];
+    char telefone[13];
+    char data[11];
+    char uf[4];
     char status;
+    
 };
 
 
@@ -34,5 +38,8 @@ void pesquisarUsuario(void);
 void editarUsuario(void);
 void cadastrarUsuario(void);
 void deletarUsuario(void);
+void listarUsuario(void);
+void listarUsuarioporUF(void);
+
 Usuario* excluirUsuario(Usuario *);
 Usuario* alterarUsuario(Usuario *);
