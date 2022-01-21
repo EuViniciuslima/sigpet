@@ -364,7 +364,7 @@ int telaListarUsuario(void)
     printf("///                                                                         ///\n");
     printf("///               [1] Listar Usuarios                                       ///\n");
     printf("///               [2] Listar Usuarios por UF                                ///\n");
-    printf("///                                                                         ///\n");
+    printf("///               [3] Listar Usuarios por Cidade                            ///\n");
     
     do
     {
@@ -465,7 +465,7 @@ void exibirUsuario(const Usuario *usu)
         printf("===    Email: %s\n", usu->email);
         printf("===    CPF: %s\n", usu->cpf);
         printf("===    Data de Nascimento: %s\n", usu->data);
-        printf("===    UF: %s\n", us2u->uf);
+        printf("===    UF: %s\n", usu->uf);
         printf("===    Cidade: %s\n", usu->cidade);
 
         if (usu->status == 'o') {
