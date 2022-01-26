@@ -9,6 +9,7 @@ typedef struct pet Pet;
 void navPet(void)
 {
   int opcao;
+  int opc;
   do
   {
     opcao = menuPet();
@@ -25,6 +26,29 @@ void navPet(void)
       break;
     case 4:
       deletarPet();
+      break;
+    case 5:
+      opc = telaListarPet();
+      do
+      {
+        switch (opc)
+        {
+        case 1:
+          listarPet();
+          break;
+          /*case 2:
+            listarUsuarioporUF();
+            break;
+          case 3:
+            listarUsuarioporCidade();
+            break;
+          case 4:
+            // listarNovoArquivo();
+            listarTudo();
+            break; */
+        }
+
+      } while (opc != 0);
       break;
     }
 
@@ -91,7 +115,12 @@ void editarPet(void)
 
 void deletarPet(void)
 {
-  telaDeletarPet();
+  Pet *pet;
+  char *deletar;
+  deletar = telaDeletarPet();
+  pet = buscarPet(deletar);
+  excluirPet(pet);
+  free(pet);
 }
 
 Pet *telaCadastrarPet(void)
@@ -243,9 +272,10 @@ void arquivoCadPet(void)
  // fclose(gravarCadPET);
 }
 */
-int telaDeletarPet(void)
+char *telaDeletarPet(void)
 {
-
+  char *deletePet;
+  deletePet = (char *)malloc(40 * (sizeof(char)));
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -264,15 +294,16 @@ int telaDeletarPet(void)
   printf("///           = = = = = = = = =  Exluir Pet   = = = = = = = =               ///\n");
   printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
   printf("///                                                                         ///\n");
-  printf("///            Nome do Pet:                                                 ///\n");
-  printf("///            Idade do Pet:                                                ///\n");
-  printf("///            Sexo do Pet:                                                 ///\n");
-  printf("///            Especie do Pet:                                              ///\n");
-  printf("///            Dono:                                                        ///\n");
+  printf("///            Nome do Pet:  ");
+  scanf(" %255[^\n]", deletePet);
+  printf("///                                                                         ///\n");
+  printf("///                                                                         ///\n");
+  printf("///                                                                         ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-  printf("0. Voltar \nEscolha: ");
+  return deletePet;
+  /*printf("0. Voltar \nEscolha: ");
   int escolha;
   do
   {
@@ -281,7 +312,7 @@ int telaDeletarPet(void)
     getchar();
     validaNav(&escolha);
     return escolha;
-  } while (!validaNav(&escolha));
+  } while (!validaNav(&escolha));*/
 }
 
 int telaEditarPet(void)
@@ -408,4 +439,116 @@ int telaListarPet(void)
     getchar();
     return opcpet;
   } while (!validaNav(&opcpet));
+}
+
+void exibirPet(const Pet *pet)
+{
+
+  printf("======================= RESULTADOS ENCONTRADOS =========================");
+  printf("\n");
+  printf("===    Nome: %s\n", pet->nome);
+  printf("===    Data: %s\n", pet->data);
+  printf("===    Sexo: %s\n", pet->sexo);
+  printf("===    Espécie: %s\n", pet->especie);
+  printf("===    Dono: %s\n", pet->dono);
+}
+
+void listarPet(void)
+{
+  FILE *lst;
+  Pet *pet;
+  printf(" ============ Lista de Pet =============\n");
+  pet = (Pet *)malloc(sizeof(Pet));
+  lst = fopen("pets_cadastrados.dat", "rb");
+  if (lst == NULL)
+  {
+    printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+    exit(1);
+  }
+  while (!feof(lst))
+  {
+
+    while (fread(pet, sizeof(Pet), 1, lst))
+    {
+      if (pet->status != 'x')
+      {
+        exibirPet(pet);
+      }
+    }
+    fclose(lst);
+    navPet();
+  }
+}
+
+Pet *buscarPet(char *pesquise)
+{
+  FILE *busca;
+
+  Pet *pet;
+  pet = (Pet *)malloc(sizeof(Pet));
+
+  busca = fopen("pets_cadastrados.dat", "rb");
+  // rb = leitura de binários
+  if (busca == NULL)
+  {
+    printf("Ocorreu um erro durante a abertura do arquivo");
+    exit(1);
+  }
+  // feof verifica se o apontador chegou no final do arquivo já que
+  // essa leitura é feita em camadas
+  while (!feof(busca))
+  {
+    fread(pet, sizeof(Pet), 1, busca);
+    if ((strcmp(pet->nome, pesquise)) == 0 && (pet->status != 'x'))
+    {
+      fclose(busca);
+      return pet;
+    }
+  }
+  fclose(busca);
+  return NULL;
+}
+
+Pet *excluirPet(Pet *confirmLeitura)
+{
+  FILE *deletarPet;
+  Pet *pet;
+  // char nome;
+  int achou = 0;
+
+  if (confirmLeitura == NULL)
+  {
+    printf("Pet nao cadastrado");
+  }
+  else
+  {
+    pet = (Pet *)malloc(sizeof(Pet));
+    deletarPet = fopen("pets_cadastrados.dat", "r+b");
+    if (deletarPet == NULL)
+    {
+      printf("Arquivo apresentou um erro no processo de gravacao");
+      exit(1);
+    }
+
+    while (!feof(deletarPet))
+    {
+      fread(pet, sizeof(Pet), 1, deletarPet);
+      if ((strcmp(pet->nome, confirmLeitura->nome) == 0) && (pet->status) != 'x')
+      {
+        achou = 1;
+        pet->status = 'x';
+        fseek(deletarPet, -1 * sizeof(Pet), SEEK_CUR);
+        fwrite(pet, sizeof(Pet), 1, deletarPet);
+        fclose(deletarPet);
+        printf("\n ========================== Pet excluido com sucesso ==========================\n");
+        return pet;
+      }
+    }
+    if (!achou)
+    {
+      printf("Pet nao encontrado");
+    }
+    fclose(deletarPet);
+  }
+  return pet;
 }
