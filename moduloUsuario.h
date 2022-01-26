@@ -45,3 +45,9 @@ void listarUsuarioporCidade(void);
 
 Usuario* excluirUsuario(Usuario *);
 Usuario* alterarUsuario(Usuario *);
+void DelFisicUsuario(void);
+void copyFile(FILE *, FILE *);
+void recolocandoUsuario(FILE *, FILE *);
+void listarNovoArquivo(void);
+void listarTudo(void);
+void ReposicionandoUsuario(void);

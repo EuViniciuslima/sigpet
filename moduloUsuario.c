@@ -17,36 +17,44 @@ void navUsuario(void)
         opcao = menuUsuario();
         switch (opcao)
         {
-        case 1:
-            cadastrarUsuario();
-            break;
-        case 2:
-            editarUsuario();
-            break;
-        case 3:
-            pesquisarUsuario();
-            break;
-        case 4:
-            deletarUsuario();
-            break;
-        case 5:
-            opc = telaListarUsuario();
-            do{
-                switch (opc)
-                {
-                    case 1: 
-                        listarUsuario(); 
-                        break;
-                    case 2:
-                        listarUsuarioporUF();
-                        break;
-                    case 3:
-                        listarUsuarioporCidade();
-                        break;
-                }
+            case 1:
+                cadastrarUsuario();
+                break;
+            case 2:
+                editarUsuario();
+                break;
+            case 3:
+                pesquisarUsuario();
+                break;
+            case 4:
+                deletarUsuario();
+                break;
+            case 5:
+                opc = telaListarUsuario();
+                do{
+                    switch (opc)
+                    {
+                        case 1: 
+                            listarUsuario(); 
+                            break;
+                        case 2:
+                            listarUsuarioporUF();
+                            break;
+                        case 3:
+                            listarUsuarioporCidade();
+                            break;
+                        case 4:
+                            //listarNovoArquivo();
+                            listarTudo();
+                            break;
+                            
+                    }
 
-            }while (opc != 0);
-            break;
+                }while (opc != 0);
+                break;
+            case 6:
+                ReposicionandoUsuario();
+                break;
         }
     } while (opcao != 0);
 }
@@ -112,6 +120,7 @@ int menuUsuario(void)
     printf("///            [3] Pequisar Usuario                                         ///\n");
     printf("///            [4] Apagar Usuario                                           ///\n");
     printf("///            [5] Relatorio Usuario                                        ///\n");
+    printf("///            [6] Limpar Registros                                         ///\n");
     printf("///            [0] Sair                                                     ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -365,6 +374,7 @@ int telaListarUsuario(void)
     printf("///               [1] Listar Usuarios                                       ///\n");
     printf("///               [2] Listar Usuarios por UF                                ///\n");
     printf("///               [3] Listar Usuarios por Cidade                            ///\n");
+    printf("///               [4] Listar Tudo (Excluidos e Registrados)                 ///\n");
     
     do
     {
@@ -452,13 +462,7 @@ Usuario *buscarUsuario(char *pesquise)
 
 void exibirUsuario(const Usuario *usu)
 {
-    char situacao[20];
-    if (usu->status == 'x' || usu == NULL)
-    {
-        printf("Usuario Inexistente");
-    }
-    else
-    {
+
         printf("======================= RESULTADOS ENCONTRADOS =========================");
         printf("\n");
         printf("===    Nome: %s\n", usu->nome);
@@ -468,14 +472,8 @@ void exibirUsuario(const Usuario *usu)
         printf("===    UF: %s\n", usu->uf);
         printf("===    Cidade: %s\n", usu->cidade);
 
-        if (usu->status == 'o') {
-        strcpy(situacao, "Cadastrado");
-        }
-        else{
-        strcpy(situacao, "Não Informado");
-        }
-        printf("===    Situacao do Usuario: %s\n", situacao);
-    }
+       
+    
 }
 
 
@@ -642,8 +640,30 @@ void listarUsuario(void){
     {
         while(fread(usu, sizeof(Usuario), 1, lst)) {
             if (usu->status != 'x') {
-            exibirUsuario(usu);
+                exibirUsuario(usu);
             }   
+        }
+        fclose(lst);
+        navUsuario();
+    }
+  
+
+}
+void listarTudo(void){
+    FILE* lst;
+    Usuario* usu;
+    printf(" ============ Lista de Usuarios =============\n");
+    usu = (Usuario*)malloc(sizeof(Usuario));
+    lst = fopen("usuarios_cadastrados.dat","rb");
+    if (lst == NULL) {
+    printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+    exit(1);
+    }
+    while (!feof(lst))
+    {
+        while(fread(usu, sizeof(Usuario), 1, lst)) {
+                exibirUsuario(usu);
+              
         }
         fclose(lst);
         navUsuario();
@@ -706,4 +726,107 @@ void listarUsuarioporCidade(void){
         navUsuario();
     }
     
+}
+
+void copyUsu(FILE *read, FILE *fp){
+    Usuario *usu;
+    usu = (Usuario*)malloc(sizeof(Usuario));
+    
+    while (!feof(read))
+    {
+        while(fread(usu, sizeof(Usuario), 1, read)) {
+            if (usu->status != 'x') {
+                fwrite(usu, sizeof(Usuario), 1, fp);
+            }
+        }   
+    }
+
+}
+
+
+void recolocandoUsuario(FILE *read2, FILE *fp2){
+    Usuario *usu;
+    usu = (Usuario*)malloc(sizeof(Usuario));
+    
+    while (!feof(read2))
+    {
+        while(fread(usu, sizeof(Usuario), 1, read2)) {
+       
+                fwrite(usu, sizeof(Usuario), 1, fp2);
+     
+        }   
+    }
+
+}
+
+
+
+void DelFisicUsuario(void){
+    FILE *read;
+    read = fopen("usuarios_cadastrados.dat", "rb");
+    if(read == NULL){
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+    FILE *fp;
+    fp = fopen("UsuariosExistenes.dat", "wb");
+    
+    if(fp == NULL){
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+
+    copyUsu(read, fp);
+    
+
+    fclose(read);
+    fclose(fp);
+
+}
+
+void ReposicionandoUsuario(void){
+    DelFisicUsuario();
+    FILE *read2;
+    read2 = fopen("UsuariosExistenes.dat", "rb");
+    if(read2 == NULL){
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+
+    FILE *fp2;
+    fp2 = fopen("usuarios_cadastrados.dat", "wb");
+    if(fp2 == NULL){
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+    
+    recolocandoUsuario(read2,fp2);
+
+    fclose(read2);
+    fclose(fp2);
+}
+
+
+
+void listarNovoArquivo(void){
+   FILE* lst;
+    Usuario* usu;
+    printf(" ============ Lista de Usuarios =============\n");
+    usu = (Usuario*)malloc(sizeof(Usuario));
+    lst = fopen("UsuariosExistenes.dat","rb");
+    if (lst == NULL) {
+    printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+    exit(1);
+    }
+    while (!feof(lst))
+    {
+        while(fread(usu, sizeof(Usuario), 1, lst)) {
+            
+                exibirUsuario(usu);
+               
+        }
+        fclose(lst);
+        navUsuario();
+    }
+  
 }
