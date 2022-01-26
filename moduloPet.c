@@ -346,7 +346,6 @@ int telaPesquisarPet(void)
   printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
   printf("///                                                                         ///\n");
   printf("///           Pesquisar:                                                    ///\n");
-
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
@@ -375,4 +374,38 @@ void gravarPet(Pet *pet)
 
   fwrite(pet, sizeof(Pet), 1, grvpet);
   fclose(grvpet);
+}
+
+int telaListarPet(void)
+{
+  int opcpet;
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("///                                                                         ///\n");
+  printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+  printf("///                                                                         ///\n");
+  printf("///          ===================================================            ///\n");
+  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+  printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+  printf("///          ===================================================            ///\n");
+  printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+  printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+  printf("///                                                                         ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("///                                                                         ///\n");
+  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+  printf("///           = = = = = = = = = = Listar = = = = = = = = = =                ///\n");
+  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+  printf("///                                                                         ///\n");
+  printf("///               [1] Listar Pets                                            ///\n");
+  printf("///               [2] Listar Pets por categoria                             ///\n");
+  printf("///               [3] Listar Pets por Raça                                  ///\n");
+
+  do
+  {
+    printf("Escolha: ");
+    scanf("%d", &opcpet);
+    getchar();
+    return opcpet;
+  } while (!validaNav(&opcpet));
 }
