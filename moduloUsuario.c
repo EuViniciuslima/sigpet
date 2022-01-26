@@ -16,7 +16,7 @@ void navUsuario(void)
         opcao = menuUsuario();
         switch (opcao)
         {
-<<<<<<< HEAD
+
             case 1:
                 cadastrarUsuario();
                 break;
@@ -55,41 +55,10 @@ void navUsuario(void)
             case 6:
                 ReposicionandoUsuario();
                 break;
-=======
-        case 1:
-            cadastrarUsuario();
-            break;
-        case 2:
-            editarUsuario();
-            break;
-        case 3:
-            pesquisarUsuario();
-            break;
-        case 4:
-            deletarUsuario();
-            break;
-        case 5:
-            opc = telaListarUsuario();
-            do
-            {
-                switch (opc)
-                {
-                case 1:
-                    listarUsuario();
-                    break;
-                case 2:
-                    listarUsuarioporUF();
-                    break;
-                case 3:
-                    listarUsuarioporCidade();
-                    break;
-                }
 
-            } while (opc != 0);
-            break;
->>>>>>> 60b2d90b4ed0735df3fb90bc2be83ae75e39aabb
-        }
-    } while (opcao != 0);
+    
+    }
+     } while (opcao != 0);
 }
 
 void pesquisarUsuario(void)
@@ -500,22 +469,7 @@ void exibirUsuario(const Usuario *usu)
         printf("===    Data de Nascimento: %s\n", usu->data);
         printf("===    UF: %s\n", usu->uf);
         printf("===    Cidade: %s\n", usu->cidade);
-
-<<<<<<< HEAD
-       
-    
-=======
-        if (usu->status == 'o')
-        {
-            strcpy(situacao, "Cadastrado");
-        }
-        else
-        {
-            strcpy(situacao, "Não Informado");
-        }
-        printf("===    Situacao do Usuario: %s\n", situacao);
-    }
->>>>>>> 60b2d90b4ed0735df3fb90bc2be83ae75e39aabb
+     
 }
 
 Usuario *excluirUsuario(Usuario *confirmLeitura)
@@ -681,19 +635,11 @@ void listarUsuario(void)
     }
     while (!feof(lst))
     {
-<<<<<<< HEAD
+
         while(fread(usu, sizeof(Usuario), 1, lst)) {
             if (usu->status != 'x') {
                 exibirUsuario(usu);
             }   
-=======
-        while (fread(usu, sizeof(Usuario), 1, lst))
-        {
-            if (usu->status != 'x')
-            {
-                exibirUsuario(usu);
-            }
->>>>>>> 60b2d90b4ed0735df3fb90bc2be83ae75e39aabb
         }
         fclose(lst);
         navUsuario();
@@ -779,9 +725,7 @@ void listarUsuarioporCidade(void)
         }
         fclose(lst);
         navUsuario();
-    }
-<<<<<<< HEAD
-    
+    } 
 }
 
 void copyUsu(FILE *read, FILE *fp){
@@ -885,6 +829,4 @@ void listarNovoArquivo(void){
         navUsuario();
     }
   
-=======
->>>>>>> 60b2d90b4ed0735df3fb90bc2be83ae75e39aabb
 }
