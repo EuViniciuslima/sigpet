@@ -3,193 +3,200 @@
 #include <stdlib.h>
 #include "moduloPet.h"
 #include "util.h"
+void copyPet(FILE *, FILE *);
+void recolocandoPet(FILE *, FILE *);
 
 typedef struct pet Pet;
 
 void navPet(void)
 {
-  int opcao;
-  int opc;
-  do
-  {
-    opcao = menuPet();
-    switch (opcao)
+    int opcao;
+    int opc;
+    do
     {
-    case 1:
-      cadastrarPet();
-      break;
-    case 2:
-      pesquisarPet();
-      break;
-    case 3:
-      editarPet();
-      break;
-    case 4:
-      deletarPet();
-      break;
-    case 5:
-      opc = telaListarPet();
-      do
-      {
-        switch (opc)
+        opcao = menuPet();
+        switch (opcao)
         {
         case 1:
-          listarPet();
-          break;
-          /*case 2:
-            listarUsuarioporUF();
+            cadastrarPet();
             break;
-          case 3:
-            listarUsuarioporCidade();
+        case 2:
+            pesquisarPet();
             break;
-          case 4:
-            // listarNovoArquivo();
-            listarTudo();
-            break; */
+        case 3:
+            editarPet();
+            break;
+        case 4:
+            deletarPet();
+            break;
+        case 5:
+            opc = telaListarPet();
+            do
+            {
+                switch (opc)
+                {
+                case 1:
+                    listarPet();
+                    break;
+                    /*case 2:
+                      listarUsuarioporUF();
+                      break;
+                    case 3:
+                      listarUsuarioporCidade();
+                      break;
+                    case 4:
+                      // listarNovoArquivo();
+                      listarTudo();
+                      break; */
+                }
+
+            } while (opc != 0);
+            break;
+        case 6:
+            ReposicionandoPet();
+            break;
         }
 
-      } while (opc != 0);
-      break;
-    }
-
-  } while (opcao != 0);
+    } while (opcao != 0);
 }
 
 int menuPet(void)
 {
 
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-  printf("///                                                                         ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
-  printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = =  Menu Pet   = = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///                                                                         ///\n");
-  printf("///            1. Cadastrar Pet                                             ///\n");
-  printf("///            2. Pesquisar Pet                                             ///\n");
-  printf("///            3. Editar Pet                                                ///\n");
-  printf("///            4. Apagar Pet                                                ///\n");
-  printf("///            0. Sair                                                      ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Menu Pet   = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cadastrar Pet                                             ///\n");
+    printf("///            2. Pesquisar Pet                                             ///\n");
+    printf("///            3. Editar Pet                                                ///\n");
+    printf("///            4. Apagar Pet                                                ///\n");
+    printf("///            5. Listar Pet                                                ///\n");
+    printf("///            6. Apagar Permanentemente Pet                                ///\n");
+    printf("///            0. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
 
-  int escolha;
-  do
-  {
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    getchar();
-    return escolha;
-  } while (!validaNav(&escolha));
+    int escolha;
+    do
+    {
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        return escolha;
+    } while (!validaNav(&escolha));
 }
 
 void cadastrarPet(void)
 {
-  Pet *pet;
-  pet = telaCadastrarPet();
-  gravarPet(pet);
-  free(pet);
+    Pet *pet;
+    pet = telaCadastrarPet();
+    gravarPet(pet);
+    free(pet);
 }
 
 void pesquisarPet(void)
 {
-  telaPesquisarPet();
+    telaPesquisarPet();
 }
 
 void editarPet(void)
 {
-  telaEditarPet();
+    telaEditarPet();
 }
 
 void deletarPet(void)
 {
-  Pet *pet;
-  char *deletar;
-  deletar = telaDeletarPet();
-  pet = buscarPet(deletar);
-  excluirPet(pet);
-  free(pet);
+    Pet *pet;
+    char *deletar;
+    deletar = telaDeletarPet();
+    pet = buscarPet(deletar);
+    excluirPet(pet);
+    free(pet);
 }
 
 Pet *telaCadastrarPet(void)
 {
-  Pet *pet;
-  pet = (Pet *)malloc(sizeof(Pet));
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-  printf("///                                                                         ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
-  printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = =  Cadastro Pet = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///                                                                         ///\n");
-  do
-  {
-    printf("///            Nome do Pet:");
-    scanf(" %255[^\n]", pet->nome);
-    getchar();
-  } while (!validaNome(pet->nome));
-  do
-  {
-    printf("///            Sexo do Pet (f/m):");
-    scanf(" %255[^\n]", pet->sexo);
-    getchar();
-    if (validaSexo(pet->sexo) == 0)
+    Pet *pet;
+    pet = (Pet *)malloc(sizeof(Pet));
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Cadastro Pet = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    do
     {
-      printf("Sexo Invalido\n");
-    }
-  } while (!validaSexo(pet->sexo));
-  do
-  {
-    printf("///            Data de Nascimento - Pet:");
-    scanf(" %255[^\n]", pet->data);
-    getchar();
-    if (validarData(pet->data) == 0)
+        printf("///            Nome do Pet:");
+        scanf(" %29[^\n]", pet->nome);
+        getchar();
+    } while (!validaNome(pet->nome));
+    do
     {
-      printf("Data Invalida\n");
-    }
-  } while (!validarData(pet->data));
-  do
-  {
-    printf("///            Especie do Pet:");
-    scanf(" %255[^\n]", pet->especie);
-    getchar();
-  } while (!validaNome(pet->especie));
-  do
-  {
-    printf("///            Dono:");
-    scanf(" %255[^\n]", pet->dono);
-    getchar();
-  } while (!validaNome(pet->dono));
+        printf("///            Sexo do Pet (f/m):");
+        scanf(" %2[^\n]", pet->sexo);
+        getchar();
+        if (validaSexo(pet->sexo) == 0)
+        {
+            printf("Sexo Invalido\n");
+        }
+    } while (!validaSexo(pet->sexo));
+    do
+    {
+        printf("///            Data de Nascimento - Pet:");
+        scanf(" %9[^\n]", pet->data);
+        getchar();
+        if (validarData(pet->data) == 0)
+        {
+            printf("Data Invalida\n");
+        }
+    } while (!validarData(pet->data));
+    do
+    {
+        printf("///            Especie do Pet:");
+        scanf(" %39[^\n]", pet->especie);
+        getchar();
+    } while (!validaNome(pet->especie));
+    do
+    {
+        printf("///            Dono:");
+        scanf(" %49[^\n]", pet->dono);
+        getchar();
+    } while (!validaNome(pet->dono));
 
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
 
-  printf("0. Voltar \n: ");
-  return pet;
+    printf("0. Voltar \n: ");
+    return pet;
 }
 
 /*
@@ -274,281 +281,362 @@ void arquivoCadPet(void)
 */
 char *telaDeletarPet(void)
 {
-  char *deletePet;
-  deletePet = (char *)malloc(40 * (sizeof(char)));
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-  printf("///                                                                         ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
-  printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = =  Exluir Pet   = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///                                                                         ///\n");
-  printf("///            Nome do Pet:  ");
-  scanf(" %255[^\n]", deletePet);
-  printf("///                                                                         ///\n");
-  printf("///                                                                         ///\n");
-  printf("///                                                                         ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
+    char *deletePet;
+    deletePet = (char *)malloc(40 * (sizeof(char)));
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Exluir Pet   = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Nome do Pet:  ");
+    scanf(" %255[^\n]", deletePet);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-  return deletePet;
-  /*printf("0. Voltar \nEscolha: ");
-  int escolha;
-  do
-  {
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    getchar();
-    validaNav(&escolha);
-    return escolha;
-  } while (!validaNav(&escolha));*/
+    return deletePet;
+    /*printf("0. Voltar \nEscolha: ");
+    int escolha;
+    do
+    {
+      printf("Escolha: ");
+      scanf("%d", &escolha);
+      getchar();
+      validaNav(&escolha);
+      return escolha;
+    } while (!validaNav(&escolha));*/
 }
 
 int telaEditarPet(void)
 {
 
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-  printf("///                                                                         ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
-  printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = =   Editar Pet  = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///                                                                         ///\n");
-  printf("///            Nome do Pet:                                                 ///\n");
-  printf("///            Idade do Pet:                                                ///\n");
-  printf("///            Sexo do Pet:                                                 ///\n");
-  printf("///            Especie do Pet:                                              ///\n");
-  printf("///            Dono:                                                        ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  int escolha;
-  do
-  {
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    getchar();
-    validaNav(&escolha);
-    return escolha;
-  } while (!validaNav(&escolha));
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =   Editar Pet  = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Nome do Pet:                                                 ///\n");
+    printf("///            Idade do Pet:                                                ///\n");
+    printf("///            Sexo do Pet:                                                 ///\n");
+    printf("///            Especie do Pet:                                              ///\n");
+    printf("///            Dono:                                                        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    int escolha;
+    do
+    {
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    } while (!validaNav(&escolha));
 }
 
 int telaPesquisarPet(void)
 {
-  printf("                                                                          - □ x\n");
-  printf("\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-  printf("///                                                                         ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
-  printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = =  Pesquisar Pet  = = = = = = =               ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///                                                                         ///\n");
-  printf("///           Pesquisar:                                                    ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
+    printf("                                                                          - □ x\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = =  Pesquisar Pet  = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///           Pesquisar:                                                    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
 
-  printf("0. Voltar \n ");
-  int escolha;
-  do
-  {
-    printf("Escolha: ");
-    scanf("%d", &escolha);
-    getchar();
-    validaNav(&escolha);
-    return escolha;
-  } while (!validaNav(&escolha));
+    printf("0. Voltar \n ");
+    int escolha;
+    do
+    {
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+        getchar();
+        validaNav(&escolha);
+        return escolha;
+    } while (!validaNav(&escolha));
 }
 
 void gravarPet(Pet *pet)
 {
-  FILE *grvpet;
-  grvpet = fopen("pets_cadastrados.dat", "ab");
-  if (grvpet == NULL)
-  {
-    printf("Ocorreu um erro na abertura do arquivo");
-    exit(1);
-  }
+    FILE *grvpet;
+    grvpet = fopen("pets_cadastrados.dat", "ab");
+    if (grvpet == NULL)
+    {
+        printf("Ocorreu um erro na abertura do arquivo");
+        exit(1);
+    }
 
-  fwrite(pet, sizeof(Pet), 1, grvpet);
-  fclose(grvpet);
+    fwrite(pet, sizeof(Pet), 1, grvpet);
+    fclose(grvpet);
 }
 
 int telaListarPet(void)
 {
-  int opcpet;
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-  printf("///                                                                         ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
-  printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
-  printf("///          ===================================================            ///\n");
-  printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
-  printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
-  printf("///                                                                         ///\n");
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("///                                                                         ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///           = = = = = = = = = = Listar = = = = = = = = = =                ///\n");
-  printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
-  printf("///                                                                         ///\n");
-  printf("///               [1] Listar Pets                                            ///\n");
-  printf("///               [2] Listar Pets por categoria                             ///\n");
-  printf("///               [3] Listar Pets por Raça                                  ///\n");
+    int opcpet;
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          =  Sistema de Agendamento de Consulta para Pets   =            ///\n");
+    printf("///          = = = = = = = = = = = = = = = = = = = = = = = = = =            ///\n");
+    printf("///          ===================================================            ///\n");
+    printf("///                Developed by @OliveiraAnna99 - Out, 2021                 ///\n");
+    printf("///                Developed by  @EuViniciuslima - Out, 2021                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///           = = = = = = = = = = Listar = = = = = = = = = =                ///\n");
+    printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
+    printf("///                                                                         ///\n");
+    printf("///               [1] Listar Pets                                            ///\n");
+    printf("///               [2] Listar Pets por categoria                             ///\n");
+    printf("///               [3] Listar Pets por Raça                                  ///\n");
 
-  do
-  {
-    printf("Escolha: ");
-    scanf("%d", &opcpet);
-    getchar();
-    return opcpet;
-  } while (!validaNav(&opcpet));
+    do
+    {
+        printf("Escolha: ");
+        scanf("%d", &opcpet);
+        getchar();
+        return opcpet;
+    } while (!validaNav(&opcpet));
 }
 
 void exibirPet(const Pet *pet)
 {
 
-  printf("======================= RESULTADOS ENCONTRADOS =========================");
-  printf("\n");
-  printf("===    Nome: %s\n", pet->nome);
-  printf("===    Data: %s\n", pet->data);
-  printf("===    Sexo: %s\n", pet->sexo);
-  printf("===    Espécie: %s\n", pet->especie);
-  printf("===    Dono: %s\n", pet->dono);
+    printf("======================= RESULTADOS ENCONTRADOS =========================");
+    printf("\n");
+    printf("===    Nome: %s\n", pet->nome);
+    printf("===    Data: %s\n", pet->data);
+    printf("===    Sexo: %s\n", pet->sexo);
+    printf("===    Espécie: %s\n", pet->especie);
+    printf("===    Dono: %s\n", pet->dono);
 }
 
 void listarPet(void)
 {
-  FILE *lst;
-  Pet *pet;
-  printf(" ============ Lista de Pet =============\n");
-  pet = (Pet *)malloc(sizeof(Pet));
-  lst = fopen("pets_cadastrados.dat", "rb");
-  if (lst == NULL)
-  {
-    printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-    exit(1);
-  }
-  while (!feof(lst))
-  {
-
-    while (fread(pet, sizeof(Pet), 1, lst))
+    FILE *lst;
+    Pet *pet;
+    printf(" ============ Lista de Pet =============\n");
+    pet = (Pet *)malloc(sizeof(Pet));
+    lst = fopen("pets_cadastrados.dat", "rb");
+    if (lst == NULL)
     {
-      if (pet->status != 'x')
-      {
-        exibirPet(pet);
-      }
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+        exit(1);
     }
-    fclose(lst);
-    navPet();
-  }
+    while (!feof(lst))
+    {
+
+        while (fread(pet, sizeof(Pet), 1, lst))
+        {
+            if (pet->status != 'x')
+            {
+                exibirPet(pet);
+            }
+        }
+        fclose(lst);
+        navPet();
+    }
 }
 
 Pet *buscarPet(char *pesquise)
 {
-  FILE *busca;
+    FILE *busca;
 
-  Pet *pet;
-  pet = (Pet *)malloc(sizeof(Pet));
+    Pet *pet;
+    pet = (Pet *)malloc(sizeof(Pet));
 
-  busca = fopen("pets_cadastrados.dat", "rb");
-  // rb = leitura de binários
-  if (busca == NULL)
-  {
-    printf("Ocorreu um erro durante a abertura do arquivo");
-    exit(1);
-  }
-  // feof verifica se o apontador chegou no final do arquivo já que
-  // essa leitura é feita em camadas
-  while (!feof(busca))
-  {
-    fread(pet, sizeof(Pet), 1, busca);
-    if ((strcmp(pet->nome, pesquise)) == 0 && (pet->status != 'x'))
+    busca = fopen("pets_cadastrados.dat", "rb");
+    // rb = leitura de binários
+    if (busca == NULL)
     {
-      fclose(busca);
-      return pet;
+        printf("Ocorreu um erro durante a abertura do arquivo");
+        exit(1);
     }
-  }
-  fclose(busca);
-  return NULL;
+    // feof verifica se o apontador chegou no final do arquivo já que
+    // essa leitura é feita em camadas
+    while (!feof(busca))
+    {
+        fread(pet, sizeof(Pet), 1, busca);
+        if ((strcmp(pet->nome, pesquise)) == 0 && (pet->status != 'x'))
+        {
+            fclose(busca);
+            return pet;
+        }
+    }
+    fclose(busca);
+    return NULL;
 }
 
 Pet *excluirPet(Pet *confirmLeitura)
 {
-  FILE *deletarPet;
-  Pet *pet;
-  // char nome;
-  int achou = 0;
+    FILE *deletarPet;
+    Pet *pet;
+    // char nome;
+    int achou = 0;
 
-  if (confirmLeitura == NULL)
-  {
-    printf("Pet nao cadastrado");
-  }
-  else
-  {
-    pet = (Pet *)malloc(sizeof(Pet));
-    deletarPet = fopen("pets_cadastrados.dat", "r+b");
-    if (deletarPet == NULL)
+    if (confirmLeitura == NULL)
     {
-      printf("Arquivo apresentou um erro no processo de gravacao");
-      exit(1);
+        printf("Pet nao cadastrado");
     }
-
-    while (!feof(deletarPet))
+    else
     {
-      fread(pet, sizeof(Pet), 1, deletarPet);
-      if ((strcmp(pet->nome, confirmLeitura->nome) == 0) && (pet->status) != 'x')
-      {
-        achou = 1;
-        pet->status = 'x';
-        fseek(deletarPet, -1 * sizeof(Pet), SEEK_CUR);
-        fwrite(pet, sizeof(Pet), 1, deletarPet);
+        pet = (Pet *)malloc(sizeof(Pet));
+        deletarPet = fopen("pets_cadastrados.dat", "r+b");
+        if (deletarPet == NULL)
+        {
+            printf("Arquivo apresentou um erro no processo de gravacao");
+            exit(1);
+        }
+
+        while (!feof(deletarPet))
+        {
+            fread(pet, sizeof(Pet), 1, deletarPet);
+            if ((strcmp(pet->nome, confirmLeitura->nome) == 0) && (pet->status) != 'x')
+            {
+                achou = 1;
+                pet->status = 'x';
+                fseek(deletarPet, -1 * sizeof(Pet), SEEK_CUR);
+                fwrite(pet, sizeof(Pet), 1, deletarPet);
+                fclose(deletarPet);
+                printf("\n ========================== Pet excluido com sucesso ==========================\n");
+                return pet;
+            }
+        }
+        if (!achou)
+        {
+            printf("Pet nao encontrado");
+        }
         fclose(deletarPet);
-        printf("\n ========================== Pet excluido com sucesso ==========================\n");
-        return pet;
-      }
     }
-    if (!achou)
+    return pet;
+}
+
+void copyPet(FILE *read, FILE *fp)
+{
+    Pet *pet;
+    pet = (Pet *)malloc(sizeof(Pet));
+
+    while (!feof(read))
     {
-      printf("Pet nao encontrado");
+        while (fread(pet, sizeof(Pet), 1, read))
+        {
+            if (pet->status != 'x')
+            {
+                fwrite(pet, sizeof(Pet), 1, fp);
+            }
+        }
     }
-    fclose(deletarPet);
-  }
-  return pet;
+}
+
+void recolocandoPet(FILE *read2, FILE *fp2)
+{
+    Pet *pet;
+    pet = (Pet *)malloc(sizeof(Pet));
+
+    while (!feof(read2))
+    {
+        while (fread(pet, sizeof(Pet), 1, read2))
+        {
+
+            fwrite(pet, sizeof(Pet), 1, fp2);
+        }
+    }
+}
+
+void DelFisicPet(void)
+{
+    FILE *read;
+    read = fopen("pets_cadastrados.dat", "rb");
+    if (read == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo ");
+        exit(1);
+    }
+    FILE *fp;
+    fp = fopen("PetsExistenes.dat", "wb");
+
+    if (fp == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo 4");
+        exit(1);
+    }
+
+    copyPet(read, fp);
+
+    fclose(read);
+    fclose(fp);
+}
+
+void ReposicionandoPet(void)
+{
+    DelFisicPet();
+    FILE *read2;
+    read2 = fopen("PetsExistenes.dat", "rb");
+    if (read2 == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo 1");
+        exit(1);
+    }
+
+    FILE *fp2;
+    fp2 = fopen("pets_cadastrados.dat", "wb");
+    if (fp2 == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo 2");
+        exit(1);
+    }
+
+    recolocandoPet(read2, fp2);
+
+    fclose(read2);
+    fclose(fp2);
 }

@@ -4,7 +4,7 @@ struct pet
 {
     char nome[30];
     char data[10];
-    char sexo[1];
+    char sexo[3];
     char especie[40];
     char dono[50];
     char status;
@@ -35,3 +35,5 @@ void listarPet(void);
 void deletarPet(void);
 Pet *excluirPet(Pet *);
 Pet *buscarPet(char *);
+void DelFisicPet(void);
+void ReposicionandoPet(void);
