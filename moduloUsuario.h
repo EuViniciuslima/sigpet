@@ -6,12 +6,9 @@ int telaListarUsuario(void);
 
 typedef struct usuario Usuario;
 
-
-
-
 struct usuario
 {
-    
+
     char nome[81];
     char cpf[16];
     char email[41];
@@ -20,20 +17,17 @@ struct usuario
     char uf[4];
     char cidade[45];
     char status;
-    
 };
 
-
-
-char* telaPesquisarUsuario(void);
-char* telaDeletarUsuario(void);
-Usuario* telaCadastrarUsuario();
-char* telaEditarUsuario(void);
+char *telaPesquisarUsuario(void);
+char *telaDeletarUsuario(void);
+Usuario *telaCadastrarUsuario();
+char *telaEditarUsuario(void);
 
 void exibirUsuario(const Usuario *);
-void gravarUsuario(Usuario* );
+void gravarUsuario(Usuario *);
 
-Usuario* buscarUsuario(char *);
+Usuario *buscarUsuario(char *);
 
 void pesquisarUsuario(void);
 void editarUsuario(void);
@@ -43,11 +37,10 @@ void listarUsuario(void);
 void listarUsuarioporUF(void);
 void listarUsuarioporCidade(void);
 
-Usuario* excluirUsuario(Usuario *);
-Usuario* alterarUsuario(Usuario *);
+Usuario *excluirUsuario(Usuario *);
+Usuario *alterarUsuario(Usuario *);
 void DelFisicUsuario(void);
-void copyFile(FILE *, FILE *);
-void recolocandoUsuario(FILE *, FILE *);
+
 void listarNovoArquivo(void);
 void listarTudo(void);
 void ReposicionandoUsuario(void);

@@ -4,7 +4,8 @@
 #include <string.h>
 #include "moduloUsuario.h"
 #include "util.h"
-
+void copyUsu(FILE *, FILE *);
+void recolocandoUsuario(FILE *, FILE *);
 typedef struct usuario Usuario;
 
 void navUsuario(void)
