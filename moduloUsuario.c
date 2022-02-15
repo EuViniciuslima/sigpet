@@ -12,52 +12,52 @@ void navUsuario(void)
 {
     int opcao;
     int opc;
-    do
+    // do
+    //{
+    opcao = menuUsuario();
+    switch (opcao)
     {
-        opcao = menuUsuario();
-        switch (opcao)
-        {
 
+    case 1:
+        cadastrarUsuario();
+        break;
+    case 2:
+        editarUsuario();
+        break;
+    case 3:
+        pesquisarUsuario();
+        break;
+    case 4:
+        deletarUsuario();
+        break;
+    case 5:
+        opc = telaListarUsuario();
+        // do
+        //{
+        switch (opc)
+        {
         case 1:
-            cadastrarUsuario();
+            listarUsuario();
             break;
         case 2:
-            editarUsuario();
+            listarUsuarioporUF();
             break;
         case 3:
-            pesquisarUsuario();
+            listarUsuarioporCidade();
             break;
         case 4:
-            deletarUsuario();
-            break;
-        case 5:
-            opc = telaListarUsuario();
-            do
-            {
-                switch (opc)
-                {
-                case 1:
-                    listarUsuario();
-                    break;
-                case 2:
-                    listarUsuarioporUF();
-                    break;
-                case 3:
-                    listarUsuarioporCidade();
-                    break;
-                case 4:
-                    // listarNovoArquivo();
-                    listarTudo();
-                    break;
-                }
-
-            } while (opc != 0);
-            break;
-        case 6:
-            ReposicionandoUsuario();
+            // listarNovoArquivo();
+            listarTudo();
             break;
         }
-    } while (opcao != 0);
+
+        //} while (opc != 0);
+        break;
+    case 6:
+        ReposicionandoUsuario();
+        break;
+    }
+    //} while (opcao != 0);
 }
 
 void pesquisarUsuario(void)
@@ -336,7 +336,7 @@ char *telaDeletarUsuario(void)
     printf("///                                                                         ///\n");
     printf("///    = = = = = Sistema de Agendamento de Consultas para Pets = = = = =    ///\n");
     printf("///                                                                         ///\n");
-    printf("///       Digite o nome do usuário a ser deletado:  ");
+    printf("///       Digite o CPF do usuário a ser deletado:  ");
     scanf(" %[0-9]", deletar);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -619,7 +619,7 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
     return usu;
 }
 
-void listarUsuario(void)
+void listarUsuario(void) // fazer os demais códigos baseado neste.
 {
     FILE *lst;
     Usuario *usu;
@@ -631,19 +631,15 @@ void listarUsuario(void)
         printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
         exit(1);
     }
-    while (!feof(lst))
-    {
 
-        while (fread(usu, sizeof(Usuario), 1, lst))
+    while (fread(usu, sizeof(Usuario), 1, lst))
+    {
+        if (usu->status != 'x')
         {
-            if (usu->status != 'x')
-            {
-                exibirUsuario(usu);
-            }
+            exibirUsuario(usu);
         }
-        fclose(lst);
-        navUsuario();
     }
+    fclose(lst);
 }
 void listarTudo(void)
 {
@@ -664,7 +660,7 @@ void listarTudo(void)
             exibirUsuario(usu);
         }
         fclose(lst);
-        navUsuario();
+        // navUsuario();
     }
 }
 
@@ -694,7 +690,7 @@ void listarUsuarioporUF(void)
             }
         }
         fclose(lst);
-        navUsuario();
+        // navUsuario();
     }
 }
 
@@ -724,7 +720,7 @@ void listarUsuarioporCidade(void)
             }
         }
         fclose(lst);
-        navUsuario();
+        // navUsuario();
     }
 }
 
@@ -829,6 +825,6 @@ void listarNovoArquivo(void)
             exibirUsuario(usu);
         }
         fclose(lst);
-        navUsuario();
+        // navUsuario();
     }
 }
