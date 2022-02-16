@@ -383,6 +383,7 @@ int telaListarUsuario(void)
     printf("///               [2] Listar Usuarios por UF                                ///\n");
     printf("///               [3] Listar Usuarios por Cidade                            ///\n");
     printf("///               [4] Listar Tudo (Excluidos e Registrados)                 ///\n");
+    printf("///               [5] Lista Dinamica (Ordem Alfabetica)                     ///\n");
 
     do
     {
@@ -843,10 +844,7 @@ void listarNovoArquivo(void)
 }
 void exibirLista(const Usuario *aux)
 {
-  printf("\n\n");
-  printf("****************************************\n");
-printf("*** Relatorio dos Alunos Cadastrados ***\n");
-  printf("****************************************\n");
+
 	
   printf("\n");
 	while (aux != NULL)
