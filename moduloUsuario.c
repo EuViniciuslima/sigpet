@@ -49,6 +49,9 @@ void navUsuario(void)
             // listarNovoArquivo();
             listarTudo();
             break;
+        case 5:
+            listaDinamica();
+            break;
         }
 
         //} while (opc != 0);
@@ -58,6 +61,13 @@ void navUsuario(void)
         break;
     }
     //} while (opcao != 0);
+}
+void listaDinamica(void){
+    Usuario *usu;
+    usu = NULL;
+    gerarRelatorio(&usu);
+    exibirLista(usu);
+    free(usu);
 }
 
 void pesquisarUsuario(void)
@@ -659,9 +669,10 @@ void listarTudo(void)
         {
             exibirUsuario(usu);
         }
-        fclose(lst);
+        
         // navUsuario();
     }
+    fclose(lst);
 }
 
 void listarUsuarioporUF(void)
@@ -689,9 +700,10 @@ void listarUsuarioporUF(void)
                 exibirUsuario(usu);
             }
         }
-        fclose(lst);
+    
         // navUsuario();
     }
+    fclose(lst);
 }
 
 void listarUsuarioporCidade(void)
@@ -719,9 +731,10 @@ void listarUsuarioporCidade(void)
                 exibirUsuario(usu);
             }
         }
-        fclose(lst);
+       
         // navUsuario();
     }
+    fclose(lst);
 }
 
 void copyUsu(FILE *read, FILE *fp)
@@ -827,4 +840,64 @@ void listarNovoArquivo(void)
         fclose(lst);
         // navUsuario();
     }
+}
+void exibirLista(const Usuario *aux)
+{
+  printf("\n\n");
+  printf("****************************************\n");
+printf("*** Relatorio dos Alunos Cadastrados ***\n");
+  printf("****************************************\n");
+	
+  printf("\n");
+	while (aux != NULL)
+	{
+    	printf("%s\t\t\t",aux->nome);
+    	printf("%s\t\t\t",aux->cidade);
+    	printf("%s\n",aux->email);
+    	aux = aux->prox;
+	}
+	printf("\nFim da Lista! \n\n");
+}
+
+
+
+void gerarRelatorio(Usuario **usua)
+{
+    FILE *fp;
+    Usuario *al;
+    
+    //apagarLista(&(*lista));
+    *usua = NULL;
+    fp = fopen("usuarios_cadastrados.dat","rb");
+    if (fp == NULL)
+    {
+   	 printf("Erro na abertura do arquivo... \n");
+   	 exit(1);
+    }
+    else
+    {
+   	 al = (Usuario *) malloc(sizeof(Usuario));
+   	 while (fread(al, sizeof(Usuario), 1, fp))
+   	 {
+        if ((*usua == NULL) || (strcmp(al->nome, (*usua)->nome) < 0)) {
+          al->prox = *usua;
+          *usua = al;
+        } else  {
+          Usuario* ant = *usua;
+          Usuario* atu = (*usua)->prox;
+          while ((atu != NULL) && (strcmp(atu->nome, al->nome) < 0)) {
+            ant = atu;
+            atu = atu->prox;
+          }
+          ant->prox = al;
+          al->prox = atu;
+        }
+        al = (Usuario *) malloc(sizeof(Usuario));
+   	 }
+   	 free(al);
+   	 printf("Arquivo recuperado com sucesso! \n");
+   	 
+    }  
+    fclose(fp);
+   
 }

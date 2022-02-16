@@ -17,8 +17,11 @@ struct usuario
     char uf[4];
     char cidade[45];
     char status;
+    struct usuario *prox;
 };
 
+void listaDinamica(void);
+void exibirLista(const Usuario*);
 char *telaPesquisarUsuario(void);
 char *telaDeletarUsuario(void);
 Usuario *telaCadastrarUsuario();
@@ -44,3 +47,4 @@ void DelFisicUsuario(void);
 void listarNovoArquivo(void);
 void listarTudo(void);
 void ReposicionandoUsuario(void);
+void gerarRelatorio(Usuario **);
