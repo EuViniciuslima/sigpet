@@ -112,12 +112,23 @@ void cadastrarPet(void)
 
 void pesquisarPet(void)
 {
-    telaPesquisarPet();
+    Pet *pet;
+    char *pesquise;
+    pesquise = telaPesquisarPet();
+    pet = buscarPet(pesquise);
+    exibirPet(pet);
+    free(pet);
+    free(pesquise);
 }
-
 void editarPet(void)
 {
-    telaEditarPet();
+    Pet *pet;
+    char *alterar;
+    alterar = telaEditarPet();
+    pet = buscarPet(alterar);
+    alterarPet(pet);
+    free(pet);
+    free(alterar);
 }
 
 void deletarPet(void)
@@ -190,6 +201,14 @@ Pet *telaCadastrarPet(void)
         scanf(" %49[^\n]", pet->dono);
         getchar();
     } while (!validaNome(pet->dono));
+
+    do
+    {
+        printf("///            cpf dono do Pet:");
+        scanf(" %14[^\n]", pet->cpf);
+        getchar();
+    } while (!validaCpf(pet->cpf));
+    pet->status = 'o';
 
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -282,7 +301,7 @@ void arquivoCadPet(void)
 char *telaDeletarPet(void)
 {
     char *deletePet;
-    deletePet = (char *)malloc(40 * (sizeof(char)));
+    deletePet = (char *)malloc(15 * (sizeof(char)));
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -301,8 +320,8 @@ char *telaDeletarPet(void)
     printf("///           = = = = = = = = =  Exluir Pet   = = = = = = = =               ///\n");
     printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Nome do Pet:  ");
-    scanf(" %255[^\n]", deletePet);
+    printf("///            CPF dono do Pet:  ");
+    scanf(" %14[^\n]", deletePet);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -322,9 +341,10 @@ char *telaDeletarPet(void)
     } while (!validaNav(&escolha));*/
 }
 
-int telaEditarPet(void)
+char *telaEditarPet(void)
 {
-
+    char *alterar;
+    alterar = (char *)malloc(15 * sizeof(char));
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -343,26 +363,22 @@ int telaEditarPet(void)
     printf("///           = = = = = = = = =   Editar Pet  = = = = = = = =               ///\n");
     printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Nome do Pet:                                                 ///\n");
-    printf("///            Idade do Pet:                                                ///\n");
-    printf("///            Sexo do Pet:                                                 ///\n");
-    printf("///            Especie do Pet:                                              ///\n");
-    printf("///            Dono:                                                        ///\n");
+    printf("///           Digite o CPF do usuário já cadastrado:  ");
+    scanf(" %[0-9]", alterar);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
-    int escolha;
-    do
-    {
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    } while (!validaNav(&escolha));
+
+    return alterar;
 }
 
-int telaPesquisarPet(void)
+char *telaPesquisarPet(void)
 {
+    char *pesquise;
+    pesquise = (char *)malloc(15 * sizeof(char));
+
     printf("                                                                          - □ x\n");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -383,21 +399,13 @@ int telaPesquisarPet(void)
     printf("///           = = = = = = = = =  Pesquisar Pet  = = = = = = =               ///\n");
     printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Pesquisar:                                                    ///\n");
+    printf("///           Pesquisar CPF:   \n");
+    scanf(" %[0-9]", pesquise);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
 
-    printf("0. Voltar \n ");
-    int escolha;
-    do
-    {
-        printf("Escolha: ");
-        scanf("%d", &escolha);
-        getchar();
-        validaNav(&escolha);
-        return escolha;
-    } while (!validaNav(&escolha));
+    return pesquise;
 }
 
 void gravarPet(Pet *pet)
@@ -458,6 +466,7 @@ void exibirPet(const Pet *pet)
     printf("===    Sexo: %s\n", pet->sexo);
     printf("===    Espécie: %s\n", pet->especie);
     printf("===    Dono: %s\n", pet->dono);
+    printf("===    CPF: %s\n", pet->cpf);
 }
 
 void listarPet(void)
@@ -506,7 +515,7 @@ Pet *buscarPet(char *pesquise)
     while (!feof(busca))
     {
         fread(pet, sizeof(Pet), 1, busca);
-        if ((strcmp(pet->nome, pesquise)) == 0 && (pet->status != 'x'))
+        if ((strcmp(pet->cpf, pesquise)) == 0 && (pet->status != 'x'))
         {
             fclose(busca);
             return pet;
@@ -556,6 +565,101 @@ Pet *excluirPet(Pet *confirmLeitura)
             printf("Pet nao encontrado");
         }
         fclose(deletarPet);
+    }
+    return pet;
+}
+
+Pet *alterarPet(Pet *confirmLeitura)
+{
+    FILE *alt;
+    Pet *pet;
+
+    int achou = 0;
+    char nome[30];
+    char data[10];
+    char sexo[3];
+    char especie[40];
+    char dono[50];
+
+    if (confirmLeitura == NULL)
+    {
+        printf("Pet nao cadastrado");
+    }
+    else
+    {
+        pet = (Pet *)malloc(sizeof(Pet));
+        alt = fopen("pets_cadastrados.dat", "r+b");
+        if (alt == NULL)
+        {
+            printf("Arquivo apresentou um erro no processo de gravacao");
+            exit(1);
+        }
+
+        while (!feof(alt))
+        {
+            fread(pet, sizeof(Pet), 1, alt);
+            if ((strcmp(pet->cpf, confirmLeitura->cpf) == 0) && (pet->status) != 'x')
+            {
+                achou = 1;
+                do
+                {
+                    printf("\n =============================== ALTERANDO DADOS ==================================\n");
+
+                    printf("///            Nome do Pet:");
+                    scanf(" %29[^\n]", pet->nome);
+                    getchar();
+                } while (!validaNome(pet->nome));
+                do
+                {
+                    printf("///            Sexo do Pet (f/m):");
+                    scanf(" %2[^\n]", pet->sexo);
+                    getchar();
+                    if (validaSexo(pet->sexo) == 0)
+                    {
+                        printf("Sexo Invalido\n");
+                    }
+                } while (!validaSexo(pet->sexo));
+                do
+                {
+                    printf("///            Data de Nascimento - Pet:");
+                    scanf(" %9[^\n]", pet->data);
+                    getchar();
+                    if (validarData(pet->data) == 0)
+                    {
+                        printf("Data Invalida\n");
+                    }
+                } while (!validarData(pet->data));
+                do
+                {
+                    printf("///            Especie do Pet:");
+                    scanf(" %39[^\n]", pet->especie);
+                    getchar();
+                } while (!validaNome(pet->especie));
+                do
+                {
+                    printf("///            Dono:");
+                    scanf(" %49[^\n]", pet->dono);
+                    getchar();
+                } while (!validaNome(pet->dono));
+
+                strcpy(pet->nome, nome);
+                strcpy(pet->sexo, sexo);
+                strcpy(pet->data, data);
+                strcpy(pet->especie, especie);
+                strcpy(pet->dono, dono);
+
+                fseek(alt, -1 * sizeof(Pet), SEEK_CUR);
+                fwrite(pet, sizeof(Pet), 1, alt);
+                fclose(alt);
+                printf("\n ========================== Pet alterado com sucesso ==========================\n");
+                return pet;
+            }
+        }
+        if (!achou)
+        {
+            printf("Pet nao encontrado");
+        }
+        fclose(alt);
     }
     return pet;
 }

@@ -7,6 +7,7 @@ struct pet
     char sexo[3];
     char especie[40];
     char dono[50];
+    char cpf[15];
     char status;
 };
 
@@ -17,17 +18,19 @@ Pet *telaCadastrarPet(void);
 void deletarPet(void);
 char *telaDeletarPet(void);
 void pesquisarPet(void);
-int telaPesquisarPet(void);
+char *telaPesquisarPet(void);
 void editarPet(void);
-int telaEditarPet(void);
+char *telaEditarPet(void);
 int telaListarPet(void);
 void exibirPet(const Pet *);
+Pet *alterarPet(Pet *);
 
 int menuPet(void);
 
 void validaDadosPet(void);
 void structPet(int *, char *, char *, char *);
 void exibirCadastroStructPet(void);
+void editarPet(void);
 
 void arquivoCadPet(void);
 void gravarPet(Pet *);
