@@ -12,52 +12,51 @@ void navPet(void)
 {
     int opcao;
     int opc;
-    do
+    // do
+    //{
+    opcao = menuPet();
+    switch (opcao)
     {
-        opcao = menuPet();
-        switch (opcao)
+    case 1:
+        cadastrarPet();
+        break;
+    case 2:
+        pesquisarPet();
+        break;
+    case 3:
+        editarPet();
+        break;
+    case 4:
+        deletarPet();
+        break;
+    case 5:
+        opc = telaListarPet();
+        // do
+        //{
+        switch (opc)
         {
         case 1:
-            cadastrarPet();
+            listarPet();
             break;
         case 2:
-            pesquisarPet();
+            listarPorSexoPet();
             break;
         case 3:
-            editarPet();
+            listarPorEspeciePet();
             break;
         case 4:
-            deletarPet();
-            break;
-        case 5:
-            opc = telaListarPet();
-            do
-            {
-                switch (opc)
-                {
-                case 1:
-                    listarPet();
-                    break;
-                    /*case 2:
-                      listarUsuarioporUF();
-                      break;
-                    case 3:
-                      listarUsuarioporCidade();
-                      break;
-                    case 4:
-                      // listarNovoArquivo();
-                      listarTudo();
-                      break; */
-                }
-
-            } while (opc != 0);
-            break;
-        case 6:
-            ReposicionandoPet();
+            listarTudoPet();
             break;
         }
 
-    } while (opcao != 0);
+        //} while (opc != 0);
+        break;
+    case 6:
+        ReposicionandoPet();
+        break;
+    }
+
+    //} while (opcao != 0);
 }
 
 int menuPet(void)
@@ -443,9 +442,12 @@ int telaListarPet(void)
     printf("///           = = = = = = = = = = Listar = = = = = = = = = =                ///\n");
     printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
-    printf("///               [1] Listar Pets                                            ///\n");
-    printf("///               [2] Listar Pets por categoria                             ///\n");
-    printf("///               [3] Listar Pets por Raça                                  ///\n");
+    printf("///               [1] Listar Pets                                           ///\n");
+    printf("///               [2] Listar Pets por sexo                                  ///\n");
+    printf("///               [3] Listar Pets por especie                               ///\n");
+    printf("///               [4] Listar Tudo (Excluidos e Registrados)                 ///\n");
+    printf("///               [5] Lista Dinamica (Ordem Alfabetica)                     ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
 
     do
     {
@@ -494,6 +496,86 @@ void listarPet(void)
         fclose(lst);
         navPet();
     }
+}
+
+void listarPorSexoPet(void)
+{
+    FILE *lst;
+    Pet *pet;
+    char sexoinfo[3];
+    pet = (Pet *)malloc(sizeof(Pet));
+    lst = fopen("pets_cadastrados.dat", "rb");
+    printf(" ============ Lista de Pets por sexo =============\n");
+    printf("Informe a Especie: ");
+    scanf("%2[^\n]", sexoinfo);
+    if (lst == NULL)
+    {
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+
+        exit(1);
+    }
+    while (!feof(lst))
+    {
+        while (fread(pet, sizeof(Pet), 1, lst))
+        {
+            if ((strcmp(pet->sexo, sexoinfo) == 0) && (pet->status != 'x'))
+            {
+                exibirPet(pet);
+            }
+        }
+    }
+    fclose(lst);
+}
+
+void listarPorEspeciePet(void)
+{
+    FILE *lst;
+    Pet *pet;
+    char especieinfo[40];
+    pet = (Pet *)malloc(sizeof(Pet));
+    lst = fopen("pets_cadastrados.dat", "rb");
+    printf(" ============ Lista de Pets por especie =============\n");
+    printf("Informe a Especie: ");
+    scanf("%39[^\n]", especieinfo);
+    if (lst == NULL)
+    {
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+
+        exit(1);
+    }
+    while (!feof(lst))
+    {
+        while (fread(pet, sizeof(Pet), 1, lst))
+        {
+            if ((strcmp(pet->especie, especieinfo) == 0) && (pet->status != 'x'))
+            {
+                exibirPet(pet);
+            }
+        }
+    }
+    fclose(lst);
+}
+
+void listarTudoPet(void)
+{
+    FILE *lst;
+    Pet *pet;
+    printf(" ============ Lista de Pets =============\n");
+    pet = (Pet *)malloc(sizeof(Pet));
+    lst = fopen("pets_cadastrados.dat", "rb");
+    if (lst == NULL)
+    {
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+        exit(1);
+    }
+    while (!feof(lst))
+    {
+        while (fread(pet, sizeof(Pet), 1, lst))
+        {
+            exibirPet(pet);
+        }
+    }
+    fclose(lst);
 }
 
 Pet *buscarPet(char *pesquise)

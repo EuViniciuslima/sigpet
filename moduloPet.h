@@ -24,6 +24,7 @@ char *telaEditarPet(void);
 int telaListarPet(void);
 void exibirPet(const Pet *);
 Pet *alterarPet(Pet *);
+void listarTudoPet(void);
 
 int menuPet(void);
 
@@ -40,3 +41,5 @@ Pet *excluirPet(Pet *);
 Pet *buscarPet(char *);
 void DelFisicPet(void);
 void ReposicionandoPet(void);
+void listarPorSexoPet(void);
+void listarPorEspeciePet(void);
