@@ -34,3 +34,6 @@ void listarConsulta(void);
 void exibirConsulta(const Consulta *);
 Consulta* buscarConsulta(char *);
 
+void listarTudoConsulta(void);
+void listarConsultaporCpf(void);
+void listarConsultaporData(void);

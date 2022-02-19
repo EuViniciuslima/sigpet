@@ -36,14 +36,13 @@ void navConsulta(void)
               listarConsulta();
               break;
           case 2:
-              //listarUsuarioporUF();
+              listarConsultaporCpf();
               break;
           case 3:
-              //listarUsuarioporCidade();
+              listarConsultaporData();
               break;
-          case 4:
-              // listarNovoArquivo();
-             // listarTudo();
+          case 4: 
+              listarTudoConsulta();
               break;
           case 5:
             //  listaDinamica();
@@ -540,7 +539,10 @@ int telaListarConsulta(void)
     printf("///           = = = = = = = = = =  Listar  =  = = = = = = = =               ///\n");
     printf("///           = = = = = = = = = = = = = = = = = = = = = = = =               ///\n");
     printf("///                                                                         ///\n");
-    printf("///               [1] Listar Consultas                                       ///\n");
+    printf("///               [1] Listar Consultas                                      ///\n");
+    printf("///               [2] Listar Consultas por CPF                              ///\n");
+    printf("///               [3] Listar Consultas por Data                             ///\n");
+    printf("///               [4] Listar Tudo (Ate os Excluidos Logicamente)            ///\n");
          
 
     do
@@ -550,4 +552,90 @@ int telaListarConsulta(void)
         getchar();
         return opc;
     } while (!validaNav(&opc));
+}
+
+void listarTudoConsulta(void)
+{
+    FILE *lst;
+    Consulta *cons;
+    printf(" ============ Lista de Usuarios =============\n");
+    cons = (Consulta *)malloc(sizeof(Consulta));
+    lst = fopen("consultas.dat", "rb");
+    if (lst == NULL)
+    {
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+        exit(1);
+    }
+    while (!feof(lst))
+    {
+        while (fread(cons, sizeof(Consulta), 1, lst))
+        {
+            exibirConsulta(cons);
+        }
+        
+        // navUsuario();
+    }
+    fclose(lst);
+}
+
+void listarConsultaporCpf(void)
+{
+    FILE *lst;
+    Consulta *cons;
+    char cpf[15];
+    cons = (Consulta *)malloc(sizeof(Consulta));
+    lst = fopen("consultas.dat", "rb");
+    printf(" ============ Lista de Consultas por CPF =============\n");
+    printf("Informe o CPF: ");
+    scanf("%14[^\n]", cpf);
+    if (lst == NULL)
+    {
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+
+        exit(1);
+    }
+    while (!feof(lst))
+    {
+        while (fread(cons, sizeof(Consulta), 1, lst))
+        {
+            if ((strcmp(cons->consCPF, cpf) == 0) && (cons->status != 'x'))
+            {
+                exibirConsulta(cons);
+            }
+        }
+    
+        // navUsuario();
+    }
+    fclose(lst);
+}
+
+void listarConsultaporData(void)
+{
+    FILE *lst;
+    Consulta *cons;
+    char data[12];
+    cons = (Consulta *)malloc(sizeof(Consulta));
+    lst = fopen("consultas.dat", "rb");
+    printf(" ============ Lista de Consultas por CPF =============\n");
+    printf("Informe o Data: ");
+    scanf("%10[^\n]", data);
+    if (lst == NULL)
+    {
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+
+        exit(1);
+    }
+    while (!feof(lst))
+    {
+        while (fread(cons, sizeof(Consulta), 1, lst))
+        {
+            if ((strcmp(cons->cadData, data) == 0) && (cons->status != 'x'))
+            {
+                exibirConsulta(cons);
+            }
+        }
+    
+        // navUsuario();
+    }
+    fclose(lst);
 }
