@@ -8,10 +8,11 @@ struct consulta
     char cadPaciente[50];
     char cadResponsavel[50];
     char cadDescricao[60];
-    char cadData[10];
-    char cadHorario[10];
-    char consCPF[14];
+    char cadData[12];
+    //char cadHorario[12];
+    char consCPF[15];
     char status;
+    struct consulta *prox;
 };
 
 void pesquisarConsulta(void);
@@ -32,6 +33,4 @@ Consulta *alterarConsulta(Consulta *);
 void listarConsulta(void);
 void exibirConsulta(const Consulta *);
 Consulta* buscarConsulta(char *);
-void preencher(Consulta *);
-void preencherNovamente(Consulta *);
 

@@ -178,7 +178,7 @@ Consulta *telaCadastrarConsulta(void)
 do
   {
     printf("CPF[Apenas Numeros]:");
-    scanf(" %12[^\n]", cons->consCPF);
+    scanf(" %14[^\n]", cons->consCPF);
     validaCpf(cons->consCPF);
   
   } while (!validaCpf(cons->consCPF));
@@ -193,14 +193,14 @@ do
   do
   {
     printf("Nome do Paciente(Pet): ");
-    scanf(" %20[^\n]", cons->cadPaciente);
+    scanf(" %40[^\n]", cons->cadPaciente);
     getchar();
   } while (!validaNome(cons->cadPaciente));
 
   do
   {
     printf("Dono/Responsavel: ");
-    scanf(" %30[^\n]", cons->cadResponsavel);
+    scanf(" %40[^\n]", cons->cadResponsavel);
     getchar();
   } while (!validaNome(cons->cadResponsavel));
 
@@ -322,22 +322,32 @@ void gravarConsulta(Consulta *cons)
     fwrite(cons, sizeof(Consulta), 1, grv);
     fclose(grv);
 }
+
 Consulta *buscarConsulta(char *pesquise)
 {
     FILE *busca;
+
     Consulta *cons;
     cons = (Consulta *)malloc(sizeof(Consulta));
 
     busca = fopen("consultas.dat", "rb");
-   
+    // rb = leitura de binários
     if (busca == NULL)
     {
         printf("Ocorreu um erro durante a abertura do arquivo");
         exit(1);
     }
+    // feof verifica se o apontador chegou no final do arquivo já que
+    // essa leitura é feita em camadas
     while (!feof(busca))
     {
-        fread(cons, sizeof(Consulta), 1, busca); 
+        fread(cons, sizeof(Consulta), 1, busca); // ler os bites que foram gravados
+                                               /* if ((strcmp(usu->nome, pesquise_nome)) == 0 && (usu->status != 'x'))
+                                                {
+                                                    fclose(busca);
+                                                    return usu;
+                                                }
+                                                */
         if ((strcmp(cons->consCPF, pesquise)) == 0 && (cons->status != 'x'))
         {
             fclose(busca);
@@ -357,23 +367,24 @@ void exibirConsulta(const Consulta *cons)
     printf("===    Data: %s\n", cons->cadData);
     printf("===    CPF: %s\n", cons->consCPF);
     printf("===    Descricao: %s\n", cons->cadDescricao);
-    printf("===    Horario %s\n", cons->cadHorario);
+  //  printf("===    Horario %s\n", cons->cadHorario);
     printf("===    Paciente: %s\n", cons->cadPaciente);
 }
-
-Consulta *excluirConsulta(Consulta *confirmLeitura)
+Consulta *excluirConsulta(Consulta *confirm)
 {
     FILE *del;
     Consulta *cons;
+    // char cpf;
     int achou = 0;
-    if (confirmLeitura == NULL)
+
+    if (confirm == NULL)
     {
         printf("Usuario nao cadastrado");
     }
     else
     {
         cons = (Consulta *)malloc(sizeof(Consulta));
-        del = fopen("consultas.dat", "rb");
+        del = fopen("consultas.dat", "r+b");
         if (del == NULL)
         {
             printf("Arquivo apresentou um erro no processo de gravacao");
@@ -383,7 +394,7 @@ Consulta *excluirConsulta(Consulta *confirmLeitura)
         while (!feof(del))
         {
             fread(cons, sizeof(Consulta), 1, del);
-            if ((strcmp(cons->consCPF, confirmLeitura->consCPF) == 0) && (cons->status) != 'x')
+            if ((strcmp(cons->consCPF, confirm->consCPF) == 0) && (cons->status) != 'x')
             {
                 achou = 1;
                 cons->status = 'x';
@@ -403,28 +414,24 @@ Consulta *excluirConsulta(Consulta *confirmLeitura)
     return cons;
 }
 
-Consulta *alterarConsulta(Consulta *confirmLeitura)
+Consulta *alterarConsulta(Consulta *confirm)
 {
     FILE *alt;
     Consulta *cons;
-   
     int achou = 0;
-    char cadPaciente[50];
-    char cadResponsavel[50];
-    char cadDescricao[60];
-    char cadData[10];
- 
-    
+    char paciente[50];
+    char responsavel[50];
+    char descricao[60];
+    char data[10];
    
-
-    if (confirmLeitura == NULL)
+    if (confirm == NULL)
     {
         printf("Usuario nao cadastrado");
     }
     else
     {
         cons = (Consulta *)malloc(sizeof(Consulta));
-        alt = fopen("consultas.dat", "rb");
+        alt = fopen("consultas.dat", "r+b");
         if (alt == NULL)
         {
             printf("Arquivo apresentou um erro no processo de gravacao");
@@ -434,44 +441,44 @@ Consulta *alterarConsulta(Consulta *confirmLeitura)
         while (!feof(alt))
         {
             fread(cons, sizeof(Consulta), 1, alt);
-            if ((strcmp(cons->consCPF, confirmLeitura->consCPF) == 0) && (cons->status) != 'x')
+            if ((strcmp(cons->cadPaciente, confirm->cadPaciente) == 0) && (cons->status) != 'x')
             {
                 achou = 1;
-                                
-                  do
-                  {
-                    printf("Data da consulta (Apenas Numeros, Sem Espacos):");
-                    scanf(" %10[^\n]", cons->cadData);
-                    validarData(cons->cadData);
-                    maskData(cons->cadData);
-                  } while (!validarData(cons->cadData));
+                  
+                do
+                {
+                  printf("Data da consulta (Apenas Numeros, Sem Espacos):");
+                  scanf(" %10[^\n]", data);
+                  validarData(data);
+                  maskData(data);
+                } while (!validarData(data));
 
-                  do
-                  {
-                    printf("Nome do Paciente(Pet): ");
-                    scanf(" %20[^\n]", cons->cadPaciente);
-                    getchar();
-                  } while (!validaNome(cons->cadPaciente));
+                do
+                {
+                  printf("Nome do Paciente(Pet): ");
+                  scanf(" %40[^\n]", paciente);
+                  getchar();
+                } while (!validaNome(paciente));
 
-                  do
-                  {
-                    printf("Dono/Responsavel: ");
-                    scanf(" %30[^\n]", cons->cadResponsavel);
-                    getchar();
-                  } while (!validaNome(cons->cadResponsavel));
+                do
+                {
+                  printf("Dono/Responsavel: ");
+                  scanf(" %40[^\n]", responsavel);
+                  getchar();
+                } while (!validaNome(responsavel));
 
-                  do
-                  {
-                    printf("Descrição: ");
-                    scanf(" %50[^\n]", cons->cadDescricao);
-                    getchar();
-                  } while (!validaNome(cons->cadDescricao));
+                do
+                {
+                  printf("Descrição: ");
+                  scanf(" %50[^\n]", descricao);
+                  getchar();
+                } while (!validaNome(descricao));
 
-                strcpy(cons->cadPaciente, cadPaciente);
-                strcpy(cons->cadResponsavel, cadResponsavel);
-                strcpy(cons->cadData, cadData);
-                strcpy(cons->cadDescricao, cadDescricao);
-               
+                strcpy(cons->cadPaciente, paciente);
+                strcpy(cons->cadResponsavel, responsavel);
+                strcpy(cons->cadDescricao, descricao);
+                strcpy(cons->cadData, data);
+             
 
                 fseek(alt, -1 * sizeof(Consulta), SEEK_CUR);
                 fwrite(cons, sizeof(Consulta), 1, alt);
