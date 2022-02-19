@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "moduloConsulta.h"
 #include "util.h"
+void copyConsulta(FILE *, FILE *);
+void recolocandoConsulta(FILE *read2, FILE *fp2);
 
 typedef struct consulta Consulta;
 
@@ -52,7 +54,7 @@ void navConsulta(void)
         //} while (opc != 0);
         break;
       case 6:
-       // ReposicionandoUsuario();
+        ReposicionandoConsulta();
         break;
       }
 }
@@ -81,7 +83,8 @@ int menuConsulta(void)
   printf("///            2. Pesquisar Consulta                                        ///\n");
   printf("///            3. Editar Consulta                                           ///\n");
   printf("///            4. Apagar Consulta                                           ///\n");
-  printf("///            5. Relatorio da Consulta                                           ///\n");
+  printf("///            5. Relatorio da Consulta                                     ///\n");
+  printf("///            6. Limpar Registros                                          ///\n");
   printf("///            0. Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -638,4 +641,85 @@ void listarConsultaporData(void)
         // navUsuario();
     }
     fclose(lst);
+}
+
+void copyConsulta(FILE *read, FILE *fp)
+{
+    Consulta *cons;
+    cons = (Consulta *)malloc(sizeof(Consulta));
+
+    while (!feof(read))
+    {
+        while (fread(cons, sizeof(Consulta), 1, read))
+        {
+            if (cons->status != 'x')
+            {
+                fwrite(cons, sizeof(Consulta), 1, fp);
+            }
+        }
+    }
+}
+
+void recolocandoConsulta(FILE *read2, FILE *fp2)
+{
+    Consulta *cons;
+    cons = (Consulta *)malloc(sizeof(Consulta));
+
+    while (!feof(read2))
+    {
+        while (fread(cons, sizeof(Consulta), 1, read2))
+        {
+
+            fwrite(cons, sizeof(Consulta), 1, fp2);
+        }
+    }
+}
+
+void DelFisicConsulta(void)
+{
+    FILE *read;
+    read = fopen("consultas.dat", "rb");
+    if (read == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+    FILE *fp;
+    fp = fopen("ConsultasExistentes.dat", "wb");
+
+    if (fp == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+
+    copyConsulta(read, fp);
+
+    fclose(read);
+    fclose(fp);
+}
+
+void ReposicionandoConsulta(void)
+{
+    DelFisicConsulta();
+    FILE *read2;
+    read2 = fopen("ConsultasExistentes.dat", "rb");
+    if (read2 == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+
+    FILE *fp2;
+    fp2 = fopen("consultas.dat", "wb");
+    if (fp2 == NULL)
+    {
+        printf("Ocorreu um erro! Nao foi possivel abrir o arquivo");
+        exit(1);
+    }
+
+    recolocandoConsulta(read2, fp2);
+
+    fclose(read2);
+    fclose(fp2);
 }

@@ -37,3 +37,5 @@ Consulta* buscarConsulta(char *);
 void listarTudoConsulta(void);
 void listarConsultaporCpf(void);
 void listarConsultaporData(void);
+void ReposicionandoConsulta(void);
+void DelFisicConsulta(void);
