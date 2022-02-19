@@ -12,8 +12,7 @@ void navUsuario(void)
 {
     int opcao;
     int opc;
-    // do
-    //{
+
     opcao = menuUsuario();
     switch (opcao)
     {
@@ -32,35 +31,30 @@ void navUsuario(void)
         break;
     case 5:
         opc = telaListarUsuario();
-        // do
-        //{
+        
         switch (opc)
         {
-        case 1:
-            listarUsuario();
-            break;
-        case 2:
-            listarUsuarioporUF();
-            break;
-        case 3:
-            listarUsuarioporCidade();
-            break;
-        case 4:
-            // listarNovoArquivo();
-            listarTudo();
-            break;
-        case 5:
-            listaDinamica();
-            break;
+            case 1:
+                listarUsuario();
+                break;
+            case 2:
+                listarUsuarioporUF();
+                break;
+            case 3:
+                listarUsuarioporCidade();
+                break;
+            case 4:
+                listarTudo();
+                break;
+            case 5:
+                listaDinamica();
+                break;
         }
-
-        //} while (opc != 0);
         break;
     case 6:
         ReposicionandoUsuario();
         break;
     }
-    //} while (opcao != 0);
 }
 void listaDinamica(void){
     Usuario *usu;
@@ -199,16 +193,7 @@ Usuario *telaCadastrarUsuario()
             printf("UF Invalida\n");
         }
     } while (!validaUF(usu->uf));
-    /* do
-     {
-         printf("///           CEP (Apenas Numeros):");
-         scanf(" %[0-9]", usu->cep);
-         validaCep(usu->cep);
-         maskCep(usu->cep);
-         if(validaCep(usu->cep) == 0){
-             printf("CEP Invalido\n");
-         }
-     } while (!validaCep(usu->cep));
+    /* 
      do
      {
          printf("///            Phone (Apenas Numeros):");
@@ -258,9 +243,6 @@ Usuario *telaCadastrarUsuario()
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    // int escolha;
-    // printf("Escolha: ");
-    // scanf("%d", &escolha);
     usu->status = 'o';
     return usu;
 }
@@ -393,20 +375,12 @@ int telaListarUsuario(void)
         return opc;
     } while (!validaNav(&opc));
 }
-// const é utilizado para que não se altere os dados do usuario enquanto
-// estamos tentando exibir os dados
-/*
-Usuario* alterarUsuario(void){
 
-}*/
 
 void gravarUsuario(Usuario *usu)
 {
     FILE *grv;
     grv = fopen("usuarios_cadastrados.dat", "ab");
-    // arquivos .dat são aqueles que contém dados
-    // ab = Acrescenta dados binários no fim do arquivo
-    //  verificamos se o arquivo nao está vazio
     if (grv == NULL)
     {
         printf("Ocorreu um erro na abertura do arquivo");
@@ -416,22 +390,6 @@ void gravarUsuario(Usuario *usu)
     fclose(grv);
 }
 
-/*
-void gravarUsuario(Usuario *usu)
-{
-    FILE *grv;
-    grv = fopen("usuarios_cadastradosTexto.txt", "a+");
-    if (grv == NULL)
-    {
-        printf("Ocorreu um erro na abertura do arquivo");
-        exit(1);
-    }
-    fprintf(grv, "%s\n", usu->nome); // gravação de arquivo texto
-    fprintf(grv, "%s\n", usu->email);
-    fprintf(grv, "%s\n", usu->data);
-    fprintf(grv, "%s\n", usu->cpf);
-    fclose(grv);
-}*/
 
 Usuario *buscarUsuario(char *pesquise)
 {
@@ -447,17 +405,9 @@ Usuario *buscarUsuario(char *pesquise)
         printf("Ocorreu um erro durante a abertura do arquivo");
         exit(1);
     }
-    // feof verifica se o apontador chegou no final do arquivo já que
-    // essa leitura é feita em camadas
     while (!feof(busca))
     {
-        fread(usu, sizeof(Usuario), 1, busca); // ler os bites que foram gravados
-                                               /* if ((strcmp(usu->nome, pesquise_nome)) == 0 && (usu->status != 'x'))
-                                                {
-                                                    fclose(busca);
-                                                    return usu;
-                                                }
-                                                */
+        fread(usu, sizeof(Usuario), 1, busca); 
         if ((strcmp(usu->cpf, pesquise)) == 0 && (usu->status != 'x'))
         {
             fclose(busca);
@@ -529,7 +479,6 @@ Usuario *alterarUsuario(Usuario *confirmLeitura)
 {
     FILE *alt;
     Usuario *usu;
-    // char cpf;
     int achou = 0;
     char nome[81];
     char email[41];

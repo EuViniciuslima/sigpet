@@ -50,8 +50,6 @@ void navConsulta(void)
             //  listaDinamica();
               break;
         }
-
-        //} while (opc != 0);
         break;
       case 6:
         ReposicionandoConsulta();
@@ -339,17 +337,9 @@ Consulta *buscarConsulta(char *pesquise)
         printf("Ocorreu um erro durante a abertura do arquivo");
         exit(1);
     }
-    // feof verifica se o apontador chegou no final do arquivo já que
-    // essa leitura é feita em camadas
     while (!feof(busca))
     {
-        fread(cons, sizeof(Consulta), 1, busca); // ler os bites que foram gravados
-                                               /* if ((strcmp(usu->nome, pesquise_nome)) == 0 && (usu->status != 'x'))
-                                                {
-                                                    fclose(busca);
-                                                    return usu;
-                                                }
-                                                */
+        fread(cons, sizeof(Consulta), 1, busca); 
         if ((strcmp(cons->consCPF, pesquise)) == 0 && (cons->status != 'x'))
         {
             fclose(busca);
@@ -369,7 +359,6 @@ void exibirConsulta(const Consulta *cons)
     printf("===    Data: %s\n", cons->cadData);
     printf("===    CPF: %s\n", cons->consCPF);
     printf("===    Descricao: %s\n", cons->cadDescricao);
-  //  printf("===    Horario %s\n", cons->cadHorario);
     printf("===    Paciente: %s\n", cons->cadPaciente);
 }
 Consulta *excluirConsulta(Consulta *confirm)
@@ -381,7 +370,7 @@ Consulta *excluirConsulta(Consulta *confirm)
 
     if (confirm == NULL)
     {
-        printf("Usuario nao cadastrado");
+        printf("Consulta nao cadastrado");
     }
     else
     {
@@ -403,13 +392,13 @@ Consulta *excluirConsulta(Consulta *confirm)
                 fseek(del, -1 * sizeof(Consulta), SEEK_CUR);
                 fwrite(cons, sizeof(Consulta), 1, del);
                 fclose(del);
-                printf("\n ========================== Usuario excluido com sucesso ==========================\n");
+                printf("\n ========================== Consulta excluida com sucesso ==========================\n");
                 return cons;
             }
         }
         if (!achou)
         {
-            printf("Usuario nao encontrado");
+            printf("Consulta nao encontrado");
         }
         fclose(del);
     }
@@ -428,7 +417,7 @@ Consulta *alterarConsulta(Consulta *confirm)
    
     if (confirm == NULL)
     {
-        printf("Usuario nao cadastrado");
+        printf("Consulta nao cadastrado");
     }
     else
     {
@@ -485,13 +474,13 @@ Consulta *alterarConsulta(Consulta *confirm)
                 fseek(alt, -1 * sizeof(Consulta), SEEK_CUR);
                 fwrite(cons, sizeof(Consulta), 1, alt);
                 fclose(alt);
-                printf("\n ========================== Usuario alterado com sucesso ==========================\n");
+                printf("\n ========================== Consulta alterada com sucesso ==========================\n");
                 return cons;
             }
         }
         if (!achou)
         {
-            printf("Usuario nao encontrado");
+            printf("Consulta nao encontrado");
         }
         fclose(alt);
     }
@@ -502,7 +491,7 @@ void listarConsulta(void) // fazer os demais códigos baseado neste.
 {
     FILE *lst;
     Consulta *cons;
-    printf(" ============ Lista de Usuarios =============\n");
+    printf(" ============ Lista de Consultas =============\n");
     cons = (Consulta *)malloc(sizeof(Consulta));
     lst = fopen("consultas.dat", "rb");
     if (lst == NULL)
@@ -561,7 +550,7 @@ void listarTudoConsulta(void)
 {
     FILE *lst;
     Consulta *cons;
-    printf(" ============ Lista de Usuarios =============\n");
+    printf(" ============ Lista de Consultas =============\n");
     cons = (Consulta *)malloc(sizeof(Consulta));
     lst = fopen("consultas.dat", "rb");
     if (lst == NULL)
@@ -619,7 +608,7 @@ void listarConsultaporData(void)
     char data[12];
     cons = (Consulta *)malloc(sizeof(Consulta));
     lst = fopen("consultas.dat", "rb");
-    printf(" ============ Lista de Consultas por CPF =============\n");
+    printf(" ============ Lista de Consultas por Data =============\n");
     printf("Informe o Data: ");
     scanf("%10[^\n]", data);
     if (lst == NULL)
@@ -637,8 +626,6 @@ void listarConsultaporData(void)
                 exibirConsulta(cons);
             }
         }
-    
-        // navUsuario();
     }
     fclose(lst);
 }
