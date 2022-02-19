@@ -47,7 +47,10 @@ void navConsulta(void)
               listarTudoConsulta();
               break;
           case 5:
-            //  listaDinamica();
+              listaDinamicaConsultaPaciente();
+              break;
+          case 6:
+              listaDinamicaConsultaDono();
               break;
         }
         break;
@@ -108,15 +111,20 @@ void cadastrarConsulta(void)
   gravarConsulta(cons);
   free(cons);
 }
-/*
-void listaDinamica(void){
+void listaDinamicaConsultaPaciente(void){
     Consulta *cons;
     cons = NULL;
-    gerarRelatorio(&cons);
-    exibirLista(cons);
+    gerarRelatorioConsulta(&cons);
+    exibirListaConsulta(cons);
     free(cons);
 }
-*/
+void listaDinamicaConsultaDono(void){
+    Consulta *cons;
+    cons = NULL;
+    gerarRelatorioConsulta2(&cons);
+    exibirListaConsulta(cons);
+    free(cons);
+}
 void pesquisarConsulta(void)
 {
     Consulta *cons;
@@ -535,6 +543,8 @@ int telaListarConsulta(void)
     printf("///               [2] Listar Consultas por CPF                              ///\n");
     printf("///               [3] Listar Consultas por Data                             ///\n");
     printf("///               [4] Listar Tudo (Ate os Excluidos Logicamente)            ///\n");
+    printf("///               [5] Lista Dinamica (Pacientes Em Ordem Alfabetica)        ///\n");
+    printf("///               [6] Lista Dinamica (Dono Em Ordem Alfabetica)             ///\n");
          
 
     do
@@ -709,4 +719,106 @@ void ReposicionandoConsulta(void)
 
     fclose(read2);
     fclose(fp2);
+}
+
+void exibirListaConsulta(const Consulta *aux)
+{
+
+	
+  printf("\n");
+	while (aux != NULL)
+	{
+    	printf("%s\t\t\t",aux->cadPaciente);
+    	printf("%s\t\t\t",aux->cadData);
+    	printf("%s\n",aux->cadResponsavel);
+    	printf("%s\n",aux->consCPF);
+    	aux = aux->prox;
+	}
+	printf("\nFim da Lista! \n\n");
+}
+
+
+
+void gerarRelatorioConsulta(Consulta **con)
+{
+    FILE *fp;
+    Consulta *al;
+    
+    //apagarLista(&(*lista));
+    *con = NULL;
+    fp = fopen("consultas.dat","rb");
+    if (fp == NULL)
+    {
+   	 printf("Erro na abertura do arquivo... \n");
+   	 exit(1);
+    }
+    else
+    {
+   	 al = (Consulta *) malloc(sizeof(Consulta));
+   	 while (fread(al, sizeof(Consulta), 1, fp))
+   	 {
+        if ((*con == NULL) || (strcmp(al->cadPaciente, (*con)->cadPaciente) < 0)) {
+          al->prox = *con;
+          *con = al;
+        } else  {
+          Consulta* ant = *con;
+          Consulta* atu = (*con)->prox;
+          while ((atu != NULL) && (strcmp(atu->cadPaciente, al->cadPaciente) < 0)) {
+            ant = atu;
+            atu = atu->prox;
+          }
+          ant->prox = al;
+          al->prox = atu;
+        }
+        al = (Consulta *) malloc(sizeof(Consulta));
+   	 }
+   	 free(al);
+   	 printf("Arquivo recuperado com sucesso! \n");
+   	 
+    }  
+    fclose(fp);
+   
+}
+
+
+
+void gerarRelatorioConsulta2(Consulta **con)
+{
+    FILE *fp;
+    Consulta *al;
+    
+    //apagarLista(&(*lista));
+    *con = NULL;
+    fp = fopen("consultas.dat","rb");
+    if (fp == NULL)
+    {
+   	 printf("Erro na abertura do arquivo... \n");
+   	 exit(1);
+    }
+    else
+    {
+   	 al = (Consulta *) malloc(sizeof(Consulta));
+   	 while (fread(al, sizeof(Consulta), 1, fp))
+   	 {
+        if ((*con == NULL) || (strcmp(al->cadResponsavel, (*con)->cadResponsavel) < 0)) {
+          al->prox = *con;
+          *con = al;
+        } else  {
+          Consulta* ant = *con;
+          Consulta* atu = (*con)->prox;
+          while ((atu != NULL) && (strcmp(atu->cadResponsavel, al->cadResponsavel) < 0)) {
+            ant = atu;
+            atu = atu->prox;
+          }
+          ant->prox = al;
+          al->prox = atu;
+        }
+        al = (Consulta *) malloc(sizeof(Consulta));
+   	 }
+   	 free(al);
+   	 printf("Arquivo recuperado com sucesso! \n");
+   	 
+    }  
+    fclose(fp);
+   
 }

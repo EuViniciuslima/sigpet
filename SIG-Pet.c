@@ -17,17 +17,18 @@ int main(void)
     opcao = telaMenu();
     switch (opcao)
     {
-    case 1:
-      navPet();
-      break;
-    case 2:
-      navConsulta();
-      break;
-    case 3:
-      navUsuario();
-      break;
-    case 4:
-      navInfo();
+      case 1:
+        navPet();
+        break;
+      case 2:
+        navConsulta();
+        break;
+      case 3:
+        navUsuario();
+        break;
+      case 4:
+        navInfo();
+        break;
     }
   } while (opcao != 0);
   return 0;

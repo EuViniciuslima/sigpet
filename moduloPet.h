@@ -9,6 +9,7 @@ struct pet
     char dono[50];
     char cpf[15];
     char status;
+    struct pet *prox;
 };
 
 void navPet(void);
@@ -43,3 +44,7 @@ void DelFisicPet(void);
 void ReposicionandoPet(void);
 void listarPorSexoPet(void);
 void listarPorEspeciePet(void);
+
+void exibirListaPet(const Pet*);
+void gerarRelatorioPet(Pet **);
+void listaDinamicaPet(void);

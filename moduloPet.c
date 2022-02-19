@@ -35,18 +35,21 @@ void navPet(void)
         //{
         switch (opc)
         {
-        case 1:
-            listarPet();
-            break;
-        case 2:
-            listarPorSexoPet();
-            break;
-        case 3:
-            listarPorEspeciePet();
-            break;
-        case 4:
-            listarTudoPet();
-            break;
+            case 1:
+                listarPet();
+                break;
+            case 2:
+                listarPorSexoPet();
+                break;
+            case 3:
+                listarPorEspeciePet();
+                break;
+            case 4:
+                listarTudoPet();
+                break;
+            case 5:
+                listaDinamicaPet();
+                break;
         }
 
         //} while (opc != 0);
@@ -129,7 +132,13 @@ void editarPet(void)
     free(pet);
     free(alterar);
 }
-
+void listaDinamicaPet(void){
+    Pet *pet;
+    pet = NULL;
+    gerarRelatorioPet(&pet);
+    exibirListaPet(pet);
+    free(pet);
+}
 void deletarPet(void)
 {
     Pet *pet;
@@ -483,8 +492,8 @@ void listarPet(void)
         printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
         exit(1);
     }
-    while (!feof(lst))
-    {
+    //while (!feof(lst))
+    //{
 
         while (fread(pet, sizeof(Pet), 1, lst))
         {
@@ -494,8 +503,8 @@ void listarPet(void)
             }
         }
         fclose(lst);
-        navPet();
-    }
+         // navPet();
+    //}
 }
 
 void listarPorSexoPet(void)
@@ -688,41 +697,41 @@ Pet *alterarPet(Pet *confirmLeitura)
                     printf("\n =============================== ALTERANDO DADOS ==================================\n");
 
                     printf("///            Nome do Pet:");
-                    scanf(" %29[^\n]", pet->nome);
+                    scanf(" %29[^\n]", nome);
                     getchar();
-                } while (!validaNome(pet->nome));
+                } while (!validaNome(nome));
                 do
                 {
                     printf("///            Sexo do Pet (f/m):");
-                    scanf(" %2[^\n]", pet->sexo);
+                    scanf(" %2[^\n]", sexo);
                     getchar();
                     if (validaSexo(pet->sexo) == 0)
                     {
                         printf("Sexo Invalido\n");
                     }
-                } while (!validaSexo(pet->sexo));
+                } while (!validaSexo(sexo));
                 do
                 {
                     printf("///            Data de Nascimento - Pet:");
-                    scanf(" %9[^\n]", pet->data);
+                    scanf(" %9[^\n]", data);
                     getchar();
-                    if (validarData(pet->data) == 0)
+                    if (validarData(data) == 0)
                     {
                         printf("Data Invalida\n");
                     }
-                } while (!validarData(pet->data));
+                } while (!validarData(data));
                 do
                 {
                     printf("///            Especie do Pet:");
-                    scanf(" %39[^\n]", pet->especie);
+                    scanf(" %39[^\n]", especie);
                     getchar();
-                } while (!validaNome(pet->especie));
+                } while (!validaNome(especie));
                 do
                 {
                     printf("///            Dono:");
-                    scanf(" %49[^\n]", pet->dono);
+                    scanf(" %49[^\n]", dono);
                     getchar();
-                } while (!validaNome(pet->dono));
+                } while (!validaNome(dono));
 
                 strcpy(pet->nome, nome);
                 strcpy(pet->sexo, sexo);
@@ -825,4 +834,63 @@ void ReposicionandoPet(void)
 
     fclose(read2);
     fclose(fp2);
+}
+
+void exibirListaPet(const Pet *aux)
+{
+
+	
+  printf("\n");
+	while (aux != NULL)
+	{
+    	printf("%s\t\t\t",aux->nome);
+    	printf("%s\t\t\t",aux->data);
+    	printf("%s\n",aux->sexo);
+    	printf("%s\n",aux->dono);
+    	aux = aux->prox;
+	}
+	printf("\nFim da Lista! \n\n");
+}
+
+
+
+void gerarRelatorioPet(Pet **con)
+{
+    FILE *fp;
+    Pet *al;
+    
+    //apagarLista(&(*lista));
+    *con = NULL;
+    fp = fopen("pets_cadastrados.dat","rb");
+    if (fp == NULL)
+    {
+   	 printf("Erro na abertura do arquivo... \n");
+   	 exit(1);
+    }
+    else
+    {
+   	 al = (Pet *) malloc(sizeof(Pet));
+   	 while (fread(al, sizeof(Pet), 1, fp))
+   	 {
+        if ((*con == NULL) || (strcmp(al->nome, (*con)->nome) < 0)) {
+          al->prox = *con;
+          *con = al;
+        } else  {
+          Pet* ant = *con;
+          Pet* atu = (*con)->prox;
+          while ((atu != NULL) && (strcmp(atu->nome, al->nome) < 0)) {
+            ant = atu;
+            atu = atu->prox;
+          }
+          ant->prox = al;
+          al->prox = atu;
+        }
+        al = (Pet *) malloc(sizeof(Pet));
+   	 }
+   	 free(al);
+   	 printf("Arquivo recuperado com sucesso! \n");
+   	 
+    }  
+    fclose(fp);
+   
 }

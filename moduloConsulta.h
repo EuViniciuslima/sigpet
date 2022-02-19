@@ -19,6 +19,8 @@ void pesquisarConsulta(void);
 void deletarConsulta(void);
 void cadastrarConsulta(void);
 void editarConsulta(void);
+void listaDinamicaConsultaPaciente(void);
+void listaDinamicaConsultaDono(void);
 
 
 char* telaPesquisarConsulta(void);
@@ -37,5 +39,10 @@ Consulta* buscarConsulta(char *);
 void listarTudoConsulta(void);
 void listarConsultaporCpf(void);
 void listarConsultaporData(void);
+
 void ReposicionandoConsulta(void);
 void DelFisicConsulta(void);
+
+void exibirListaConsulta(const Consulta *);
+void gerarRelatorioConsulta(Consulta **);
+void gerarRelatorioConsulta2(Consulta **);
